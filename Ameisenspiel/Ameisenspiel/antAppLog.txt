@@ -323,3 +323,41 @@
 
 ### New Log (03.05.2022 23:00:54) ###
 
+
+### New Log (04.05.2022 14:58:30) ###
+
+
+### New Log (04.05.2022 15:09:01) ###
+
+
+### New Log (04.05.2022 15:15:13) ###
+
+[15:15:13.4930591] WARNING [Game.cs]:ChangeSettings(): cycles not changed, out of range: 0
+[15:15:13.4930591] Info [Game.cs]:ChangeSettings(): antCount changed to: 5
+[15:15:13.4930591] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[15:15:13.4930591] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (04.05.2022 15:15:13) ###
+
+[15:15:13.4930591] WARNING [Game.cs]:ChangeSettings(): cycles not changed, out of range: 0
+[15:15:13.4930591] Info [Game.cs]:ChangeSettings(): antCount changed to: 5
+[15:15:13.4930591] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[15:15:13.4930591] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+[15:15:30.2761258] WARNING [Game.cs]:ChangeSettings(): cycles not changed, out of range: 0
+[15:15:30.2761258] WARNING [Game.cs]:ChangeSettings(): antCount not changed, out of range: 0
+[15:15:30.2761258] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[15:15:30.2761258] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (04.05.2022 15:17:37) ###
+
+[15:17:37.3591714] WARNING [Game.cs]:ChangeSettings(): cycles not changed, out of range: 10000
+[15:17:37.3591714] Info [Game.cs]:ChangeSettings(): antCount changed to: 1000
+[15:17:37.3591714] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[15:17:37.3591714] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (04.05.2022 15:20:39) ###
+
+[15:20:40.0147838] WARNING [Game.cs]:ChangeSettings(): cycles not changed, out of range: 100000
+[15:20:40.0147838] Info [Game.cs]:ChangeSettings(): antCount changed to: 300
+[15:20:40.0147838] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[15:20:40.0147838] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0

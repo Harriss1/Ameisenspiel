@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace Ameisenspiel {
     internal class Game {
+        Log log = new Log("Game.cs");
         private int cyclesRemaining;
         private Ant ant;
         private int windowWidth;
@@ -22,12 +23,20 @@ namespace Ameisenspiel {
         private World world;
         private List<DisplayContent> displayContents;
         private List<DisplayContent> oldDisplayContents;
+        private Settings settings;
         public Game() {
             this.cyclesRemaining = 1;
             this.displayContents = new List<DisplayContent>();
             this.oldDisplayContents = new List<DisplayContent>();
+            SetDefaultSettings();
             Initialise();
             
+        }
+        public struct Settings {
+            public int windowWidth;
+            public int windowHeight;
+            public int cycles;
+            public int antCount;
         }
 
         public class DisplayContent
@@ -50,7 +59,7 @@ namespace Ameisenspiel {
             //adapt window size
             windowHeight = DevelopmentGameSettings.GetWindowHeight();
             windowWidth = DevelopmentGameSettings.GetWindowWidth();
-            Console.SetWindowSize(windowWidth, windowHeight+3);
+            Console.SetWindowSize(windowWidth+3, windowHeight+3);
             Console.Clear();
             if(this.world != null) {
                 this.world = null;
@@ -74,19 +83,26 @@ namespace Ameisenspiel {
 
         }
         public void RunGame() {
-            this.cyclesRemaining = 200; //@todo where to put
-            Ant ant = new Ant(5, 5);
-            Ant ant2 = new Ant(10, 10);
-            Ant antImobile = new Ant(15,15);
-            world.AddEntity(ant);
-            world.AddEntity(ant2);
-            world.AddEntity(antImobile);
+            //this.cyclesRemaining = 200; //@todo where to put
+
+            this.cyclesRemaining = settings.cycles;
+            this.windowHeight = settings.windowHeight;
+            this.windowWidth = settings.windowWidth;
+
+            for (int antCount = 0; antCount < this.settings.antCount; antCount++) {
+                Ant ant = new Ant(40,15);
+                world.AddEntity(ant);
+            }
 
             //MainLoop
             Console.CursorVisible = false;
             for (int i = 0; i < this.cyclesRemaining; i++) {
-                ant.MoveOneRandom();
-                ant2.MoveOneRandom();
+
+                foreach(Entity entity in this.world.GetContent()) {
+                    if (entity.GetEntitySymbol() == "@") {
+                        entity.MoveOneRandom();
+                    }
+                }
                 UpdateDisplayContent();
                 //Listenforkeys
                 DrawDisplayContent();
@@ -95,6 +111,49 @@ namespace Ameisenspiel {
             }
             Console.CursorVisible = true;
             GameMenu();
+        }
+        public void ChangeSettings(Settings newSettings) {
+
+            //cycles
+            if (newSettings.cycles > 0 && newSettings.cycles < 1000000) {
+                this.settings.cycles = newSettings.cycles;
+                log.Add("ChangeSettings(): cycles changed to: " + settings.cycles);
+            } else {
+                log.AddWarning("ChangeSettings(): cycles not changed, out of range: " + newSettings.cycles);
+            }
+
+            //antCount
+            if (newSettings.antCount > 0 && newSettings.antCount < 10000) {
+                this.settings.antCount = newSettings.antCount;
+                log.Add("ChangeSettings(): antCount changed to: " + settings.antCount);
+            }
+            else {
+                log.AddWarning("ChangeSettings(): antCount not changed, out of range: " + newSettings.antCount);
+            }
+
+            //WindowWidth
+            if (newSettings.windowWidth > 20 && newSettings.windowWidth < 500) {
+                this.settings.windowWidth = newSettings.windowWidth;
+                log.Add("ChangeSettings(): windowWidth changed to: " + settings.windowWidth);
+            }
+            else {
+                log.AddWarning("ChangeSettings(): windowWidth not changed, out of range: " + newSettings.windowWidth);
+            }
+
+            //WindowHeight
+            if (newSettings.windowHeight > 20 && newSettings.windowHeight < 500) {
+                this.settings.windowHeight = newSettings.windowHeight;
+                log.Add("ChangeSettings(): windowHeight changed to: " + settings.windowHeight);
+            }
+            else {
+                log.AddWarning("ChangeSettings(): windowHeight not changed, out of range: " + newSettings.windowHeight);
+            }
+        }
+        public void SetDefaultSettings() {
+            this.settings.cycles = 100;
+            this.settings.antCount = 100;
+            this.settings.windowWidth = 85;
+            this.settings.windowHeight = 25;
         }
 
         private void UpdateDisplayContent() {

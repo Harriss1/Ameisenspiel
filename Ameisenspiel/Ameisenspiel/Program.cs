@@ -47,19 +47,19 @@ namespace Ameisenspiel {
                         RunGame();
                         break;
 
-                    //Jahresdurchschnitt
+                    //Lange Simulation, 2.000 Zyklen (c.a. 2 Minuten)
                     case 2:
-                        //
+                        RunGame(2);
                         break;
 
-                    //Tag mit dem höchsten Wert im Jahr
+                    //5 Ameisen
                     case 3:
-                        //
+                        RunGame(3);
                         break;
 
-                    //Regenfall.txt neu generieren
+                    //200 Ameisen, 999998 Zyklen
                     case 4:
-                        //
+                        RunGame(4);
                         break;
 
                     //Programmende
@@ -84,10 +84,10 @@ namespace Ameisenspiel {
         private static int SelectFromMainMenu() {
             Console.WriteLine();
             Console.WriteLine("Bitte drücken Sie eine Zahl zur Auswahl:");
-            Console.WriteLine("(1) Standard Spiel");
-            Console.WriteLine("(2)");
-            Console.WriteLine("(3)");
-            Console.WriteLine("(4)");
+            Console.WriteLine("(1) Standard Spiel - 100 Ameisen mit 100 Zyklen");
+            Console.WriteLine("(2) Lange Simulation - 100 Ameisen, 2.000 Zyklen (c.a. 2 Minuten)");
+            Console.WriteLine("(3) 5 Ameisen, 100 Zyklen");
+            Console.WriteLine("(4) 200 Ameisen, 999.998 Zyklen");
             Console.WriteLine("(0) Programm beenden");
             Console.WriteLine();
 
@@ -147,11 +147,29 @@ namespace Ameisenspiel {
 
         }
 
-        private static void RunGame() {
+        private static void RunGame(int gameMode = 1) {
             Game game = new Game();
+            
+            Game.Settings settings = new Game.Settings();
+            if(gameMode == 1) {
+                //Standard Settings siehe Game.cs
+            }
+            if (gameMode == 2) {
+                //Lange Simulation, 2.000 Zyklen (c.a. 2 Minuten)
+                settings.cycles = 2000;
+            }
+            if (gameMode == 3) {
+                //5 Ameisen
+                settings.antCount = 5;
+            }
+            if (gameMode == 4) {
+                //200 Ameisen, 999998 Zyklen
+                settings.antCount = 200;
+                settings.cycles = 999998;
+            }
+
+            game.ChangeSettings(settings);
             game.RunGame();
-            //game.SetAntRandomly();
-            //game.DrawDevWorld();
             
             Log.WriteToLogFile();
         }

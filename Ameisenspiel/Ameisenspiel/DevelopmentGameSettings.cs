@@ -18,7 +18,7 @@ namespace Ameisenspiel {
         }
         
         //Autorun
-        private static bool autorun=true;
+        private static bool autorun=false;
 
         //Console Width+Height
         private static int windowWidth = 80;
