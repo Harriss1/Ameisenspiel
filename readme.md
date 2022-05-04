@@ -4,8 +4,8 @@
 2) Copy the link from the repository
 3) Open Git-Bash inside the desired local folder (set file path via CD)(should be empty)
 4) Command example
-### git remote add origin https://github.com/Harriss1/Ameisenspiel.git
-5) ### git remote -v
+*git remote add origin https://github.com/Harriss1/Ameisenspiel.git
+5) git remote -v
 
 5.5) maybe add a testfile, for example readme.md
 
