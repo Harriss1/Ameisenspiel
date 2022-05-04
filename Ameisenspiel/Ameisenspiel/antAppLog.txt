@@ -361,3 +361,17 @@
 [15:20:40.0147838] Info [Game.cs]:ChangeSettings(): antCount changed to: 300
 [15:20:40.0147838] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
 [15:20:40.0147838] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (04.05.2022 15:47:54) ###
+
+[15:47:54.7701078] WARNING [Game.cs]:ChangeSettings(): cycles not changed, out of range: 0
+[15:47:54.7701078] WARNING [Game.cs]:ChangeSettings(): antCount not changed, out of range: 0
+[15:47:54.7701078] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[15:47:54.7701078] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (04.05.2022 16:04:47) ###
+
+[16:04:47.6024333] WARNING [Game.cs]:ChangeSettings(): cycles not changed, out of range: 0
+[16:04:47.6034323] WARNING [Game.cs]:ChangeSettings(): antCount not changed, out of range: 0
+[16:04:47.6034323] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[16:04:47.6034323] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0

@@ -79,5 +79,8 @@ namespace Ameisenspiel {
             return this.worldContent;
         }
 
+        public void DestroyEntity(Entity entity) {
+            this.worldContent.Remove(entity);
+        }
     }
 }

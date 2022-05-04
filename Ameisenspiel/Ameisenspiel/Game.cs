@@ -44,12 +44,33 @@ namespace Ameisenspiel {
             public int x;
             public int y;
             public string symbol;
+            public ConsoleColor symbolColor;
             public bool awaitsDrawing;
-            public DisplayContent(int x, int y, string symbol) {
+            public DisplayContent(int x, int y, string symbol, Entity.Color symbolColor) {
                 this.x = x;
                 this.y = y;
                 this.symbol = symbol;
                 this.awaitsDrawing = true;
+                this.symbolColor = ConsoleColor.White;
+                switch (symbolColor) {
+                    case Entity.Color.DarkYellow:
+                        this.symbolColor = ConsoleColor.DarkYellow;
+                        break;
+                    case Entity.Color.Red:
+                        this.symbolColor = ConsoleColor.Red;
+                        break; ;
+                    case Entity.Color.Green:
+                        this.symbolColor = ConsoleColor.Green;
+                        break; ;
+                    case Entity.Color.DarkGray:
+                        this.symbolColor = ConsoleColor.DarkGray;
+                        break; ;
+                    case Entity.Color.Blue:
+                        this.symbolColor = ConsoleColor.Blue;
+                        break;
+                    default: this.symbolColor = ConsoleColor.White;
+                        break;
+                }
             }
         }
 
@@ -94,14 +115,27 @@ namespace Ameisenspiel {
                 world.AddEntity(ant);
             }
 
+            Ant queen = new Ant(40, 15);
+            queen.SetQueen();
+            Hive hive = new Hive(40, 15);
+            world.AddEntity(queen);
+            world.AddEntity(hive);
+
             //MainLoop
             Console.CursorVisible = false;
             for (int i = 0; i < this.cyclesRemaining; i++) {
-
+                List<Entity> deletableEntities = new List<Entity>();
                 foreach(Entity entity in this.world.GetContent()) {
                     if (entity.GetEntitySymbol() == "@") {
-                        entity.MoveOneRandom();
+                        entity.MoveOneIntelligent();
+                        entity.PassOneCycle();
                     }
+                    if (entity.GetDestroyable()) {
+                        deletableEntities.Add(entity);
+                    }
+                }
+                foreach (Entity deleteEntity in deletableEntities) {
+                    this.world.DestroyEntity(deleteEntity);
                 }
                 UpdateDisplayContent();
                 //Listenforkeys
@@ -165,7 +199,7 @@ namespace Ameisenspiel {
             displayContents.Clear();
             displayContents.TrimExcess();
             foreach (Entity entity in world.GetContent()) {
-                displayContents.Add(new DisplayContent(entity.GetX(), entity.GetY(), entity.GetEntitySymbol()));
+                displayContents.Add(new DisplayContent(entity.GetX(), entity.GetY(), entity.GetEntitySymbol(), entity.GetColor()));
 
                 //Console.SetCursorPosition(entity.GetX(), entity.GetY());
                 //Console.Write(" ");
@@ -183,8 +217,7 @@ namespace Ameisenspiel {
                     if (oldContent.x == content.x && oldContent.y == content.y) {
                         foundNewContent = true;
                         if (content.awaitsDrawing) {
-                            Console.SetCursorPosition(content.x, content.y); //content.y == -1 ?!?!?!?
-                            Console.Write(content.symbol);
+                            WriteSymbol(content);
                             content.awaitsDrawing = false;
                         }
                     }
@@ -196,11 +229,16 @@ namespace Ameisenspiel {
             }
             foreach (DisplayContent content in this.displayContents) {
                 if (content.awaitsDrawing) {
-                    Console.SetCursorPosition(content.x, content.y); //content.y == -1 ?!?!?!?
-                    Console.Write(content.symbol);
+                    WriteSymbol(content);
                     content.awaitsDrawing = false;
                 }
             }
+        }
+        private void WriteSymbol(DisplayContent content) {
+            Console.SetCursorPosition(content.x, content.y);
+            Console.ForegroundColor = content.symbolColor;
+            Console.Write(content.symbol);
+            Console.ResetColor();
         }
         public void SetAntRandomly() {
             Random rand = new Random();

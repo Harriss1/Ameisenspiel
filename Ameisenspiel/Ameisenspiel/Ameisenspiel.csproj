@@ -48,6 +48,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="DevelopmentGameSettings.cs" />
     <Compile Include="GameSimulation.cs" />
+    <Compile Include="Hive.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
