@@ -188,7 +188,7 @@ namespace Ameisenspiel {
             }
         }
         public void SetDefaultSettings() {
-            this.settings.cycles = 100;
+            this.settings.cycles = 1000;
             this.settings.antCount = 100;
             this.settings.windowWidth = 85;
             this.settings.windowHeight = 25;

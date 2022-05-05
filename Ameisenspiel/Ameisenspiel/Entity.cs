@@ -26,8 +26,8 @@ namespace Ameisenspiel {
         //speed calculation:
         //example: start=100 -> start distance=100, speed=10, every cycle we remove 10 speed from distance, at distance=zero we move one square and reset distance to 100
         protected int speed;
-        protected int cycleSpeedStartDistance;
-        protected int cycleSpeedDistanceRemaining;  
+        protected int speedStartDistance;
+        protected int speedDistanceRemaining;  
 
         public enum Color {
             Standard = 0,
@@ -56,8 +56,8 @@ namespace Ameisenspiel {
             this.age = 0;
             this.entityColor = Color.Standard;
             this.speed = 0;
-            this.cycleSpeedStartDistance = 1000; 
-            this.cycleSpeedDistanceRemaining = 0;
+            this.speedStartDistance = 1000; 
+            this.speedDistanceRemaining = 0;
             SetEntitySymbol(" ");
             //this.SetFacingAngleDirection(random.Next(1, 360));
         }

@@ -12,6 +12,7 @@ namespace Ameisenspiel {
         private int hiveCoordinateX;
         private int hiveCoordinateY;
         private int maxAge;
+        Log log = new Log("Ant.cs");
         public enum AntType {
             Standard = 0,
             Queen = 1,
@@ -28,7 +29,7 @@ namespace Ameisenspiel {
             this.canMoveOnItsOwn = true;
             this.energy = GetRandomLevel(500, 5000);
             this.maxAge = GetRandomLevel(4000, 6000);
-            this.speed = 60;
+            this.speed = 40;
         }
 
         public void SetQueen() {
@@ -49,7 +50,7 @@ namespace Ameisenspiel {
         override public void PassOneCycle() {
             IncreaseAge();
             if (this.antType != AntType.Queen) {
-                this.energy--;
+                this.energy -= 1;
                 if (this.age > this.maxAge) {
                     this.SetDestroyable();
                 }
@@ -67,15 +68,16 @@ namespace Ameisenspiel {
         }
 
         public override void MoveOneIntelligent() {
-            if(this.cycleSpeedDistanceRemaining > 0) {
-                this.cycleSpeedDistanceRemaining -= this.speed;
+            if(this.speedDistanceRemaining > 0) {
+                this.speedDistanceRemaining -= this.speed;
                 return;
             } else {
-                this.cycleSpeedDistanceRemaining = cycleSpeedStartDistance;
+                this.speedDistanceRemaining = speedStartDistance;
             }
 
             if(energy < 500) {
                 MoveOneTowards(this.hiveCoordinateX, this.hiveCoordinateY);
+                
             } else {
                 MoveOneRandom();
             }
@@ -89,13 +91,15 @@ namespace Ameisenspiel {
             if(Math.Abs(diffX) > Math.Abs(diffY)) {
                 if(diffX > 0) {
                     this.MoveOneRight();
-                } else {
+                } 
+                if(diffX < 0){
                     this.MoveOneLeft();
                 }
             } else {
                 if(diffY > 0) {
                     this.MoveOneDown();
-                } else {
+                } 
+                if(diffY < 0){
                     this.MoveOneUp();
                 }
             }

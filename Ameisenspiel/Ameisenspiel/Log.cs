@@ -48,7 +48,7 @@ namespace Ameisenspiel {
             WriteToLogFile(text);
         }
         private void AddHeader() {
-            String text = "\n### New Log (" + System.DateTime.Now.ToString() + ") ###\n";
+            String text = "\n### Log (" + System.DateTime.Now.ToString() + ") ###\n";
             messages.Add(text);
             WriteToLogFile(text);
         }
