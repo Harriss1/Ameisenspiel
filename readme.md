@@ -6,8 +6,8 @@ https://www.nobledesktop.com/learn/git/git-branches
 2) Copy the link from the repository
 3) Open Git-Bash inside the desired local folder (set file path via CD)(should be empty)
 4) Command example
-*git remote add origin https://github.com/Harriss1/Ameisenspiel.git
-5) optional: git remote -v
+`` git remote add origin https://github.com/Harriss1/Ameisenspiel.git``
+5) optional: ``git remote -v``
 -> maybe add a testfile, for example readme.md
 
 6) git push origin main
