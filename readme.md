@@ -1,23 +1,24 @@
 # Usage of GitHub Tutorial #
+good explanation here:
+https://www.nobledesktop.com/learn/git/git-branches
 
 1) Create repository on GitHub.com via your own web-account
 2) Copy the link from the repository
 3) Open Git-Bash inside the desired local folder (set file path via CD)(should be empty)
 4) Command example
 *git remote add origin https://github.com/Harriss1/Ameisenspiel.git
-5) git remote -v
+5) optional: git remote -v
+-> maybe add a testfile, for example readme.md
 
-5.5) maybe add a testfile, for example readme.md
-
-6) ### git push origin main
+6) git push origin main
 
 7) Copy exisiting project files into local folder
 
-8) ###git add .
+8) git add .
 
-9) ###git commit -m "your message"
+9) git commit -m "your message"
 
-10) ###git push --set-upstream origin main
+10) git push --set-upstream origin main
 
 
 -> this was your initial project commit
