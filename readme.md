@@ -1,6 +1,7 @@
 # Usage of GitHub Tutorial #
-good explanation here:
+short list of usefull commands (without explanation):
 https://www.nobledesktop.com/learn/git/git-branches
+-> ein sehr gutes Tutorial habe ich hier gefunden: https://lerneprogrammieren.de/git/
 
 Simplified steps:
 After installing Git on your local computer:
