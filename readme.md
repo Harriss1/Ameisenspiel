@@ -2,6 +2,7 @@
 good explanation here:
 https://www.nobledesktop.com/learn/git/git-branches
 
+Simplified steps:
 After installing Git on your local computer:
 1) Create repository on GitHub.com via your own web-account
 2) Copy the link from the repository
