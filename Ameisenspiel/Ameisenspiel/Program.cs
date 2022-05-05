@@ -170,8 +170,6 @@ namespace Ameisenspiel {
 
             game.ChangeSettings(settings);
             game.RunGame();
-            
-            Log.WriteToLogFile();
         }
     }
 }

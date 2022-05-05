@@ -382,3 +382,91 @@
 [08:25:15.2142704] Info [Game.cs]:ChangeSettings(): antCount changed to: 5
 [08:25:15.2142704] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
 [08:25:15.2142704] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (05.05.2022 09:24:43) ###
+
+[09:24:43.7503644] Info [Game.cs]:ChangeSettings(): cycles changed to: 999998
+[09:24:43.7513631] Info [Game.cs]:ChangeSettings(): antCount changed to: 200
+[09:24:43.7523631] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[09:24:43.7533642] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (05.05.2022 09:49:01) ###
+
+[09:49:01.9539107] Info [Game.cs]:ChangeSettings(): cycles changed to: 999998
+[09:49:01.9559392] Info [Game.cs]:ChangeSettings(): antCount changed to: 200
+[09:49:01.9569102] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[09:49:01.9569102] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (05.05.2022 09:51:00) ###
+
+[09:51:01.0417837] Info [Game.cs]:ChangeSettings(): cycles changed to: 999998
+[09:51:01.0428435] Info [Game.cs]:ChangeSettings(): antCount changed to: 200
+[09:51:01.0437416] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[09:51:01.0447424] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (05.05.2022 09:52:08) ###
+
+[09:52:08.3670771] Info [Game.cs]:ChangeSettings(): cycles changed to: 999998
+[09:52:08.3680769] Info [Game.cs]:ChangeSettings(): antCount changed to: 200
+[09:52:08.3700771] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[09:52:08.3710781] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (05.05.2022 09:52:28) ###
+
+[09:52:28.5908513] Info [Game.cs]:ChangeSettings(): cycles changed to: 999998
+[09:52:28.5918507] Info [Game.cs]:ChangeSettings(): antCount changed to: 200
+[09:52:28.5938514] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[09:52:28.5968520] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (05.05.2022 09:55:15) ###
+
+[09:55:15.2597174] Info [Game.cs]:ChangeSettings(): cycles changed to: 999998
+[09:55:15.2607185] Info [Game.cs]:ChangeSettings(): antCount changed to: 200
+[09:55:15.2627255] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[09:55:15.2627255] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (05.05.2022 09:56:49) ###
+
+[09:56:49.4468282] Info [Game.cs]:ChangeSettings(): cycles changed to: 999998
+[09:56:49.4478280] Info [Game.cs]:ChangeSettings(): antCount changed to: 200
+[09:56:49.4488279] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[09:56:49.4498278] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (05.05.2022 10:00:57) ###
+
+[10:00:57.1356773] Info [Game.cs]:ChangeSettings(): cycles changed to: 999998
+[10:00:57.1366762] Info [Game.cs]:ChangeSettings(): antCount changed to: 200
+[10:00:57.1376763] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[10:00:57.1386767] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (05.05.2022 10:01:46) ###
+
+[10:01:47.0178300] Info [Game.cs]:ChangeSettings(): cycles changed to: 999998
+[10:01:47.0197788] Info [Game.cs]:ChangeSettings(): antCount changed to: 200
+[10:01:47.0207513] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[10:01:47.0207513] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (05.05.2022 10:02:50) ###
+
+[10:02:50.8566275] Info [Game.cs]:ChangeSettings(): cycles changed to: 999998
+[10:02:50.8576275] Info [Game.cs]:ChangeSettings(): antCount changed to: 200
+[10:02:50.8586276] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[10:02:50.8586276] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (05.05.2022 10:04:03) ###
+
+[10:04:03.7009708] Info [Game.cs]:ChangeSettings(): cycles changed to: 999998
+[10:04:03.7029709] Info [Game.cs]:ChangeSettings(): antCount changed to: 200
+[10:04:03.7049706] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[10:04:03.7079715] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (05.05.2022 10:06:19) ###
+
+[10:06:19.7319100] WARNING [Game.cs]:ChangeSettings(): cycles not changed, out of range: 0
+[10:06:19.7329093] WARNING [Game.cs]:ChangeSettings(): antCount not changed, out of range: 0
+[10:06:19.7339092] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[10:06:19.7349517] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+[10:06:31.7485695] Info [Game.cs]:ChangeSettings(): cycles changed to: 2000
+[10:06:31.7494883] WARNING [Game.cs]:ChangeSettings(): antCount not changed, out of range: 0
+[10:06:31.7504897] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[10:06:31.7514869] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0

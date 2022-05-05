@@ -33,16 +33,24 @@ namespace Ameisenspiel {
             }
         }
         public void AddError(string message) {
-            messages.Add(GetTime() + "### ERROR [" + sourceObjectDescription + "]:" + message + "###");
+            String text = GetTime() + "### ERROR [" + sourceObjectDescription + "]:" + message + "###";
+            messages.Add(text);
+            WriteToLogFile(text);
         }
         public void AddWarning(string message) {
-            messages.Add(GetTime() + "WARNING [" + sourceObjectDescription + "]:" + message);
+            String text = GetTime() + "WARNING [" + sourceObjectDescription + "]:" + message;
+            messages.Add(text);
+            WriteToLogFile(text);
         }
         public void Add(string message) {
-            messages.Add(GetTime() + "Info [" + sourceObjectDescription + "]:" + message);
+            String text = GetTime() + "Info [" + sourceObjectDescription + "]:" + message;
+            messages.Add(text);
+            WriteToLogFile(text);
         }
         private void AddHeader() {
-            messages.Add("\n### New Log (" + System.DateTime.Now.ToString() + ") ###\n");
+            String text = "\n### New Log (" + System.DateTime.Now.ToString() + ") ###\n";
+            messages.Add(text);
+            WriteToLogFile(text);
         }
 
         private string GetTime() {
@@ -65,7 +73,7 @@ namespace Ameisenspiel {
 
             return filepath;
         }
-        public static void WriteToLogFile() {
+        public static void WriteArrayToLogFile() {
             string file = GetFile();
             if (File.Exists(file)) {
                 using (StreamWriter sw = File.AppendText(file)) {
@@ -82,6 +90,18 @@ namespace Ameisenspiel {
                 }
             }
         }
-
+        private static void WriteToLogFile(String text) {
+            string file = GetFile();
+            if (File.Exists(file)) {
+                using (StreamWriter sw = File.AppendText(file)) {
+                    sw.WriteLine(text);
+                }
+            }
+            else {
+                using (StreamWriter sw = File.CreateText(file)) {
+                    sw.WriteLine(text);
+                }
+            }
+        }
     }
 }

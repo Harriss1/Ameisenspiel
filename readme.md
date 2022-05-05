@@ -1,5 +1,5 @@
 # Usage of GitHub Tutorial #
-- short list of usefull commands (without explanation):
+- short list of usefull commands:
 https://www.nobledesktop.com/learn/git/git-branches
 - ein sehr gutes Tutorial habe ich hier gefunden: https://lerneprogrammieren.de/git/
 

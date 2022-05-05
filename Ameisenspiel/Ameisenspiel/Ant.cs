@@ -26,14 +26,16 @@ namespace Ameisenspiel {
             this.hiveCoordinateY = yPos;
             this.antType = AntType.Standard;
             this.canMoveOnItsOwn = true;
-            this.energy = GetRandomLevel(50, 500);
-            this.maxAge = GetRandomLevel(400, 600);
+            this.energy = GetRandomLevel(500, 5000);
+            this.maxAge = GetRandomLevel(4000, 6000);
+            this.speed = 60;
         }
 
         public void SetQueen() {
             this.antType = AntType.Queen;
             this.canMoveOnItsOwn = false;
-            this.maxAge = GetRandomLevel(40000, 60000);
+            this.maxAge = GetRandomLevel(400000, 600000);
+            this.speed = 0;
         }
 
         private int GetRandomLevel(int minLevel, int maxLevel) {
@@ -41,7 +43,7 @@ namespace Ameisenspiel {
         }
 
         private void ReplenishEnergy() {
-            this.energy = GetRandomLevel(50, 500);
+            this.energy = GetRandomLevel(500, 5000);
         }
 
         override public void PassOneCycle() {
@@ -56,16 +58,23 @@ namespace Ameisenspiel {
                 ReplenishEnergy();
                 entityColor = Color.Green;
             }
-            if(energy < 100 && energy >= 50) {
+            if(energy < 1000 && energy >= 500) {
                 entityColor = Color.DarkYellow;
             }
-            if(energy < 50) {
+            if(energy < 500) {
                 entityColor = Color.Red;
             }
         }
 
         public override void MoveOneIntelligent() {
-            if(energy < 50) {
+            if(this.cycleSpeedDistanceRemaining > 0) {
+                this.cycleSpeedDistanceRemaining -= this.speed;
+                return;
+            } else {
+                this.cycleSpeedDistanceRemaining = cycleSpeedStartDistance;
+            }
+
+            if(energy < 500) {
                 MoveOneTowards(this.hiveCoordinateX, this.hiveCoordinateY);
             } else {
                 MoveOneRandom();

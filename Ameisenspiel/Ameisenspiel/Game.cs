@@ -92,8 +92,6 @@ namespace Ameisenspiel {
             }
             World.SetWorldProperties(windowWidth, windowHeight);
             this.world = new World();
-            
-
         }
 
         public void GameMenu() {
@@ -104,8 +102,8 @@ namespace Ameisenspiel {
 
         }
         public void RunGame() {
-            //this.cyclesRemaining = 200; //@todo where to put
 
+            //Settings
             this.cyclesRemaining = settings.cycles;
             this.windowHeight = settings.windowHeight;
             this.windowWidth = settings.windowWidth;
@@ -123,6 +121,7 @@ namespace Ameisenspiel {
 
             //MainLoop
             Console.CursorVisible = false;
+            int count = 0;
             for (int i = 0; i < this.cyclesRemaining; i++) {
                 List<Entity> deletableEntities = new List<Entity>();
                 foreach(Entity entity in this.world.GetContent()) {
@@ -137,10 +136,15 @@ namespace Ameisenspiel {
                 foreach (Entity deleteEntity in deletableEntities) {
                     this.world.DestroyEntity(deleteEntity);
                 }
-                UpdateDisplayContent();
-                //Listenforkeys
-                DrawDisplayContent();
-                System.Threading.Thread.Sleep(100);
+                if (count >= 5) {
+                    UpdateDisplayContent();
+                    //Listenforkeys
+                    DrawDisplayContent();
+                    count = 0;
+                } else {
+                    count++;
+                }
+                System.Threading.Thread.Sleep(10);
 
             }
             Console.CursorVisible = true;
@@ -240,24 +244,12 @@ namespace Ameisenspiel {
             Console.Write(content.symbol);
             Console.ResetColor();
         }
+        //keep for idea
         public void SetAntRandomly() {
             Random rand = new Random();
-            int randX = rand.Next(1, 80);
-            int randY = rand.Next(1, 25);
-            this.ant = new Ant(15, 15);
-        }
-        
-        public void DrawDevWorld() {
-            this.cyclesRemaining = 20;
-            for (int i = 0; i < this.cyclesRemaining; i++) {
-                //Console.Clear(); //kann zu Problem führen, da man später alles löscht, und Screen flackert.
-                ant.MoveOneRandom();
-                Log log = new Log("Game");
-                log.Add("Moved Randomly");
-                Console.SetCursorPosition(ant.GetX(), ant.GetY());
-                Console.Write(ant.GetEntitySymbol());
-                System.Threading.Thread.Sleep(100);
-            }
+            int randX = rand.Next(1, this.windowWidth);
+            int randY = rand.Next(1, this.windowHeight);
+            this.ant = new Ant(randX, randY);
         }
     }
 }
