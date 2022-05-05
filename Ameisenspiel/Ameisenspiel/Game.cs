@@ -16,8 +16,8 @@ using System.Threading.Tasks;
 namespace Ameisenspiel {
     internal class Game {
         Log log = new Log("Game.cs");
+        private int cyclesTotal;
         private int cyclesRemaining;
-        private Ant ant;
         private int windowWidth;
         private int windowHeight;
         private World world;
@@ -25,7 +25,7 @@ namespace Ameisenspiel {
         private List<DisplayContent> oldDisplayContents;
         private Settings settings;
         public Game() {
-            this.cyclesRemaining = 1;
+            this.cyclesTotal = 1;
             this.displayContents = new List<DisplayContent>();
             this.oldDisplayContents = new List<DisplayContent>();
             SetDefaultSettings();
@@ -68,6 +68,9 @@ namespace Ameisenspiel {
                     case Entity.Color.Blue:
                         this.symbolColor = ConsoleColor.Blue;
                         break;
+                    case Entity.Color.DarkMagenta:
+                        this.symbolColor = ConsoleColor.DarkMagenta;
+                        break;
                     default: this.symbolColor = ConsoleColor.White;
                         break;
                 }
@@ -104,7 +107,8 @@ namespace Ameisenspiel {
         public void RunGame() {
 
             //Settings
-            this.cyclesRemaining = settings.cycles;
+            this.cyclesTotal = settings.cycles;
+            this.cyclesRemaining = cyclesTotal;
             this.windowHeight = settings.windowHeight;
             this.windowWidth = settings.windowWidth;
 
@@ -129,8 +133,9 @@ namespace Ameisenspiel {
 
             //MainLoop
             Console.CursorVisible = false;
-            int count = 0;
-            for (int i = 0; i < this.cyclesRemaining; i++) {
+            int loopDrawTimer = 5;
+            for (int i = 0; i < this.cyclesTotal; i++) {
+                this.cyclesRemaining--;
                 List<Entity> deletableEntities = new List<Entity>();
                 foreach(Entity entity in this.world.GetContent()) {
                     
@@ -148,13 +153,13 @@ namespace Ameisenspiel {
                 foreach (Entity deleteEntity in deletableEntities) {
                     this.world.DestroyEntity(deleteEntity);
                 }
-                if (count >= 5) {
+                if (loopDrawTimer <= 0) {
                     UpdateDisplayContent();
                     //Listenforkeys
                     DrawDisplayContent();
-                    count = 0;
+                    loopDrawTimer = 5;
                 } else {
-                    count++;
+                    loopDrawTimer--;
                 }
                 System.Threading.Thread.Sleep(10);
 
@@ -200,7 +205,7 @@ namespace Ameisenspiel {
             }
         }
         public void SetDefaultSettings() {
-            this.settings.cycles = 1000;
+            this.settings.cycles = 15000;
             this.settings.antCount = 100;
             this.settings.windowWidth = 85;
             this.settings.windowHeight = 25;
@@ -220,7 +225,8 @@ namespace Ameisenspiel {
                 //Console.SetCursorPosition(entity.GetX(), entity.GetY());
                 //Console.Write(" ");
             }
-
+            double remainingPercent = ( (double)cyclesRemaining / (double)cyclesTotal ) * 100;
+            displayContents.Add(new DisplayContent(0, windowHeight+1, "Remaining: " + (int)remainingPercent + "% (" +cyclesTotal +" cycles)", Entity.Color.Blue));
             //the displayContent gets told: draw at this point xy symbol Z
             //if we change an entities position we search the displaycontent for its old position and change that entry
         
@@ -261,7 +267,8 @@ namespace Ameisenspiel {
             Random rand = new Random();
             int randX = rand.Next(1, this.windowWidth);
             int randY = rand.Next(1, this.windowHeight);
-            this.ant = new Ant(randX, randY);
+            
+            Ant ant = new Ant(randX, randY);
         }
     }
 }

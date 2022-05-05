@@ -84,8 +84,8 @@ namespace Ameisenspiel {
         private static int SelectFromMainMenu() {
             Console.WriteLine();
             Console.WriteLine("Bitte drücken Sie eine Zahl zur Auswahl:");
-            Console.WriteLine("(1) Standard Spiel - 100 Ameisen mit 1000 Zyklen");
-            Console.WriteLine("(2) Lange Simulation - 100 Ameisen, 20000 Zyklen (c.a. 2 Minuten)");
+            Console.WriteLine("(1) Standard Spiel - 100 Ameisen mit 15000 Zyklen = 150 Sekunden");
+            Console.WriteLine("(2) Längere Simulation - 150 Ameisen, 25000 Zyklen (c.a. 4 Minuten)");
             Console.WriteLine("(3) 5 Ameisen, 100 Zyklen");
             Console.WriteLine("(4) 200 Ameisen, 999.998 Zyklen");
             Console.WriteLine("(0) Programm beenden");
@@ -156,7 +156,8 @@ namespace Ameisenspiel {
             }
             if (gameMode == 2) {
                 //Lange Simulation, 2.000 Zyklen (c.a. 2 Minuten)
-                settings.cycles = 20000;
+                settings.cycles = 25000;
+                settings.antCount = 150;
             }
             if (gameMode == 3) {
                 //5 Ameisen
