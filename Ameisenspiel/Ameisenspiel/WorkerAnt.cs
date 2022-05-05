@@ -11,6 +11,15 @@ namespace Ameisenspiel {
         Log log = new Log("WorkerAnt.cs");
         public WorkerAnt(int xPos, int yPos) : base(xPos, yPos) {
             this.isAlive = true;
+            //use another "a" symbol for carrying items, from this website:
+            //https://www.rapidtables.com/code/text/unicode-characters.html
+            /// â = \u00E2
+            /// ã = \u00E3
+            /// ä = \u00E4
+            /// à = \u00E0
+            /// å = \u00E5
+            /// æ = \u00E6
+            /// ¤ = \u00A4
             this.entitySymbol = "a";
             this.x = xPos;
             this.y = yPos;
