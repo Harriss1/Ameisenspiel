@@ -1,9 +1,9 @@
 # Usage of GitHub Tutorial #
-short list of usefull commands (without explanation):
+- short list of usefull commands (without explanation):
 https://www.nobledesktop.com/learn/git/git-branches
--> ein sehr gutes Tutorial habe ich hier gefunden: https://lerneprogrammieren.de/git/
+- ein sehr gutes Tutorial habe ich hier gefunden: https://lerneprogrammieren.de/git/
 
-Simplified steps:
+###Simplified steps
 After installing Git on your local computer:
 1) Create repository on GitHub.com via your own web-account
 2) Copy the link from the repository
