@@ -23239,3 +23239,426 @@
 [11:54:06.9590191] Info [Game.cs]:added worker
 [11:54:06.9600192] Info [Game.cs]:percentage = 99
 [11:54:06.9610183] Info [Game.cs]:added worker
+
+### Log (05.05.2022 11:56:39) ###
+
+[11:56:39.1735101] WARNING [Game.cs]:ChangeSettings(): cycles not changed, out of range: 0
+[11:56:39.1755090] Info [Game.cs]:ChangeSettings(): antCount changed to: 5
+[11:56:39.1765104] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[11:56:39.1765104] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+[11:56:39.1785063] Info [Game.cs]:percentage = 0
+[11:56:39.1805055] Info [Game.cs]:percentage = 20
+[11:56:39.1805055] Info [Game.cs]:percentage = 40
+[11:56:39.1815055] Info [Game.cs]:percentage = 60
+[11:56:39.1825052] Info [Game.cs]:percentage = 80
+
+### Log (05.05.2022 11:58:00) ###
+
+[11:58:00.3546349] WARNING [Game.cs]:ChangeSettings(): cycles not changed, out of range: 0
+[11:58:00.3556217] Info [Game.cs]:ChangeSettings(): antCount changed to: 5
+[11:58:00.3565883] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[11:58:00.3575878] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+[11:58:00.3586885] Info [Game.cs]:percentage = 0
+[11:58:00.3595899] Info [Game.cs]:percentage = 20
+[11:58:00.3606283] Info [Game.cs]:percentage = 40
+[11:58:00.3606283] Info [Game.cs]:percentage = 60
+[11:58:00.3615872] Info [Game.cs]:percentage = 80
+
+### Log (05.05.2022 11:58:09) ###
+
+[11:58:09.9651734] WARNING [Game.cs]:ChangeSettings(): cycles not changed, out of range: 0
+[11:58:09.9661735] WARNING [Game.cs]:ChangeSettings(): antCount not changed, out of range: 0
+[11:58:09.9671746] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[11:58:09.9681791] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+[11:58:09.9701762] Info [Game.cs]:percentage = 0
+[11:58:09.9721754] Info [Game.cs]:percentage = 1
+[11:58:09.9731769] Info [Game.cs]:percentage = 2
+[11:58:09.9741739] Info [Game.cs]:percentage = 3
+[11:58:09.9751738] Info [Game.cs]:percentage = 4
+[11:58:09.9761732] Info [Game.cs]:percentage = 5
+[11:58:09.9771759] Info [Game.cs]:percentage = 6
+[11:58:09.9771759] Info [Game.cs]:percentage = 7
+[11:58:09.9781744] Info [Game.cs]:percentage = 8
+[11:58:09.9791760] Info [Game.cs]:percentage = 9
+[11:58:09.9801738] Info [Game.cs]:percentage = 10
+[11:58:09.9801738] Info [Game.cs]:percentage = 11
+[11:58:09.9811743] Info [Game.cs]:percentage = 12
+[11:58:09.9821733] Info [Game.cs]:percentage = 13
+[11:58:09.9821733] Info [Game.cs]:percentage = 14
+[11:58:09.9831751] Info [Game.cs]:percentage = 15
+[11:58:09.9841768] Info [Game.cs]:percentage = 16
+[11:58:09.9851741] Info [Game.cs]:percentage = 17
+[11:58:09.9861725] Info [Game.cs]:percentage = 18
+[11:58:09.9861725] Info [Game.cs]:percentage = 19
+[11:58:09.9871724] Info [Game.cs]:percentage = 20
+[11:58:09.9881732] Info [Game.cs]:percentage = 21
+[11:58:09.9891737] Info [Game.cs]:percentage = 22
+[11:58:09.9891737] Info [Game.cs]:percentage = 23
+[11:58:09.9901753] Info [Game.cs]:percentage = 24
+[11:58:09.9911731] Info [Game.cs]:percentage = 25
+[11:58:09.9911731] Info [Game.cs]:percentage = 26
+[11:58:09.9921739] Info [Game.cs]:percentage = 27
+[11:58:09.9931725] Info [Game.cs]:percentage = 28
+[11:58:09.9931725] Info [Game.cs]:percentage = 29
+[11:58:09.9941722] Info [Game.cs]:percentage = 30
+[11:58:09.9941722] Info [Game.cs]:percentage = 31
+[11:58:09.9951721] Info [Game.cs]:percentage = 32
+[11:58:09.9951721] Info [Game.cs]:percentage = 33
+[11:58:09.9961718] Info [Game.cs]:percentage = 34
+[11:58:09.9961718] Info [Game.cs]:percentage = 35
+[11:58:09.9961718] Info [Game.cs]:percentage = 36
+[11:58:09.9971720] Info [Game.cs]:percentage = 37
+[11:58:09.9971720] Info [Game.cs]:percentage = 38
+[11:58:09.9981718] Info [Game.cs]:percentage = 39
+[11:58:09.9981718] Info [Game.cs]:percentage = 40
+[11:58:09.9991725] Info [Game.cs]:percentage = 41
+[11:58:10.0001742] Info [Game.cs]:percentage = 42
+[11:58:10.0001742] Info [Game.cs]:percentage = 43
+[11:58:10.0011729] Info [Game.cs]:percentage = 44
+[11:58:10.0011729] Info [Game.cs]:percentage = 45
+[11:58:10.0021715] Info [Game.cs]:percentage = 46
+[11:58:10.0021715] Info [Game.cs]:percentage = 47
+[11:58:10.0031715] Info [Game.cs]:percentage = 48
+[11:58:10.0031715] Info [Game.cs]:percentage = 49
+[11:58:10.0041715] Info [Game.cs]:percentage = 50
+[11:58:10.0041715] Info [Game.cs]:percentage = 51
+[11:58:10.0041715] Info [Game.cs]:percentage = 52
+[11:58:10.0051717] Info [Game.cs]:percentage = 53
+[11:58:10.0051717] Info [Game.cs]:percentage = 54
+[11:58:10.0061724] Info [Game.cs]:percentage = 55
+[11:58:10.0061724] Info [Game.cs]:percentage = 56
+[11:58:10.0071719] Info [Game.cs]:percentage = 57
+[11:58:10.0071719] Info [Game.cs]:percentage = 58
+[11:58:10.0081723] Info [Game.cs]:percentage = 59
+[11:58:10.0091720] Info [Game.cs]:percentage = 60
+[11:58:10.0091720] Info [Game.cs]:percentage = 61
+[11:58:10.0101738] Info [Game.cs]:percentage = 62
+[11:58:10.0111746] Info [Game.cs]:percentage = 63
+[11:58:10.0121733] Info [Game.cs]:percentage = 64
+[11:58:10.0121733] Info [Game.cs]:percentage = 65
+[11:58:10.0131731] Info [Game.cs]:percentage = 66
+[11:58:10.0141729] Info [Game.cs]:percentage = 67
+[11:58:10.0141729] Info [Game.cs]:percentage = 68
+[11:58:10.0151728] Info [Game.cs]:percentage = 69
+[11:58:10.0151728] Info [Game.cs]:percentage = 70
+[11:58:10.0161724] Info [Game.cs]:percentage = 71
+[11:58:10.0171725] Info [Game.cs]:percentage = 72
+[11:58:10.0181719] Info [Game.cs]:percentage = 73
+[11:58:10.0181719] Info [Game.cs]:percentage = 74
+[11:58:10.0191721] Info [Game.cs]:percentage = 75
+[11:58:10.0201721] Info [Game.cs]:percentage = 76
+[11:58:10.0211920] Info [Game.cs]:percentage = 77
+[11:58:10.0221719] Info [Game.cs]:percentage = 78
+[11:58:10.0221719] Info [Game.cs]:percentage = 79
+[11:58:10.0231725] Info [Game.cs]:percentage = 80
+[11:58:10.0241725] Info [Game.cs]:percentage = 81
+[11:58:10.0251716] Info [Game.cs]:added worker
+[11:58:10.0261718] Info [Game.cs]:percentage = 82
+[11:58:10.0261718] Info [Game.cs]:added worker
+[11:58:10.0271728] Info [Game.cs]:percentage = 83
+[11:58:10.0271728] Info [Game.cs]:added worker
+[11:58:10.0281722] Info [Game.cs]:percentage = 84
+[11:58:10.0291753] Info [Game.cs]:added worker
+[11:58:10.0301725] Info [Game.cs]:percentage = 85
+[11:58:10.0311730] Info [Game.cs]:added worker
+[11:58:10.0321738] Info [Game.cs]:percentage = 86
+[11:58:10.0341747] Info [Game.cs]:added worker
+[11:58:10.0351742] Info [Game.cs]:percentage = 87
+[11:58:10.0361722] Info [Game.cs]:added worker
+[11:58:10.0371734] Info [Game.cs]:percentage = 88
+[11:58:10.0381738] Info [Game.cs]:added worker
+[11:58:10.0391727] Info [Game.cs]:percentage = 89
+[11:58:10.0391727] Info [Game.cs]:added worker
+[11:58:10.0401752] Info [Game.cs]:percentage = 90
+[11:58:10.0411731] Info [Game.cs]:added worker
+[11:58:10.0411731] Info [Game.cs]:percentage = 91
+[11:58:10.0421733] Info [Game.cs]:added worker
+[11:58:10.0431717] Info [Game.cs]:percentage = 92
+[11:58:10.0441728] Info [Game.cs]:added worker
+[11:58:10.0451736] Info [Game.cs]:percentage = 93
+[11:58:10.0461743] Info [Game.cs]:added worker
+[11:58:10.0471728] Info [Game.cs]:percentage = 94
+[11:58:10.0481740] Info [Game.cs]:added worker
+[11:58:10.0491726] Info [Game.cs]:percentage = 95
+[11:58:10.0511727] Info [Game.cs]:added worker
+[11:58:10.0511727] Info [Game.cs]:percentage = 96
+[11:58:10.0531798] Info [Game.cs]:added worker
+[11:58:10.0551716] Info [Game.cs]:percentage = 97
+[11:58:10.0551716] Info [Game.cs]:added worker
+[11:58:10.0561720] Info [Game.cs]:percentage = 98
+[11:58:10.0571724] Info [Game.cs]:added worker
+[11:58:10.0581736] Info [Game.cs]:percentage = 99
+[11:58:10.0581736] Info [Game.cs]:added worker
+
+### Log (05.05.2022 12:02:35) ###
+
+[12:02:35.7534852] WARNING [Game.cs]:ChangeSettings(): cycles not changed, out of range: 0
+[12:02:35.7545290] WARNING [Game.cs]:ChangeSettings(): antCount not changed, out of range: 0
+[12:02:35.7554517] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[12:02:35.7564837] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+[12:02:35.7587339] Info [Game.cs]:percentage = 0
+[12:02:35.7597321] Info [Game.cs]:percentage = 1
+[12:02:35.7610843] Info [Game.cs]:percentage = 2
+[12:02:35.7617318] Info [Game.cs]:percentage = 3
+[12:02:35.7617318] Info [Game.cs]:percentage = 4
+[12:02:35.7627342] Info [Game.cs]:percentage = 5
+[12:02:35.7637319] Info [Game.cs]:percentage = 6
+[12:02:35.7637319] Info [Game.cs]:percentage = 7
+[12:02:35.7647339] Info [Game.cs]:percentage = 8
+[12:02:35.7657340] Info [Game.cs]:percentage = 9
+[12:02:35.7657340] Info [Game.cs]:percentage = 10
+[12:02:35.7667739] Info [Game.cs]:percentage = 11
+[12:02:35.7677320] Info [Game.cs]:percentage = 12
+[12:02:35.7677320] Info [Game.cs]:percentage = 13
+[12:02:35.7687525] Info [Game.cs]:percentage = 14
+[12:02:35.7687525] Info [Game.cs]:percentage = 15
+[12:02:35.7697320] Info [Game.cs]:percentage = 16
+[12:02:35.7707323] Info [Game.cs]:percentage = 17
+[12:02:35.7707323] Info [Game.cs]:percentage = 18
+[12:02:35.7717318] Info [Game.cs]:percentage = 19
+[12:02:35.7717318] Info [Game.cs]:percentage = 20
+[12:02:35.7727322] Info [Game.cs]:percentage = 21
+[12:02:35.7737359] Info [Game.cs]:percentage = 22
+[12:02:35.7737359] Info [Game.cs]:percentage = 23
+[12:02:35.7747321] Info [Game.cs]:percentage = 24
+[12:02:35.7757317] Info [Game.cs]:percentage = 25
+[12:02:35.7757317] Info [Game.cs]:percentage = 26
+[12:02:35.7767319] Info [Game.cs]:percentage = 27
+[12:02:35.7767319] Info [Game.cs]:percentage = 28
+[12:02:35.7777323] Info [Game.cs]:percentage = 29
+[12:02:35.7787318] Info [Game.cs]:percentage = 30
+[12:02:35.7787318] Info [Game.cs]:percentage = 31
+[12:02:35.7797330] Info [Game.cs]:percentage = 32
+[12:02:35.7797330] Info [Game.cs]:percentage = 33
+[12:02:35.7807319] Info [Game.cs]:percentage = 34
+[12:02:35.7817319] Info [Game.cs]:percentage = 35
+[12:02:35.7817319] Info [Game.cs]:percentage = 36
+[12:02:35.7827337] Info [Game.cs]:percentage = 37
+[12:02:35.7827337] Info [Game.cs]:percentage = 38
+[12:02:35.7837318] Info [Game.cs]:percentage = 39
+[12:02:35.7847317] Info [Game.cs]:percentage = 40
+[12:02:35.7847317] Info [Game.cs]:percentage = 41
+[12:02:35.7857336] Info [Game.cs]:percentage = 42
+[12:02:35.7857336] Info [Game.cs]:percentage = 43
+[12:02:35.7867319] Info [Game.cs]:percentage = 44
+[12:02:35.7877321] Info [Game.cs]:percentage = 45
+[12:02:35.7877321] Info [Game.cs]:percentage = 46
+[12:02:35.7887337] Info [Game.cs]:percentage = 47
+[12:02:35.7887337] Info [Game.cs]:percentage = 48
+[12:02:35.7897318] Info [Game.cs]:percentage = 49
+[12:02:35.7907316] Info [Game.cs]:percentage = 50
+[12:02:35.7907316] Info [Game.cs]:percentage = 51
+[12:02:35.7917335] Info [Game.cs]:percentage = 52
+[12:02:35.7917335] Info [Game.cs]:percentage = 53
+[12:02:35.7927336] Info [Game.cs]:percentage = 54
+[12:02:35.7927336] Info [Game.cs]:percentage = 55
+[12:02:35.7937317] Info [Game.cs]:percentage = 56
+[12:02:35.7947315] Info [Game.cs]:percentage = 57
+[12:02:35.7947315] Info [Game.cs]:percentage = 58
+[12:02:35.7957336] Info [Game.cs]:percentage = 59
+[12:02:35.7957336] Info [Game.cs]:percentage = 60
+[12:02:35.7967317] Info [Game.cs]:percentage = 61
+[12:02:35.7967317] Info [Game.cs]:percentage = 62
+[12:02:35.7977314] Info [Game.cs]:percentage = 63
+[12:02:35.7987337] Info [Game.cs]:percentage = 64
+[12:02:35.7987337] Info [Game.cs]:percentage = 65
+[12:02:35.7997333] Info [Game.cs]:percentage = 66
+[12:02:35.7997333] Info [Game.cs]:percentage = 67
+[12:02:35.8007315] Info [Game.cs]:percentage = 68
+[12:02:35.8007315] Info [Game.cs]:percentage = 69
+[12:02:35.8017313] Info [Game.cs]:percentage = 70
+[12:02:35.8017313] Info [Game.cs]:percentage = 71
+[12:02:35.8027314] Info [Game.cs]:percentage = 72
+[12:02:35.8027314] Info [Game.cs]:percentage = 73
+[12:02:35.8037325] Info [Game.cs]:percentage = 74
+[12:02:35.8037325] Info [Game.cs]:percentage = 75
+[12:02:35.8047322] Info [Game.cs]:percentage = 76
+[12:02:35.8047322] Info [Game.cs]:percentage = 77
+[12:02:35.8057311] Info [Game.cs]:percentage = 78
+[12:02:35.8057311] Info [Game.cs]:percentage = 79
+[12:02:35.8067311] Info [Game.cs]:percentage = 80
+[12:02:35.8067311] Info [Game.cs]:percentage = 81
+[12:02:35.8077314] Info [Game.cs]:added worker
+[12:02:35.8077314] Info [Game.cs]:percentage = 82
+[12:02:35.8087553] Info [Game.cs]:added worker
+[12:02:35.8097337] Info [Game.cs]:percentage = 83
+[12:02:35.8097337] Info [Game.cs]:added worker
+[12:02:35.8107320] Info [Game.cs]:percentage = 84
+[12:02:35.8117316] Info [Game.cs]:added worker
+[12:02:35.8117316] Info [Game.cs]:percentage = 85
+[12:02:35.8127338] Info [Game.cs]:added worker
+[12:02:35.8127338] Info [Game.cs]:percentage = 86
+[12:02:35.8137320] Info [Game.cs]:added worker
+[12:02:35.8147310] Info [Game.cs]:percentage = 87
+[12:02:35.8147310] Info [Game.cs]:added worker
+[12:02:35.8157307] Info [Game.cs]:percentage = 88
+[12:02:35.8157307] Info [Game.cs]:added worker
+[12:02:35.8157307] Info [Game.cs]:percentage = 89
+[12:02:35.8167315] Info [Game.cs]:added worker
+[12:02:35.8177310] Info [Game.cs]:percentage = 90
+[12:02:35.8177310] Info [Game.cs]:added worker
+[12:02:35.8187311] Info [Game.cs]:percentage = 91
+[12:02:35.8187311] Info [Game.cs]:added worker
+[12:02:35.8197308] Info [Game.cs]:percentage = 92
+[12:02:35.8197308] Info [Game.cs]:added worker
+[12:02:35.8207309] Info [Game.cs]:percentage = 93
+[12:02:35.8207309] Info [Game.cs]:added worker
+[12:02:35.8207309] Info [Game.cs]:percentage = 94
+[12:02:35.8217311] Info [Game.cs]:added worker
+[12:02:35.8217311] Info [Game.cs]:percentage = 95
+[12:02:35.8227311] Info [Game.cs]:added worker
+[12:02:35.8227311] Info [Game.cs]:percentage = 96
+[12:02:35.8237328] Info [Game.cs]:added worker
+[12:02:35.8237328] Info [Game.cs]:percentage = 97
+[12:02:35.8247309] Info [Game.cs]:added worker
+[12:02:35.8247309] Info [Game.cs]:percentage = 98
+[12:02:35.8257322] Info [Game.cs]:added worker
+[12:02:35.8257322] Info [Game.cs]:percentage = 99
+[12:02:35.8267318] Info [Game.cs]:added worker
+
+### Log (05.05.2022 12:03:37) ###
+
+[12:03:37.8726938] Info [Game.cs]:ChangeSettings(): cycles changed to: 2000
+[12:03:37.8737800] Info [Game.cs]:ChangeSettings(): antCount changed to: 5
+[12:03:37.8747358] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[12:03:37.8756950] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+[12:03:37.8766937] Info [Game.cs]:percentage = 0
+[12:03:37.8777116] Info [Game.cs]:percentage = 20
+[12:03:37.8786946] Info [Game.cs]:percentage = 40
+[12:03:37.8796960] Info [Game.cs]:percentage = 60
+[12:03:37.8806984] Info [Game.cs]:percentage = 80
+[12:04:13.0443287] WARNING [Game.cs]:ChangeSettings(): cycles not changed, out of range: 0
+[12:04:13.0463260] WARNING [Game.cs]:ChangeSettings(): antCount not changed, out of range: 0
+[12:04:13.0473279] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[12:04:13.0473279] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+[12:04:13.0483274] Info [Game.cs]:percentage = 0
+[12:04:13.0493267] Info [Game.cs]:percentage = 1
+[12:04:13.0493267] Info [Game.cs]:percentage = 2
+[12:04:13.0503271] Info [Game.cs]:percentage = 3
+[12:04:13.0513285] Info [Game.cs]:percentage = 4
+[12:04:13.0523259] Info [Game.cs]:percentage = 5
+[12:04:13.0523259] Info [Game.cs]:percentage = 6
+[12:04:13.0533265] Info [Game.cs]:percentage = 7
+[12:04:13.0543271] Info [Game.cs]:percentage = 8
+[12:04:13.0553262] Info [Game.cs]:percentage = 9
+[12:04:13.0553262] Info [Game.cs]:percentage = 10
+[12:04:13.0563260] Info [Game.cs]:percentage = 11
+[12:04:13.0573289] Info [Game.cs]:percentage = 12
+[12:04:13.0583469] Info [Game.cs]:percentage = 13
+[12:04:13.0593285] Info [Game.cs]:percentage = 14
+[12:04:13.0593285] Info [Game.cs]:percentage = 15
+[12:04:13.0603255] Info [Game.cs]:percentage = 16
+[12:04:13.0603255] Info [Game.cs]:percentage = 17
+[12:04:13.0613262] Info [Game.cs]:percentage = 18
+[12:04:13.0623283] Info [Game.cs]:percentage = 19
+[12:04:13.0633265] Info [Game.cs]:percentage = 20
+[12:04:13.0633265] Info [Game.cs]:percentage = 21
+[12:04:13.0643284] Info [Game.cs]:percentage = 22
+[12:04:13.0643284] Info [Game.cs]:percentage = 23
+[12:04:13.0653286] Info [Game.cs]:percentage = 24
+[12:04:13.0653286] Info [Game.cs]:percentage = 25
+[12:04:13.0663283] Info [Game.cs]:percentage = 26
+[12:04:13.0663283] Info [Game.cs]:percentage = 27
+[12:04:13.0673265] Info [Game.cs]:percentage = 28
+[12:04:13.0683487] Info [Game.cs]:percentage = 29
+[12:04:13.0683487] Info [Game.cs]:percentage = 30
+[12:04:13.0693258] Info [Game.cs]:percentage = 31
+[12:04:13.0693258] Info [Game.cs]:percentage = 32
+[12:04:13.0703248] Info [Game.cs]:percentage = 33
+[12:04:13.0703248] Info [Game.cs]:percentage = 34
+[12:04:13.0713248] Info [Game.cs]:percentage = 35
+[12:04:13.0713248] Info [Game.cs]:percentage = 36
+[12:04:13.0723262] Info [Game.cs]:percentage = 37
+[12:04:13.0723262] Info [Game.cs]:percentage = 38
+[12:04:13.0733260] Info [Game.cs]:percentage = 39
+[12:04:13.0733260] Info [Game.cs]:percentage = 40
+[12:04:13.0743256] Info [Game.cs]:percentage = 41
+[12:04:13.0743256] Info [Game.cs]:percentage = 42
+[12:04:13.0753256] Info [Game.cs]:percentage = 43
+[12:04:13.0753256] Info [Game.cs]:percentage = 44
+[12:04:13.0763264] Info [Game.cs]:percentage = 45
+[12:04:13.0763264] Info [Game.cs]:percentage = 46
+[12:04:13.0773259] Info [Game.cs]:percentage = 47
+[12:04:13.0783257] Info [Game.cs]:percentage = 48
+[12:04:13.0793276] Info [Game.cs]:percentage = 49
+[12:04:13.0793276] Info [Game.cs]:percentage = 50
+[12:04:13.0803282] Info [Game.cs]:percentage = 51
+[12:04:13.0803282] Info [Game.cs]:percentage = 52
+[12:04:13.0813275] Info [Game.cs]:percentage = 53
+[12:04:13.0813275] Info [Game.cs]:percentage = 54
+[12:04:13.0823274] Info [Game.cs]:percentage = 55
+[12:04:13.0823274] Info [Game.cs]:percentage = 56
+[12:04:13.0833274] Info [Game.cs]:percentage = 57
+[12:04:13.0833274] Info [Game.cs]:percentage = 58
+[12:04:13.0843272] Info [Game.cs]:percentage = 59
+[12:04:13.0853260] Info [Game.cs]:percentage = 60
+[12:04:13.0853260] Info [Game.cs]:percentage = 61
+[12:04:13.0863255] Info [Game.cs]:percentage = 62
+[12:04:13.0873258] Info [Game.cs]:percentage = 63
+[12:04:13.0873258] Info [Game.cs]:percentage = 64
+[12:04:13.0883249] Info [Game.cs]:percentage = 65
+[12:04:13.0883249] Info [Game.cs]:percentage = 66
+[12:04:13.0893255] Info [Game.cs]:percentage = 67
+[12:04:13.0903258] Info [Game.cs]:percentage = 68
+[12:04:13.0903258] Info [Game.cs]:percentage = 69
+[12:04:13.0913259] Info [Game.cs]:percentage = 70
+[12:04:13.0923258] Info [Game.cs]:percentage = 71
+[12:04:13.0923258] Info [Game.cs]:percentage = 72
+[12:04:13.0933251] Info [Game.cs]:percentage = 73
+[12:04:13.0933251] Info [Game.cs]:percentage = 74
+[12:04:13.0943256] Info [Game.cs]:percentage = 75
+[12:04:13.0953251] Info [Game.cs]:percentage = 76
+[12:04:13.0963283] Info [Game.cs]:percentage = 77
+[12:04:13.0963283] Info [Game.cs]:percentage = 78
+[12:04:13.0973290] Info [Game.cs]:percentage = 79
+[12:04:13.0983426] Info [Game.cs]:percentage = 80
+[12:04:13.0983426] Info [Game.cs]:percentage = 81
+[12:04:13.0993248] Info [Game.cs]:added worker
+[12:04:13.1003258] Info [Game.cs]:percentage = 82
+[12:04:13.1003258] Info [Game.cs]:added worker
+[12:04:13.1013265] Info [Game.cs]:percentage = 83
+[12:04:13.1013265] Info [Game.cs]:added worker
+[12:04:13.1023261] Info [Game.cs]:percentage = 84
+[12:04:13.1033247] Info [Game.cs]:added worker
+[12:04:13.1033247] Info [Game.cs]:percentage = 85
+[12:04:13.1043254] Info [Game.cs]:added worker
+[12:04:13.1043254] Info [Game.cs]:percentage = 86
+[12:04:13.1053253] Info [Game.cs]:added worker
+[12:04:13.1063258] Info [Game.cs]:percentage = 87
+[12:04:13.1063258] Info [Game.cs]:added worker
+[12:04:13.1073254] Info [Game.cs]:percentage = 88
+[12:04:13.1073254] Info [Game.cs]:added worker
+[12:04:13.1083462] Info [Game.cs]:percentage = 89
+[12:04:13.1083462] Info [Game.cs]:added worker
+[12:04:13.1093267] Info [Game.cs]:percentage = 90
+[12:04:13.1103246] Info [Game.cs]:added worker
+[12:04:13.1103246] Info [Game.cs]:percentage = 91
+[12:04:13.1113255] Info [Game.cs]:added worker
+[12:04:13.1123268] Info [Game.cs]:percentage = 92
+[12:04:13.1123268] Info [Game.cs]:added worker
+[12:04:13.1133275] Info [Game.cs]:percentage = 93
+[12:04:13.1143271] Info [Game.cs]:added worker
+[12:04:13.1143271] Info [Game.cs]:percentage = 94
+[12:04:13.1153259] Info [Game.cs]:added worker
+[12:04:13.1163252] Info [Game.cs]:percentage = 95
+[12:04:13.1163252] Info [Game.cs]:added worker
+[12:04:13.1173285] Info [Game.cs]:percentage = 96
+[12:04:13.1173285] Info [Game.cs]:added worker
+[12:04:13.1183250] Info [Game.cs]:percentage = 97
+[12:04:13.1193254] Info [Game.cs]:added worker
+[12:04:13.1193254] Info [Game.cs]:percentage = 98
+[12:04:13.1203260] Info [Game.cs]:added worker
+[12:04:13.1203260] Info [Game.cs]:percentage = 99
+[12:04:13.1213252] Info [Game.cs]:added worker
+
+### Log (05.05.2022 12:05:42) ###
+
+[12:05:42.2859975] Info [Game.cs]:ChangeSettings(): cycles changed to: 2000
+[12:05:42.2869966] Info [Game.cs]:ChangeSettings(): antCount changed to: 5
+[12:05:42.2880088] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[12:05:42.2890760] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+[12:05:42.2899974] Info [Game.cs]:percentage = 0
+[12:05:42.2920360] Info [Game.cs]:percentage = 20
+[12:05:42.2920360] Info [Game.cs]:percentage = 40
+[12:05:42.2929970] Info [Game.cs]:percentage = 60
+[12:05:42.2939972] Info [Game.cs]:percentage = 80

@@ -156,12 +156,13 @@ namespace Ameisenspiel {
             }
             if (gameMode == 2) {
                 //Lange Simulation, 2.000 Zyklen (c.a. 2 Minuten)
-                settings.cycles = 25000;
+                settings.cycles = 10000;
                 settings.antCount = 150;
             }
             if (gameMode == 3) {
                 //5 Ameisen
                 settings.antCount = 5;
+                settings.cycles = 2000;
             }
             if (gameMode == 4) {
                 //200 Ameisen, 999998 Zyklen

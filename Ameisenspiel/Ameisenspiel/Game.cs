@@ -24,6 +24,7 @@ namespace Ameisenspiel {
         private List<DisplayContent> displayContents;
         private List<DisplayContent> oldDisplayContents;
         private Settings settings;
+        private int antsAlive;
         public Game() {
             this.cyclesTotal = 1;
             this.displayContents = new List<DisplayContent>();
@@ -98,7 +99,7 @@ namespace Ameisenspiel {
         }
 
         public void GameMenu() {
-            Console.SetCursorPosition(0,this.windowHeight+1);
+            Console.SetCursorPosition(0,this.windowHeight+2);
             Console.WriteLine("Beliebe Taste drücken um zum Hauptmenu zu gelangen.");
 
             ConsoleKey key = Console.ReadKey(true).Key;
@@ -124,6 +125,7 @@ namespace Ameisenspiel {
                     world.AddEntity(ant);
                     log.Add("added worker");
                 }
+                antsAlive++;
             }
 
             QueenAnt queen = new QueenAnt(40, 15);
@@ -148,6 +150,7 @@ namespace Ameisenspiel {
                     }
                     if (entity.GetDestroyable()) {
                         deletableEntities.Add(entity);
+                        antsAlive--;
                     }
                 }
                 foreach (Entity deleteEntity in deletableEntities) {
@@ -205,7 +208,7 @@ namespace Ameisenspiel {
             }
         }
         public void SetDefaultSettings() {
-            this.settings.cycles = 15000;
+            this.settings.cycles = 5000;
             this.settings.antCount = 100;
             this.settings.windowWidth = 85;
             this.settings.windowHeight = 25;
@@ -227,9 +230,10 @@ namespace Ameisenspiel {
             }
             double remainingPercent = ( (double)cyclesRemaining / (double)cyclesTotal ) * 100;
             displayContents.Add(new DisplayContent(0, windowHeight+1, "Remaining: " + (int)remainingPercent + "% (" +cyclesTotal +" cycles)", Entity.Color.Blue));
+            displayContents.Add(new DisplayContent(40, windowHeight + 1, "Alive: " + antsAlive + " (" + settings.antCount + " start)", Entity.Color.Blue));
             //the displayContent gets told: draw at this point xy symbol Z
             //if we change an entities position we search the displaycontent for its old position and change that entry
-        
+
         }
 
         private void DrawDisplayContent() {
