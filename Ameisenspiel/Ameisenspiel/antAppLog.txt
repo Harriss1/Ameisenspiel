@@ -375,3 +375,10 @@
 [16:04:47.6034323] WARNING [Game.cs]:ChangeSettings(): antCount not changed, out of range: 0
 [16:04:47.6034323] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
 [16:04:47.6034323] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
+
+### New Log (05.05.2022 08:25:15) ###
+
+[08:25:15.2142704] WARNING [Game.cs]:ChangeSettings(): cycles not changed, out of range: 0
+[08:25:15.2142704] Info [Game.cs]:ChangeSettings(): antCount changed to: 5
+[08:25:15.2142704] WARNING [Game.cs]:ChangeSettings(): windowWidth not changed, out of range: 0
+[08:25:15.2142704] WARNING [Game.cs]:ChangeSettings(): windowHeight not changed, out of range: 0
