@@ -46,7 +46,7 @@
     <Compile Include="Ant.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="DevelopmentGameSettings.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="GameSimulation.cs" />
     <Compile Include="Hive.cs" />
     <Compile Include="Log.cs" />

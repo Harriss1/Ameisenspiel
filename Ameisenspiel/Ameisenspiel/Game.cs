@@ -18,8 +18,8 @@ namespace Ameisenspiel {
         Log log = new Log("Game.cs");
         private int cyclesTotal;
         private int cyclesRemaining;
-        private int windowWidth;
-        private int windowHeight;
+        private int worldWidth;
+        private int worldHeight;
         private World world;
         private List<DisplayContent> displayContents;
         private List<DisplayContent> oldDisplayContents;
@@ -34,8 +34,8 @@ namespace Ameisenspiel {
             
         }
         public struct Settings {
-            public int windowWidth;
-            public int windowHeight;
+            public int worldWidth;
+            public int worldHeight;
             public int cycles;
             public int antCount;
         }
@@ -82,9 +82,9 @@ namespace Ameisenspiel {
         private void Initialise() {
 
             //adapt window size
-            windowHeight = DevelopmentGameSettings.GetWindowHeight();
-            windowWidth = DevelopmentGameSettings.GetWindowWidth();
-            Console.SetWindowSize(windowWidth+3, windowHeight+3);
+            worldHeight = Ameisenspiel.Configuration.GetWorldHeight();
+            worldWidth = Ameisenspiel.Configuration.GetWorldWidth();
+            Console.SetWindowSize(worldWidth+5, worldHeight+5);
             Console.Clear();
             if(this.world != null) {
                 this.world = null;
@@ -94,12 +94,12 @@ namespace Ameisenspiel {
                 //anyhow, this notifies the garbage collector that there is no reference to the object-instance
                 //anymore and it will get picked up faster like this.
             }
-            World.SetWorldProperties(windowWidth, windowHeight);
+            World.SetWorldProperties(worldWidth, worldHeight);
             this.world = new World();
         }
 
         public void GameMenu() {
-            Console.SetCursorPosition(0,this.windowHeight+2);
+            Console.SetCursorPosition(0,this.worldHeight+2);
             Console.WriteLine("Beliebe Taste drücken um zum Hauptmenu zu gelangen.");
 
             ConsoleKey key = Console.ReadKey(true).Key;
@@ -110,8 +110,8 @@ namespace Ameisenspiel {
             //Settings
             this.cyclesTotal = settings.cycles;
             this.cyclesRemaining = cyclesTotal;
-            this.windowHeight = settings.windowHeight;
-            this.windowWidth = settings.windowWidth;
+            this.worldHeight = settings.worldHeight;
+            this.worldWidth = settings.worldWidth;
 
             for (int antCount = 0; antCount < this.settings.antCount; antCount++) {
                 double percentage = ((double)antCount / (double)this.settings.antCount) * 100;
@@ -170,12 +170,46 @@ namespace Ameisenspiel {
             Console.CursorVisible = true;
             GameMenu();
         }
-        public void ChangeSettings(Settings newSettings) {
+        public void ChangeSettings(Configuration.GameSettings.Mode mode = Configuration.GameSettings.Mode.Standard) {
+            Settings newSettings = new Settings();
+            Configuration config = new Configuration();
+            switch (mode) {
+                case Configuration.GameSettings.Mode.Standard:
+                    newSettings.antCount = config.standard.antCount;
+                    newSettings.cycles = config.standard.cycles;
+                    newSettings.worldHeight = config.standard.worldHeight;
+                    newSettings.worldWidth = config.standard.worldWidth;
+                    break;
+                case Configuration.GameSettings.Mode.Double:
+                    newSettings.antCount = config.doubleLength.antCount;
+                    newSettings.cycles = config.doubleLength.cycles;
+                    newSettings.worldHeight = config.doubleLength.worldHeight;
+                    newSettings.worldWidth = config.doubleLength.worldWidth;
+                    break;
+                case Configuration.GameSettings.Mode.Demo:
+                    newSettings.antCount = config.demo.antCount;
+                    newSettings.cycles = config.demo.cycles;
+                    newSettings.worldHeight = config.demo.worldHeight;
+                    newSettings.worldWidth = config.demo.worldWidth;
+                    break;
+                case Configuration.GameSettings.Mode.Stress:
+                    newSettings.antCount = config.stress.antCount;
+                    newSettings.cycles = config.stress.cycles;
+                    newSettings.worldHeight = config.stress.worldHeight;
+                    newSettings.worldWidth = config.stress.worldWidth;
+                    break;
+                case Configuration.GameSettings.Mode.Bigworld:
+                    newSettings.antCount = config.bigworld.antCount;
+                    newSettings.cycles = config.bigworld.cycles;
+                    newSettings.worldHeight = config.bigworld.worldHeight;
+                    newSettings.worldWidth = config.bigworld.worldWidth;
+                    break;
+            }
 
-            //cycles
-            if (newSettings.cycles > 0 && newSettings.cycles < 1000000) {
+
+            if (newSettings.cycles > 0 && newSettings.cycles <= 9999999) {
                 this.settings.cycles = newSettings.cycles;
-                log.Add("ChangeSettings(): cycles changed to: " + settings.cycles);
+                log.Add("ChangeSettings(): cycles changed to: " + this.settings.cycles);
             } else {
                 log.AddWarning("ChangeSettings(): cycles not changed, out of range: " + newSettings.cycles);
             }
@@ -183,35 +217,35 @@ namespace Ameisenspiel {
             //antCount
             if (newSettings.antCount > 0 && newSettings.antCount < 10000) {
                 this.settings.antCount = newSettings.antCount;
-                log.Add("ChangeSettings(): antCount changed to: " + settings.antCount);
+                log.Add("ChangeSettings(): antCount changed to: " + this.settings.antCount);
             }
             else {
                 log.AddWarning("ChangeSettings(): antCount not changed, out of range: " + newSettings.antCount);
             }
 
             //WindowWidth
-            if (newSettings.windowWidth > 20 && newSettings.windowWidth < 500) {
-                this.settings.windowWidth = newSettings.windowWidth;
-                log.Add("ChangeSettings(): windowWidth changed to: " + settings.windowWidth);
+            if (newSettings.worldWidth > 20 && newSettings.worldWidth < 500) {
+                this.settings.worldWidth = newSettings.worldWidth;
+                log.Add("ChangeSettings(): windowWidth changed to: " + this.settings.worldWidth);
             }
             else {
-                log.AddWarning("ChangeSettings(): windowWidth not changed, out of range: " + newSettings.windowWidth);
+                log.AddWarning("ChangeSettings(): windowWidth not changed, out of range: " + newSettings.worldWidth);
             }
 
             //WindowHeight
-            if (newSettings.windowHeight > 20 && newSettings.windowHeight < 500) {
-                this.settings.windowHeight = newSettings.windowHeight;
-                log.Add("ChangeSettings(): windowHeight changed to: " + settings.windowHeight);
+            if (newSettings.worldHeight > 20 && newSettings.worldHeight < 500) {
+                this.settings.worldHeight = newSettings.worldHeight;
+                log.Add("ChangeSettings(): windowHeight changed to: " + this.settings.worldHeight);
             }
             else {
-                log.AddWarning("ChangeSettings(): windowHeight not changed, out of range: " + newSettings.windowHeight);
+                log.AddWarning("ChangeSettings(): windowHeight not changed, out of range: " + newSettings.worldHeight);
             }
         }
         public void SetDefaultSettings() {
             this.settings.cycles = 5000;
             this.settings.antCount = 100;
-            this.settings.windowWidth = 85;
-            this.settings.windowHeight = 25;
+            this.settings.worldWidth = Ameisenspiel.Configuration.GetWorldWidth();
+            this.settings.worldHeight = Ameisenspiel.Configuration.GetWorldHeight();
         }
 
         private void UpdateDisplayContent() {
@@ -229,8 +263,8 @@ namespace Ameisenspiel {
                 //Console.Write(" ");
             }
             double remainingPercent = ( (double)cyclesRemaining / (double)cyclesTotal ) * 100;
-            displayContents.Add(new DisplayContent(0, windowHeight+1, "Remaining: " + (int)remainingPercent + "% (" +cyclesTotal +" cycles)", Entity.Color.Blue));
-            displayContents.Add(new DisplayContent(40, windowHeight + 1, "Alive: " + antsAlive + " (" + settings.antCount + " start)", Entity.Color.Blue));
+            displayContents.Add(new DisplayContent(0, worldHeight+1, "Remaining: " + (int)remainingPercent + "% (" +cyclesTotal +" cycles)", Entity.Color.Blue));
+            displayContents.Add(new DisplayContent(40, worldHeight + 1, "Alive: " + antsAlive + " (" + settings.antCount + " start)", Entity.Color.Blue));
             //the displayContent gets told: draw at this point xy symbol Z
             //if we change an entities position we search the displaycontent for its old position and change that entry
 
@@ -269,8 +303,8 @@ namespace Ameisenspiel {
         //keep for idea
         public void SetAntRandomly() {
             Random rand = new Random();
-            int randX = rand.Next(1, this.windowWidth);
-            int randY = rand.Next(1, this.windowHeight);
+            int randX = rand.Next(1, this.worldWidth);
+            int randY = rand.Next(1, this.worldHeight);
             
             Ant ant = new Ant(randX, randY);
         }

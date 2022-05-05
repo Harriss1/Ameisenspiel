@@ -24,7 +24,7 @@ namespace Ameisenspiel {
         static void Main(string[] args) {
             
 
-            if (DevelopmentGameSettings.GetAutorun()) {
+            if (Configuration.GetAutorun()) {
                 DevelopmentAutorun();
             }
 
@@ -49,19 +49,22 @@ namespace Ameisenspiel {
 
                     //Lange Simulation, 20000 Zyklen (c.a. 2 Minuten)
                     case 2:
-                        RunGame(2);
+                        RunGame(Configuration.GameSettings.Mode.Double);
                         break;
 
                     //5 Ameisen
                     case 3:
-                        RunGame(3);
+                        RunGame(Configuration.GameSettings.Mode.Demo);
                         break;
 
                     //200 Ameisen, 999998 Zyklen
                     case 4:
-                        RunGame(4);
+                        RunGame(Configuration.GameSettings.Mode.Stress);
                         break;
 
+                    case 5:
+                        RunGame(Configuration.GameSettings.Mode.Bigworld);
+                        break;
                     //Programmende
                     case 0:
                         Console.WriteLine("Programmende.");
@@ -82,12 +85,14 @@ namespace Ameisenspiel {
         }
 
         private static int SelectFromMainMenu() {
+            Configuration config = new Configuration();
             Console.WriteLine();
             Console.WriteLine("Bitte drücken Sie eine Zahl zur Auswahl:");
-            Console.WriteLine("(1) Standard Spiel - 100 Ameisen mit 15000 Zyklen = 150 Sekunden");
-            Console.WriteLine("(2) Längere Simulation - 150 Ameisen, 25000 Zyklen (c.a. 4 Minuten)");
-            Console.WriteLine("(3) 5 Ameisen, 100 Zyklen");
-            Console.WriteLine("(4) 200 Ameisen, 999.998 Zyklen");
+            Console.WriteLine("(1) " + config.standard.title + ": " + config.standard.description + " (5000 entsprechen ca. 1 Minute).");
+            Console.WriteLine("(2) " + config.doubleLength.title + ": " + config.doubleLength.description);
+            Console.WriteLine("(3) " + config.demo.title + ": " + config.demo.description);
+            Console.WriteLine("(4) " + config.stress.title + ": " + config.stress.description);
+            Console.WriteLine("(5) " + config.bigworld.title + ": " + config.bigworld.description);
             Console.WriteLine("(0) Programm beenden");
             Console.WriteLine();
 
@@ -122,6 +127,12 @@ namespace Ameisenspiel {
                 case ConsoleKey.NumPad4:
                     return 4;
 
+                //Regenfall.txt generieren
+                case ConsoleKey.D5:
+                    return 5;
+                case ConsoleKey.NumPad5:
+                    return 5;
+
                 //Programmende
                 case ConsoleKey.D0:
                     return 0;
@@ -147,30 +158,10 @@ namespace Ameisenspiel {
 
         }
 
-        private static void RunGame(int gameMode = 1) {
+        private static void RunGame(Configuration.GameSettings.Mode gameMode = Configuration.GameSettings.Mode.Standard) {
             Game game = new Game();
             
-            Game.Settings settings = new Game.Settings();
-            if(gameMode == 1) {
-                //Standard Settings siehe Game.cs
-            }
-            if (gameMode == 2) {
-                //Lange Simulation, 2.000 Zyklen (c.a. 2 Minuten)
-                settings.cycles = 10000;
-                settings.antCount = 150;
-            }
-            if (gameMode == 3) {
-                //5 Ameisen
-                settings.antCount = 5;
-                settings.cycles = 2000;
-            }
-            if (gameMode == 4) {
-                //200 Ameisen, 999998 Zyklen
-                settings.antCount = 200;
-                settings.cycles = 999998;
-            }
-
-            game.ChangeSettings(settings);
+            game.ChangeSettings(gameMode);
             game.RunGame();
         }
     }
