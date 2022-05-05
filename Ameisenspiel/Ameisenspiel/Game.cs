@@ -109,12 +109,20 @@ namespace Ameisenspiel {
             this.windowWidth = settings.windowWidth;
 
             for (int antCount = 0; antCount < this.settings.antCount; antCount++) {
-                Ant ant = new Ant(40,15);
-                world.AddEntity(ant);
+                double percentage = ((double)antCount / (double)this.settings.antCount) * 100;
+                log.Add("percentage = " + percentage);
+                if (percentage <= 80) {
+                    Ant ant = new Ant(40, 15);
+                    world.AddEntity(ant);
+
+                } else {
+                    WorkerAnt ant = new WorkerAnt(40, 15);
+                    world.AddEntity(ant);
+                    log.Add("added worker");
+                }
             }
 
-            Ant queen = new Ant(40, 15);
-            queen.SetQueen();
+            QueenAnt queen = new QueenAnt(40, 15);
             Hive hive = new Hive(40, 15);
             world.AddEntity(queen);
             world.AddEntity(hive);
@@ -125,7 +133,11 @@ namespace Ameisenspiel {
             for (int i = 0; i < this.cyclesRemaining; i++) {
                 List<Entity> deletableEntities = new List<Entity>();
                 foreach(Entity entity in this.world.GetContent()) {
-                    if (entity.GetEntitySymbol() == "@") {
+                    
+                    if (entity.GetType().Name == typeof(Ant).Name
+                        || entity.GetType().Name == typeof(WorkerAnt).Name
+                        || entity.GetType().Name == typeof(QueenAnt).Name
+                        ) {
                         entity.MoveOneIntelligent();
                         entity.PassOneCycle();
                     }

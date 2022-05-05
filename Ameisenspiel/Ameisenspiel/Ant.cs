@@ -9,9 +9,9 @@ namespace Ameisenspiel {
         protected bool isAlive;
         protected AntType antType;
         protected int energy;
-        private int hiveCoordinateX;
-        private int hiveCoordinateY;
-        private int maxAge;
+        protected int hiveCoordinateX;
+        protected int hiveCoordinateY;
+        protected int maxAge;
         Log log = new Log("Ant.cs");
         public enum AntType {
             Standard = 0,
@@ -32,19 +32,16 @@ namespace Ameisenspiel {
             this.speed = 40;
         }
 
-        public void SetQueen() {
-            this.antType = AntType.Queen;
-            this.canMoveOnItsOwn = false;
-            this.maxAge = GetRandomLevel(400000, 600000);
-            this.speed = 0;
-        }
-
-        private int GetRandomLevel(int minLevel, int maxLevel) {
+        protected int GetRandomLevel(int minLevel, int maxLevel) {
             return rand.Next(minLevel, maxLevel);
         }
 
-        private void ReplenishEnergy() {
+        virtual protected void HiveVisit() {
+            ReplenishEnergy();
+        }
+        protected void ReplenishEnergy() {
             this.energy = GetRandomLevel(500, 5000);
+            entityColor = Color.Green;
         }
 
         override public void PassOneCycle() {
@@ -56,8 +53,7 @@ namespace Ameisenspiel {
                 }
             }
             if (GetX() == hiveCoordinateX && GetY() == hiveCoordinateY) {
-                ReplenishEnergy();
-                entityColor = Color.Green;
+                HiveVisit();
             }
             if(energy < 1000 && energy >= 500) {
                 entityColor = Color.DarkYellow;
@@ -83,7 +79,7 @@ namespace Ameisenspiel {
             }
         }
 
-        private void MoveOneTowards(int destinationX, int destinationY) {
+        protected void MoveOneTowards(int destinationX, int destinationY) {
 
             //the ant simulates a shortest route with this algorithm
             int diffX = destinationX - this.x;
