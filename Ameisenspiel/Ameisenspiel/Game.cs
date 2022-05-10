@@ -14,6 +14,8 @@ namespace Ameisenspiel {
         Log log = new Log("Game.cs");
         private int cyclesTotal;
         private int cyclesRemaining;
+
+        //Todo@ dreifach genutzt mit Datenstruktur struct und Configuration.
         private int worldWidth;
         private int worldHeight;
         private World world;

@@ -24,7 +24,7 @@ namespace Ameisenspiel {
         //Standard Settings
         private static int stdWorldWidth = 85;
         private static int stdWorldHeight = 25;
-        private static int stdCycles = 5000;
+        private static int stdCycles = 5000; // = 1.05 Minuten > entspricht 50 Sekunden plus Rechenzeit 15 Sekunden (core i7)
         private static int stdAntCount = 100;
 
         //Game Settings for each Mode
@@ -48,7 +48,7 @@ namespace Ameisenspiel {
             //Default = Standard Settings
             public GameSettings(bool useStandard) {
                 this.type = Mode.Standard;
-                this.cycles = stdCycles; // = 1.05 Minuten > entspricht 50 Sekunden plus Rechenzeit 15 Sekunden
+                this.cycles = stdCycles; 
                 this.antCount = stdAntCount;
                 this.worldWidth = stdWorldWidth;
                 this.worldHeight = stdWorldHeight;
