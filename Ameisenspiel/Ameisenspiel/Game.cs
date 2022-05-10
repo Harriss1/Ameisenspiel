@@ -5,12 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 /// <summary>
-/// Responsible for handling Input/Output and Savegames
-/// The goal is to have a class, that can be changed
-/// GameSimulation and related subclasses should not be changed if I use other interfaces
-/// change of plan: I am not outsourcing IO, the code gets too complicated 
-///     (draw/remove single ant requires observers or long chains)
-
+/// Responsible for handling Input/Output and game logic
+/// Optional Goal: GameSimulation and related subclasses should not be changed if I use other interfaces
 /// </summary>
 
 namespace Ameisenspiel {
@@ -36,7 +32,7 @@ namespace Ameisenspiel {
         public struct Settings {
             public int worldWidth;
             public int worldHeight;
-            public int cycles;
+            public int cyclesTotal;
             public int antCount;
         }
 
@@ -82,10 +78,8 @@ namespace Ameisenspiel {
         private void Initialise() {
 
             //adapt window size
-            worldHeight = Ameisenspiel.Configuration.GetWorldHeight();
-            worldWidth = Ameisenspiel.Configuration.GetWorldWidth();
-            Console.SetWindowSize(worldWidth+5, worldHeight+5);
-            Console.Clear();
+            log.Add("Initialise(): worldWidth="+worldWidth + "worldHeight=" + worldHeight);
+            
             if(this.world != null) {
                 this.world = null;
                 //With this command, you set the car reference to null,
@@ -106,16 +100,19 @@ namespace Ameisenspiel {
 
         }
         public void RunGame() {
+            //@todo: [12:06:10.2113426] Info[Game.cs]:RunGame(): SetwindowSize<> worldWidth = 0worldHeight = 0
+            log.Add("RunGame(): SetwindowSize<> worldWidth=" + worldWidth + "worldHeight=" + worldHeight);
+            Console.SetWindowSize(worldWidth + 5, worldHeight + 5);
+            Console.Clear();
 
             //Settings
-            this.cyclesTotal = settings.cycles;
+            this.cyclesTotal = settings.cyclesTotal;
             this.cyclesRemaining = cyclesTotal;
             this.worldHeight = settings.worldHeight;
             this.worldWidth = settings.worldWidth;
 
             for (int antCount = 0; antCount < this.settings.antCount; antCount++) {
                 double percentage = ((double)antCount / (double)this.settings.antCount) * 100;
-                log.Add("percentage = " + percentage);
                 if (percentage <= 80) {
                     Ant ant = new Ant(40, 15);
                     world.AddEntity(ant);
@@ -123,7 +120,6 @@ namespace Ameisenspiel {
                 } else {
                     WorkerAnt ant = new WorkerAnt(40, 15);
                     world.AddEntity(ant);
-                    log.Add("added worker");
                 }
                 antsAlive++;
             }
@@ -131,6 +127,7 @@ namespace Ameisenspiel {
             QueenAnt queen = new QueenAnt(40, 15);
             Hive hive = new Hive(40, 15);
             world.AddEntity(queen);
+            antsAlive++;
             world.AddEntity(hive);
 
             //MainLoop
@@ -176,42 +173,44 @@ namespace Ameisenspiel {
             switch (mode) {
                 case Configuration.GameSettings.Mode.Standard:
                     newSettings.antCount = config.standard.antCount;
-                    newSettings.cycles = config.standard.cycles;
+                    newSettings.cyclesTotal = config.standard.cycles;
                     newSettings.worldHeight = config.standard.worldHeight;
                     newSettings.worldWidth = config.standard.worldWidth;
                     break;
                 case Configuration.GameSettings.Mode.Double:
                     newSettings.antCount = config.doubleLength.antCount;
-                    newSettings.cycles = config.doubleLength.cycles;
+                    newSettings.cyclesTotal = config.doubleLength.cycles;
                     newSettings.worldHeight = config.doubleLength.worldHeight;
                     newSettings.worldWidth = config.doubleLength.worldWidth;
                     break;
                 case Configuration.GameSettings.Mode.Demo:
                     newSettings.antCount = config.demo.antCount;
-                    newSettings.cycles = config.demo.cycles;
+                    newSettings.cyclesTotal = config.demo.cycles;
                     newSettings.worldHeight = config.demo.worldHeight;
                     newSettings.worldWidth = config.demo.worldWidth;
                     break;
                 case Configuration.GameSettings.Mode.Stress:
                     newSettings.antCount = config.stress.antCount;
-                    newSettings.cycles = config.stress.cycles;
+                    newSettings.cyclesTotal = config.stress.cycles;
                     newSettings.worldHeight = config.stress.worldHeight;
                     newSettings.worldWidth = config.stress.worldWidth;
                     break;
                 case Configuration.GameSettings.Mode.Bigworld:
                     newSettings.antCount = config.bigworld.antCount;
-                    newSettings.cycles = config.bigworld.cycles;
+                    newSettings.cyclesTotal = config.bigworld.cycles;
                     newSettings.worldHeight = config.bigworld.worldHeight;
                     newSettings.worldWidth = config.bigworld.worldWidth;
                     break;
             }
 
-
-            if (newSettings.cycles > 0 && newSettings.cycles <= 9999999) {
-                this.settings.cycles = newSettings.cycles;
-                log.Add("ChangeSettings(): cycles changed to: " + this.settings.cycles);
+            //FEHLER HIER KORRIGIEREN @TODO
+            //FEHLER
+            //FEHLER
+            if (newSettings.cyclesTotal > 0 && newSettings.cyclesTotal <= 9999999) {
+                this.settings.cyclesTotal = newSettings.cyclesTotal;
+                log.Add("ChangeSettings(): cycles changed to: " + this.settings.cyclesTotal);
             } else {
-                log.AddWarning("ChangeSettings(): cycles not changed, out of range: " + newSettings.cycles);
+                log.AddWarning("ChangeSettings(): cycles not changed, out of range: " + newSettings.cyclesTotal);
             }
 
             //antCount
@@ -242,10 +241,10 @@ namespace Ameisenspiel {
             }
         }
         public void SetDefaultSettings() {
-            this.settings.cycles = 5000;
-            this.settings.antCount = 100;
-            this.settings.worldWidth = Ameisenspiel.Configuration.GetWorldWidth();
-            this.settings.worldHeight = Ameisenspiel.Configuration.GetWorldHeight();
+            this.settings.cyclesTotal = Configuration.GetSdtCycles();
+            this.settings.antCount = Configuration.GetStdAntCount();
+            this.settings.worldWidth = Configuration.GetStdWorldWidth();
+            this.settings.worldHeight = Configuration.GetStdWorldHeight();
         }
 
         private void UpdateDisplayContent() {
@@ -264,7 +263,7 @@ namespace Ameisenspiel {
             }
             double remainingPercent = ( (double)cyclesRemaining / (double)cyclesTotal ) * 100;
             displayContents.Add(new DisplayContent(0, worldHeight+1, "Remaining: " + (int)remainingPercent + "% (" +cyclesTotal +" cycles)", Entity.Color.Blue));
-            displayContents.Add(new DisplayContent(40, worldHeight + 1, "Alive: " + antsAlive + " (" + settings.antCount + " start)", Entity.Color.Blue));
+            displayContents.Add(new DisplayContent(40, worldHeight + 1, "Alive: " + antsAlive + " (" + settings.antCount+1 + " start)", Entity.Color.Blue));
             //the displayContent gets told: draw at this point xy symbol Z
             //if we change an entities position we search the displaycontent for its old position and change that entry
 

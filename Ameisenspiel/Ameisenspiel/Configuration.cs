@@ -21,9 +21,11 @@ namespace Ameisenspiel {
         //Autorun
         private static bool autorun = false;
 
-        //Standard World Width+Height
+        //Standard Settings
         private static int stdWorldWidth = 85;
         private static int stdWorldHeight = 25;
+        private static int stdCycles = 5000;
+        private static int stdAntCount = 100;
 
         //Game Settings for each Mode
         public struct GameSettings {
@@ -43,11 +45,11 @@ namespace Ameisenspiel {
             public string description;
             public string title;
 
-            //Default Settings
+            //Default = Standard Settings
             public GameSettings(bool useStandard) {
                 this.type = Mode.Standard;
-                this.cycles = 5000; // = 1.05 Minuten > entspricht 50 Sekunden plus Rechenzeit 15 Sekunden
-                this.antCount = 100;
+                this.cycles = stdCycles; // = 1.05 Minuten > entspricht 50 Sekunden plus Rechenzeit 15 Sekunden
+                this.antCount = stdAntCount;
                 this.worldWidth = stdWorldWidth;
                 this.worldHeight = stdWorldHeight;
                 this.title = "Standard";
@@ -117,12 +119,20 @@ namespace Ameisenspiel {
             return autorun;
         }
 
-        public static int GetWorldWidth() {
+        public static int GetStdWorldWidth() {
             return stdWorldWidth;
         }
 
-        public static int GetWorldHeight() {
+        public static int GetStdWorldHeight() {
             return stdWorldHeight;
+        }
+
+        public static int GetSdtCycles() {
+            return stdCycles;
+        }
+
+        public static int GetStdAntCount() {
+            return stdAntCount;
         }
     }
 }
