@@ -8,20 +8,19 @@ using System.Threading.Tasks;
 
 namespace Ameisenspiel {
     internal class Configuration {
-        //Hier wird zentral festgelegt, ob wir die Development Settings nutzen
-        private static bool settingsActive = true;
+        //Hier wird manuell festgelegt, ob wir die Development Settings nutzen
+        private static bool devSettingsActive = true;
+        private static bool debugActive = false;
+        private static bool devAutorun = false; //wird nur genutzt falls devSettingsActive=true;
 
         public Configuration() {
-            if (!settingsActive) {
-                autorun = stdAutorun;
+            if (!devSettingsActive) {
+                devAutorun = stdAutorun;
             }
             SetSettings();
         }
 
-        //Autorun
-        private static bool autorun = false;
-
-        //Standard Settings
+        //Standard Game Settings
         private static int stdWorldWidth = 85;
         private static int stdWorldHeight = 25;
         private static int stdCycles = 5000; // = 1.05 Minuten > entspricht 50 Sekunden plus Rechenzeit 15 Sekunden (core i7)
@@ -116,7 +115,11 @@ namespace Ameisenspiel {
         /////////////////////////////////////////////////////////////
         //GETTER (es darf keine Setter geben)
         public static bool GetAutorun() {
-            return autorun;
+            return devAutorun;
+        }
+
+        public static bool GetDebugActive() {
+            return debugActive;
         }
 
         public static int GetStdWorldWidth() {

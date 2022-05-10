@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Ameisenspiel {
     internal class WorkerAnt : Ant {
-        private int carryStrength;
-        private int carryCount;
+        protected int carryStrength;
+        protected int carryCount;
         Log log = new Log("WorkerAnt.cs");
         public WorkerAnt(int xPos, int yPos) : base(xPos, yPos) {
             this.isAlive = true;

@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ant.cs" />
+    <Compile Include="DebugAnt.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Configuration.cs" />

@@ -8,23 +8,19 @@ using System.Threading.Tasks;
 
 namespace Ameisenspiel {
     internal class Entity {
-        //Wie gebe ich Entity beim Deklarieren eines Objekts auch die Art der Entity (Hinderniss/Ameise/Headquarter) mit?
-        //->erstmal gar nicht...
         protected int x;
         protected int y;
-        protected int oldX;
-        protected int oldY;
         protected int age; //this will make the game crash if it runs too long, but only if we run it for longer than 58 billion years
-        //protected int facingAngleDirection;
-        //protected CoordinateDirection faceCoordinateDirection; //direction by x-y coordinate
         protected bool isDestroyable;
-        protected bool updated;
         protected bool canMoveOnItsOwn;
         protected String entitySymbol;
         protected Color entityColor;
 
+        protected static Random rand;
+        
         //speed calculation:
-        //example: start=100 -> start distance=100, speed=10, every cycle we remove 10 speed from distance, at distance=zero we move one square and reset distance to 100
+        //example: start=100 -> start distance=100, speed=10, every cycle we remove 10 speed from distance,
+        //at distance=zero we move one square and reset distance to 100
         protected int speed;
         protected int speedStartDistance;
         protected int speedDistanceRemaining;  
@@ -44,13 +40,9 @@ namespace Ameisenspiel {
             DarkGray = 11,
         }
 
-        protected static Random rand = new Random();
         public Entity(int xPos, int yPos) { //we can only directly set x+y via constructor, not during game simulation
             this.x = xPos;
-            this.oldX = xPos;
             this.y = yPos;
-            this.oldY = yPos;
-            this.updated = true;
             this.isDestroyable = false;
             this.canMoveOnItsOwn = false;
             this.age = 0;
@@ -59,17 +51,9 @@ namespace Ameisenspiel {
             this.speedStartDistance = 1000; 
             this.speedDistanceRemaining = 0;
             SetEntitySymbol(" ");
-            //this.SetFacingAngleDirection(random.Next(1, 360));
+            rand = new Random();
         }
-        
-
-        private void SetPosition(int x, int y) {
-            oldY = this.y;
-            oldX = this.x;
-            this.x = x;
-            this.y = y;
-        }
-        
+                
         virtual public void PassOneCycle() {
             //override this class inside inherited classes to make energy depleting happen or anything.
             //implement possible Entity relevant methods here
@@ -80,40 +64,26 @@ namespace Ameisenspiel {
         }
 
         public void MoveOneLeft() {
-            oldX = this.x;
             if (this.x != 1 && this.canMoveOnItsOwn) {
                 this.x--;
             }
         }
 
         public void MoveOneRight() {
-            oldX = this.x;
-            if (this.y != World.GetWorldWidth() && this.canMoveOnItsOwn) {
+            if (this.x != World.GetWorldWidth() && this.canMoveOnItsOwn) {
                 this.x++;
             }
         }
 
         public void MoveOneDown() {
-            oldY = this.y;
             if (this.y != World.GetWorldHeight() && this.canMoveOnItsOwn) {
                 this.y++;
             }
         }
         public void MoveOneUp() {
-            oldY = this.y;
             if (this.y != 1 && this.canMoveOnItsOwn) {
                 this.y--;
             }
-        }
-
-        protected void SetEmpty() {
-            this.isDestroyable = true;
-        }
-        public int GetOldX() {
-            return this.oldX;
-        }
-        public int GetOldY() {
-            return this.oldY;
         }
 
         public String GetEntitySymbol() {
@@ -124,28 +94,13 @@ namespace Ameisenspiel {
             this.entitySymbol = entitySymbol;
         }
 
-        private void SetPosX(int x) {
-            oldX = this.x;
-            this.x = x;
-        }
         public int GetX() {
             return x;
-        }
-        private void SetPosY(int y) {
-            oldY = this.y;
-            this.y = y;
         }
         public int GetY() {
             return y;
         }
-        public void SetUpdated(bool updated) {
-            this.updated = updated;
-        }
-        public bool GetUpdated() {
-            return this.updated;
-        }
         public void MoveOneRandom() {
-            this.SetUpdated(true);
             int selectRandom = rand.Next(1, 5);
             switch (selectRandom) {
                 case 1:
@@ -166,7 +121,6 @@ namespace Ameisenspiel {
                 default:
                     //report bug
                     break;
-
             }
         }
 

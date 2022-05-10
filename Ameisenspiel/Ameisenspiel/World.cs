@@ -13,50 +13,38 @@ using System.Threading.Tasks;
 /// </summary>
 namespace Ameisenspiel {
     internal class World {
-        private Log log = new Log("World.cs");
-        protected static int width=85;
-        protected static int height=25;
+
+        //Width and Height are used across the Entity-Objects and must have the same value across all generated objects.
+        //I am not using a Configuration-object, because this makes changes even harder later on.
+        protected static int width;
+        protected static int height;
+
+        private Log log;
         protected Random random;
 
         protected List<Entity> worldContent = new List<Entity>();
-        public World() {
+
+        //Standard World size declared here for reference
+        public World() : this (85, 25) {
+        }
+
+        public World(int width, int height) {
+            World.width = width;
+            World.height = height;
             this.random = new Random();
+            log = new Log("World.cs");
+            log.Add("Konstructor(): width=" + World.width + " height=" + World.height);
         }
         public static void SetWorldProperties(int width, int height) {
             World.width = width;
             World.height = height;
         }
         public static int GetWorldWidth() {
-            return width;
+            return World.width;
         }
         public static int GetWorldHeight() {
-            return height;
+            return World.height;
         }
-        /*
-        public struct Position {
-            public int x;
-            public int y;
-            public Entity entity;
-            //@todo: drawsymbol as well?
-            public bool destroyNow;
-            public Position(int x, int y, Entity entity) {
-                this.x = x; this.y = y; 
-                
-                this.entity = entity; 
-                
-                destroyNow = false;
-            }
-        }
-        */
-        /*
-        public World() {
-            //Standardwerte ist Kommandozeilenfensterbreite
-            this.width = 80;
-            this.height = 25;
-            this.random = new Random();
-        }
-        */
-
         public bool AddEntity(Entity entity) {
             bool coordinateError = false;
             if (entity.GetX() > World.width || entity.GetX() < 0) {

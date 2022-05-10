@@ -6,30 +6,23 @@ using System.Threading.Tasks;
 
 /// <summary>
 /// Responsible for handling Input/Output and game logic
-/// Optional Goal: GameSimulation and related subclasses should not be changed if I use other interfaces
+/// Optional Goal: GameSimulation and related subclasses should not be changed if I use another interfaces
 /// </summary>
 
 namespace Ameisenspiel {
     internal class Game {
         Log log = new Log("Game.cs");
-        private int cyclesTotal;
         private int cyclesRemaining;
-
-        //Todo@ dreifach genutzt mit Datenstruktur struct und Configuration.
-        private int worldWidth;
-        private int worldHeight;
         private World world;
-        private List<DisplayContent> displayContents;
-        private List<DisplayContent> oldDisplayContents;
+        private List<DisplayPoint> displayContents;
+        private List<DisplayPoint> oldDisplayContents;
         private Settings settings;
         private int antsAlive;
         public Game() {
-            this.cyclesTotal = 1;
-            this.displayContents = new List<DisplayContent>();
-            this.oldDisplayContents = new List<DisplayContent>();
+            settings.cyclesTotal = 1;
+            displayContents = new List<DisplayPoint>();
+            oldDisplayContents = new List<DisplayPoint>();
             SetDefaultSettings();
-            Initialise();
-            
         }
         public struct Settings {
             public int worldWidth;
@@ -38,14 +31,14 @@ namespace Ameisenspiel {
             public int antCount;
         }
 
-        public class DisplayContent
+        public class DisplayPoint
             {
             public int x;
             public int y;
             public string symbol;
             public ConsoleColor symbolColor;
             public bool awaitsDrawing;
-            public DisplayContent(int x, int y, string symbol, Entity.Color symbolColor) {
+            public DisplayPoint(int x, int y, string symbol, Entity.Color symbolColor) {
                 this.x = x;
                 this.y = y;
                 this.symbol = symbol;
@@ -76,13 +69,16 @@ namespace Ameisenspiel {
             }
         }
 
+        public void GameMenu() {
+            Console.SetCursorPosition(1,settings.worldHeight+3);
+            Console.WriteLine("Beliebe Taste drücken um zum Hauptmenu zu gelangen.");
 
-        private void Initialise() {
+            ConsoleKey key = Console.ReadKey(true).Key;
 
-            //adapt window size
-            log.Add("Initialise(): worldWidth="+worldWidth + "worldHeight=" + worldHeight);
-            
-            if(this.world != null) {
+        }
+        public void RunGame() {
+
+            if (this.world != null) {
                 this.world = null;
                 //With this command, you set the car reference to null,
                 //if there is other references to the same object they will still point to the same object. 
@@ -90,28 +86,13 @@ namespace Ameisenspiel {
                 //anyhow, this notifies the garbage collector that there is no reference to the object-instance
                 //anymore and it will get picked up faster like this.
             }
-            World.SetWorldProperties(worldWidth, worldHeight);
-            this.world = new World();
-        }
+            this.world = new World(settings.worldWidth, settings.worldHeight);
 
-        public void GameMenu() {
-            Console.SetCursorPosition(0,this.worldHeight+2);
-            Console.WriteLine("Beliebe Taste drücken um zum Hauptmenu zu gelangen.");
-
-            ConsoleKey key = Console.ReadKey(true).Key;
-
-        }
-        public void RunGame() {
-            //@todo: [12:06:10.2113426] Info[Game.cs]:RunGame(): SetwindowSize<> worldWidth = 0worldHeight = 0
-            log.Add("RunGame(): SetwindowSize<> worldWidth=" + worldWidth + "worldHeight=" + worldHeight);
-            Console.SetWindowSize(worldWidth + 5, worldHeight + 5);
+            log.Add("RunGame(): SetwindowSize<> worldWidth=" + settings.worldWidth + "worldHeight=" + settings.worldHeight);
+            Console.SetWindowSize(settings.worldWidth + 5, settings.worldHeight + 5);
             Console.Clear();
 
-            //Settings
-            this.cyclesTotal = settings.cyclesTotal;
-            this.cyclesRemaining = cyclesTotal;
-            this.worldHeight = settings.worldHeight;
-            this.worldWidth = settings.worldWidth;
+            this.cyclesRemaining = settings.cyclesTotal;
 
             for (int antCount = 0; antCount < this.settings.antCount; antCount++) {
                 double percentage = ((double)antCount / (double)this.settings.antCount) * 100;
@@ -127,15 +108,27 @@ namespace Ameisenspiel {
             }
 
             QueenAnt queen = new QueenAnt(40, 15);
-            Hive hive = new Hive(40, 15);
             world.AddEntity(queen);
             antsAlive++;
+
+            Hive hive = new Hive(40, 15);
             world.AddEntity(hive);
+
+            DebugAnt debugAnt1 = new DebugAnt(30, 10);
+            DebugAnt debugAnt2 = new DebugAnt(30, 10);
+            DebugAnt debugAnt3 = new DebugAnt(30, 10);
+            DebugAnt debugAnt4 = new DebugAnt(30, 10);
+            if (Configuration.GetDebugActive()) {
+                world.AddEntity(debugAnt1);
+                world.AddEntity(debugAnt2);
+                world.AddEntity(debugAnt3);
+                world.AddEntity(debugAnt4);
+            }
 
             //MainLoop
             Console.CursorVisible = false;
             int loopDrawTimer = 5;
-            for (int i = 0; i < this.cyclesTotal; i++) {
+            for (int i = 0; i < settings.cyclesTotal; i++) {
                 this.cyclesRemaining--;
                 List<Entity> deletableEntities = new List<Entity>();
                 foreach(Entity entity in this.world.GetContent()) {
@@ -143,6 +136,7 @@ namespace Ameisenspiel {
                     if (entity.GetType().Name == typeof(Ant).Name
                         || entity.GetType().Name == typeof(WorkerAnt).Name
                         || entity.GetType().Name == typeof(QueenAnt).Name
+                        || entity.GetType().Name == typeof(DebugAnt).Name
                         ) {
                         entity.MoveOneIntelligent();
                         entity.PassOneCycle();
@@ -158,7 +152,7 @@ namespace Ameisenspiel {
                 if (loopDrawTimer <= 0) {
                     UpdateDisplayContent();
                     //Listenforkeys
-                    DrawDisplayContent();
+                    DrawGame();
                     loopDrawTimer = 5;
                 } else {
                     loopDrawTimer--;
@@ -169,6 +163,13 @@ namespace Ameisenspiel {
             Console.CursorVisible = true;
             GameMenu();
         }
+
+        //wirft folgendes Problem auf: Falls man vom Konstruktor aus eine World initialisiert wird diese mit
+        //der Standardgröße erstellt. Changesettings() ändert diese Größe nicht nachträglich.
+        //Deshalb muss das World-Objekt z.B. in RunGame() initialisiert werden, und darf nicht im Konstruktor erstellt werden.
+        //Dadurch dass ich aber World nicht im Konstruktor initialisiere, kann ich außerhalb von RunGame() diese nicht ändern!
+        //Ich kann also nicht vor einem Spiel Entitäten manuell hinzufügen, z.B. innerhalb des Konstruktors.
+        //auch ein Gespeicherter Spielstand kann somit nicht von außerhalb geladen werden durch den Konstruktor...
         public void ChangeSettings(Configuration.GameSettings.Mode mode = Configuration.GameSettings.Mode.Standard) {
             Settings newSettings = new Settings();
             Configuration config = new Configuration();
@@ -205,9 +206,7 @@ namespace Ameisenspiel {
                     break;
             }
 
-            //FEHLER HIER KORRIGIEREN @TODO
-            //FEHLER
-            //FEHLER
+            //cycles
             if (newSettings.cyclesTotal > 0 && newSettings.cyclesTotal <= 9999999) {
                 this.settings.cyclesTotal = newSettings.cyclesTotal;
                 log.Add("ChangeSettings(): cycles changed to: " + this.settings.cyclesTotal);
@@ -250,31 +249,45 @@ namespace Ameisenspiel {
         }
 
         private void UpdateDisplayContent() {
-            oldDisplayContents.Clear();
-            oldDisplayContents.TrimExcess();
-            foreach (DisplayContent content in this.displayContents) {
-                oldDisplayContents.Add(content);
-            }
-            displayContents.Clear();
-            displayContents.TrimExcess();
-            foreach (Entity entity in world.GetContent()) {
-                displayContents.Add(new DisplayContent(entity.GetX(), entity.GetY(), entity.GetEntitySymbol(), entity.GetColor()));
-
-                //Console.SetCursorPosition(entity.GetX(), entity.GetY());
-                //Console.Write(" ");
-            }
-            double remainingPercent = ( (double)cyclesRemaining / (double)cyclesTotal ) * 100;
-            displayContents.Add(new DisplayContent(0, worldHeight+1, "Remaining: " + (int)remainingPercent + "% (" +cyclesTotal +" cycles)", Entity.Color.Blue));
-            displayContents.Add(new DisplayContent(40, worldHeight + 1, "Alive: " + antsAlive + " (" + settings.antCount+1 + " start)", Entity.Color.Blue));
             //the displayContent gets told: draw at this point xy symbol Z
             //if we change an entities position we search the displaycontent for its old position and change that entry
 
+            oldDisplayContents.Clear();
+            oldDisplayContents.TrimExcess();
+
+            foreach (DisplayPoint content in this.displayContents) {
+                oldDisplayContents.Add(content);
+            }
+
+            displayContents.Clear();
+            displayContents.TrimExcess();
+
+            foreach (Entity entity in world.GetContent()) {
+                displayContents.Add( new DisplayPoint(
+                        entity.GetX()+1,
+                        entity.GetY(),
+                        entity.GetEntitySymbol(),
+                        entity.GetColor()));
+            }
+
+            //Statistics below the game frame
+            double remainingPercent = ( (double)cyclesRemaining / (double)settings.cyclesTotal ) * 100;
+            displayContents.Add(new DisplayPoint(
+                1,
+                settings.worldHeight+2,
+                "Remaining: " + (int)remainingPercent + "% (" +settings.cyclesTotal +" cycles)",
+                Entity.Color.Blue));
+            displayContents.Add(new DisplayPoint(
+                40, 
+                settings.worldHeight + 2, 
+                "Alive: " + antsAlive + " (" + (settings.antCount+1) + " start)",
+                Entity.Color.Blue));
         }
 
-        private void DrawDisplayContent() {
-            foreach (DisplayContent oldContent in this.oldDisplayContents) {
+        private void DrawGame() {
+            foreach (DisplayPoint oldContent in this.oldDisplayContents) {
                 bool foundNewContent = false;
-                foreach (DisplayContent content in this.displayContents) {
+                foreach (DisplayPoint content in this.displayContents) {
                     if (oldContent.x == content.x && oldContent.y == content.y) {
                         foundNewContent = true;
                         if (content.awaitsDrawing) {
@@ -288,14 +301,14 @@ namespace Ameisenspiel {
                     Console.Write(" ");
                 }
             }
-            foreach (DisplayContent content in this.displayContents) {
+            foreach (DisplayPoint content in this.displayContents) {
                 if (content.awaitsDrawing) {
                     WriteSymbol(content);
                     content.awaitsDrawing = false;
                 }
             }
         }
-        private void WriteSymbol(DisplayContent content) {
+        private void WriteSymbol(DisplayPoint content) {
             Console.SetCursorPosition(content.x, content.y);
             Console.ForegroundColor = content.symbolColor;
             Console.Write(content.symbol);
@@ -304,8 +317,8 @@ namespace Ameisenspiel {
         //keep for idea
         public void SetAntRandomly() {
             Random rand = new Random();
-            int randX = rand.Next(1, this.worldWidth);
-            int randY = rand.Next(1, this.worldHeight);
+            int randX = rand.Next(1, settings.worldWidth);
+            int randY = rand.Next(1, settings.worldHeight);
             
             Ant ant = new Ant(randX, randY);
         }
