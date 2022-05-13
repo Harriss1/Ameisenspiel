@@ -9,21 +9,15 @@ using System.Threading.Tasks;
 //Datum: 29.03.2022
 //Inhalt: Implementierung eines 2D Ameisenspiels nach Unterrichtsaufgabe vom 28.03.2022
 //Ziele: Erlernen der Grundlagen der Objektorientierung (Vererbung, Abstraktion, Polymorphismus, Kapselung)
-// - Im Verlauf der Implementierung sollen Interfaces umgesetzt werden
 //Vereinfachter Aufbau:
 // - Es gibt die Klasse "Entity" und die Klasse "World", und alle Spielobjekte werden aus
-//   vererbten Klassen erzeugt
-// - Nach Möglichkeit möchte ich die Klassen so aufbauen, dass zwei weitere Klassen dazu kommen können:
-//          1) Speichern des Spielstands (ggf. Manipulation des Spiels von externer Schnittstelle aus)
-//          2) Manipulation der Ameisen
-//Die erste Implementierung wird keine komplizierteren Aufbauten haben in Hinsicht auf Safefile/Schnittstellen/History
-//Es wird lediglich erstmal eine Entität, eine Ameise und eine Welt implementiert
+//   vererbten Klassen erzeugt: Die Welt wird mit Ameisen gefüllt.
+//Besonderheit: Es gibt normale Ameisen "@" und Arbeiterameisen "a", Arbeiterameisen sind schneller als normale Ameisen.
 
 namespace Ameisenspiel {
     internal class Program {
         static void Main(string[] args) {
             
-
             if (Configuration.GetAutorun()) {
                 DevelopmentAutorun();
             }
@@ -82,52 +76,65 @@ namespace Ameisenspiel {
             Console.WriteLine("~~~ ### ### ### ### ### ### ### ### ### ### ### ### ~~~");
             Console.WriteLine("~~~            Das Spiel der Ameisen                ~~~");
             Console.WriteLine("~~~ ### ### ### ### ### ### ### ### ### ### ### ### ~~~");
+            Console.WriteLine();
+            Console.WriteLine("@ = normale Ameise; a = Arbeiterameise; H = Ameisen-Hügel; Q = Queen (fast nie sichtbar)");
+            Console.WriteLine();
         }
 
         private static int SelectFromMainMenu() {
             Configuration config = new Configuration();
+
             Console.WriteLine();
-            Console.WriteLine("Bitte drücken Sie eine Zahl zur Auswahl:");
-            Console.WriteLine("(1) " + config.standard.title + ": " + config.standard.description + " (5000 entsprechen ca. 1 Minute).");
-            Console.WriteLine("(2) " + config.doubleLength.title + ": " + config.doubleLength.description);
-            Console.WriteLine("(3) " + config.demo.title + ": " + config.demo.description);
-            Console.WriteLine("(4) " + config.stress.title + ": " + config.stress.description);
-            Console.WriteLine("(5) " + config.bigworld.title + ": " + config.bigworld.description);
+            Console.WriteLine("Bitte drücken Sie eine Zahl zur Auswahl:\n");
+
+            Console.WriteLine("(1) " 
+                + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Standard).title 
+                + ": " + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Standard).description + " (5000 entsprechen ca. 1 Minute).");
+            
+            Console.WriteLine("(2) " 
+                + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Double).title 
+                + ": " + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Double).description);
+            
+            Console.WriteLine("(3) " 
+                + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Demo).title 
+                + ": " + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Demo).description);
+
+            Console.WriteLine("(4) " 
+                + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Stress).title 
+                + ": " + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Stress).description);
+
+            Console.WriteLine("(5) " 
+                + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Bigworld).title + ": " 
+                + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Bigworld).description);
+
             Console.WriteLine("(0) Programm beenden");
             Console.WriteLine();
 
             ConsoleKey key = Console.ReadKey(true).Key;
 
             switch (key) {
-
-                //Durchfallen zum nächsten break; um Code-Doppelung zu vermeiden wäre möglich, diesmal nicht.
                 //da return das break ersetzt braucht es hier keinen break-befehl
 
-                //bestimmten Tag auslesen
                 case ConsoleKey.D1:
                     return 1;
                 case ConsoleKey.NumPad1:
                     return 1;
 
-                //Jahresdurchschnitt
                 case ConsoleKey.D2:
                     return 2;
                 case ConsoleKey.NumPad2:
                     return 2;
 
-                //Tag mit höchsten Niederschlag im Jahr
                 case ConsoleKey.D3:
                     return 3;
                 case ConsoleKey.NumPad3:
                     return 3;
 
-                //Regenfall.txt generieren
                 case ConsoleKey.D4:
                     return 4;
                 case ConsoleKey.NumPad4:
                     return 4;
 
-                //Regenfall.txt generieren
                 case ConsoleKey.D5:
                     return 5;
                 case ConsoleKey.NumPad5:
@@ -143,7 +150,7 @@ namespace Ameisenspiel {
                 default:
                     return -1;
             }
-            //return -1;
+            //return -1; redundant, weil im switch-Block alle Fälle behandelt wurden
         }
 
         private static void DevelopmentAutorun() {
@@ -155,7 +162,6 @@ namespace Ameisenspiel {
 
             //Aufzurufende Funktion
             RunGame();
-
         }
 
         private static void RunGame(Configuration.GameSettings.Mode gameMode = Configuration.GameSettings.Mode.Standard) {

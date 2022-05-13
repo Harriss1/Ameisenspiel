@@ -29555,3 +29555,30 @@
 [21:02:19.9493325] Info [Game.cs]:ChangeSettings(): windowHeight changed to: 25
 [21:02:19.9512586] Info [World.cs]:Konstructor(): width=85 height=25
 [21:02:19.9512586] Info [Game.cs]:RunGame(): SetwindowSize<> worldWidth=85worldHeight=25
+
+### Log (10.05.2022 21:06:40) ###
+
+[21:06:40.2450845] Info [Game.cs]:ChangeSettings(): cycles changed to: 9999999
+[21:06:40.2460848] Info [Game.cs]:ChangeSettings(): antCount changed to: 400
+[21:06:40.2460848] Info [Game.cs]:ChangeSettings(): windowWidth changed to: 85
+[21:06:40.2470827] Info [Game.cs]:ChangeSettings(): windowHeight changed to: 25
+[21:06:40.2490826] Info [World.cs]:Konstructor(): width=85 height=25
+[21:06:40.2500842] Info [Game.cs]:RunGame(): SetwindowSize<> worldWidth=85worldHeight=25
+
+### Log (13.05.2022 17:10:36) ###
+
+[17:10:37.0030744] Info [Game.cs]:ChangeSettings(): cycles changed to: 10000
+[17:10:37.0040738] Info [Game.cs]:ChangeSettings(): antCount changed to: 200
+[17:10:37.0040738] Info [Game.cs]:ChangeSettings(): windowWidth changed to: 100
+[17:10:37.0050745] Info [Game.cs]:ChangeSettings(): windowHeight changed to: 30
+[17:10:37.0060760] Info [Game.cs]:RunGame(): SetwindowSize with worldWidth=100worldHeight=30
+[17:10:37.0630739] Info [World.cs]:Konstructor(): width=100 height=30
+
+### Log (13.05.2022 17:12:51) ###
+
+[17:12:51.3088470] Info [Game.cs]:ChangeSettings(): cycles changed to: 5000
+[17:12:51.3097595] Info [Game.cs]:ChangeSettings(): antCount changed to: 100
+[17:12:51.3097595] Info [Game.cs]:ChangeSettings(): windowWidth changed to: 85
+[17:12:51.3107578] Info [Game.cs]:ChangeSettings(): windowHeight changed to: 25
+[17:12:51.3126812] Info [Game.cs]:RunGame(): SetwindowSize with worldWidth=85worldHeight=25
+[17:12:51.3626797] Info [World.cs]:Konstructor(): width=85 height=25

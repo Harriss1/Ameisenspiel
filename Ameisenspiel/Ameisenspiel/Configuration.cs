@@ -47,7 +47,7 @@ namespace Ameisenspiel {
             //Default = Standard Settings
             public GameSettings(bool useStandard) {
                 this.type = Mode.Standard;
-                this.cycles = stdCycles; 
+                this.cycles = stdCycles;
                 this.antCount = stdAntCount;
                 this.worldWidth = stdWorldWidth;
                 this.worldHeight = stdWorldHeight;
@@ -60,11 +60,11 @@ namespace Ameisenspiel {
         }
 
         //Modes
-        public GameSettings standard;
-        public GameSettings doubleLength;
-        public GameSettings demo;
-        public GameSettings stress;
-        public GameSettings bigworld;
+        private static GameSettings standard;
+        private static GameSettings doubleLength;
+        private static GameSettings demo;
+        private static GameSettings stress;
+        private static GameSettings bigworld;
 
         private void SetSettings() {
             //Default Mode
@@ -87,7 +87,7 @@ namespace Ameisenspiel {
             //Stresstest
             stress = new GameSettings(true);
             stress.cycles = 9999999; //entspricht 10 Stunden
-            stress.antCount = 200;
+            stress.antCount = 400;
             stress.title = "Stresstest";
             stress.description = stress.MakeDescription();
 
@@ -97,20 +97,16 @@ namespace Ameisenspiel {
             bigworld.worldHeight = 30;
             bigworld.cycles *= 2;
             bigworld.antCount *= 2;
-            bigworld.title = "Größerer Bildschirm und verdoppelte Simulation (fehlerhaft)";
+            bigworld.title = "Größerer Bildschirm und verdoppelte Simulation";
             bigworld.description = bigworld.MakeDescription();
-
-
         }
-
-
 
         ////////////////////////////////////////////////////////
         //Standard Werte = Werte die genutzt werden falls Devmode=false
         // oder falls individuelle Werte nicht genutzt werden sollen
         // - werden nur implementiert falls notwendig
         private static bool stdAutorun = false;
-        
+
 
         /////////////////////////////////////////////////////////////
         //GETTER (es darf keine Setter geben)
@@ -136,6 +132,22 @@ namespace Ameisenspiel {
 
         public static int GetStdAntCount() {
             return stdAntCount;
+        }
+
+        public static GameSettings GetGameSettings(GameSettings.Mode mode) {
+            switch (mode) {
+                case Configuration.GameSettings.Mode.Standard:
+                    return standard;
+                case Configuration.GameSettings.Mode.Double:
+                    return doubleLength;
+                case Configuration.GameSettings.Mode.Demo:
+                    return demo;
+                case Configuration.GameSettings.Mode.Stress:
+                    return stress;
+                case Configuration.GameSettings.Mode.Bigworld:
+                    return bigworld;
+                default: return standard;
+            }
         }
     }
 }
