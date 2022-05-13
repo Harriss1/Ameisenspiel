@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-/// <summary>
-/// Verwantwortlich um das Objekt "World" zu instanziieren
+//////////////////////////////////////////////////////////////////////////
+///<summary>
+/// Die Spielsimmulation erfolgt durch diese Klasse. Verwantwortlich um das Objekt "World" zu instanziieren
 /// World wird mit Entity-Objekten verschiedener Typen (Ant, Queen, Hive) gefüllt.
+/// Jede Entität hat die Funktion "Bewegen" und "Zyklusfolgen berechnen (Alter und Energie verbrauchen)" welche im Main-Loop implementiert werden.
 /// Das Objekt "Game" ließt die Entity-Objekte in World aus, und übergibt diese an die Grafikausgabefunktionen:
 ///     - UpdateDisplayContent (zum speichern des Anzeigeinhalts und Abgleich von Änderungen zum vorherigen Grafikausgabezyklus)
 ///     - DrawDisplayContent (verantwortlich für die Grafikausgabe)

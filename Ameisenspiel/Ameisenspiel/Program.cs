@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 
 //Autor: Karl Klotz
-//Datum: 29.03.2022
+//Datum: 29. März 2022 bis 13. Mai 2022
 //Inhalt: Implementierung eines 2D Ameisenspiels nach Unterrichtsaufgabe vom 28.03.2022
 //Ziele: Erlernen der Grundlagen der Objektorientierung (Vererbung, Abstraktion, Polymorphismus, Kapselung)
 //Vereinfachter Aufbau:
 // - Es gibt die Klasse "Entity" und die Klasse "World", und alle Spielobjekte werden aus
 //   vererbten Klassen erzeugt: Die Welt wird mit Ameisen gefüllt.
-//Besonderheit: Es gibt normale Ameisen "@" und Arbeiterameisen "a", Arbeiterameisen sind schneller als normale Ameisen.
+// - Das "Füllen" des World-Objekts wird mittels der Game-Klasse erledigt, welche auch die Welt ausließt und grafisch darstellt.
+//Besonderheit: Es gibt normale Ameisen "@" und Arbeiterameisen "a", Arbeiterameisen sind etwas schneller als normale Ameisen.
 
 namespace Ameisenspiel {
     internal class Program {
@@ -79,6 +80,8 @@ namespace Ameisenspiel {
             Console.WriteLine();
             Console.WriteLine("@ = normale Ameise; a = Arbeiterameise; H = Ameisen-Hügel; Q = Queen (fast nie sichtbar)");
             Console.WriteLine();
+            Console.WriteLine("weiß = Hügel noch nicht besucht; grün = Hügel mindestens einmal besucht und gegessen" +
+                "\n orange = bald hungrig; rot = läuft zum Hügel um zu Essen");
         }
 
         private static int SelectFromMainMenu() {

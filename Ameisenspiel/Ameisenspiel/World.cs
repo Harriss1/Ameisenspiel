@@ -6,10 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+//////////////////////////////////////////////////////////////////////////////
 /// <summary>
-/// implementation of World size, time that passes in "world ticks", keeping track of entities inside.
-/// One "world tick" equals 1/120 of one second.
-/// For example one ant moves one tile in 1 second
+/// implementation of World size and keeping track of entities inside.
 /// </summary>
 namespace Ameisenspiel {
     internal class World {

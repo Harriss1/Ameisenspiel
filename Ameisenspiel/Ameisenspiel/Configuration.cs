@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//Zentraler Ort um globale Spielparameter als Developer zu ändern.
-
+/// //////////////////////////////////////////////////////////////////////////////////////
+/// <summary>
+/// Zentrale Klasse um globale Spielparameter als Entwickler zu ändern.
+/// </summary>
 namespace Ameisenspiel {
     internal class Configuration {
         //Hier wird manuell festgelegt, ob wir die Development Settings nutzen
@@ -93,8 +95,8 @@ namespace Ameisenspiel {
 
             //Resize Screen
             bigworld = new GameSettings(true);
-            bigworld.worldWidth = 100;
-            bigworld.worldHeight = 30;
+            bigworld.worldWidth = 110;
+            bigworld.worldHeight = 40;
             bigworld.cycles *= 2;
             bigworld.antCount *= 2;
             bigworld.title = "Größerer Bildschirm und verdoppelte Simulation";

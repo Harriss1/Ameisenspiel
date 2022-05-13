@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// /////////////////////////////////////////////////////////////////////////////////////////////////////
+/// eine normale Ameise welche in das Objekt "World" gelistet werden kann.
 namespace Ameisenspiel {
     internal class Ant : Entity {
         protected bool isAlive;
