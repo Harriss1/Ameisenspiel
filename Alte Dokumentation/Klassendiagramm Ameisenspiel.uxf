@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>390</x>
+      <y>720</y>
+      <w>230</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>Ant
+--
+# isAlive : boolean
+# antType : AntType
+# energy : int
+# hiveCoordinateX : int
+# hiveCoordinateY : int
+# maxAge : int
+- log : Log
+-.
+# GetRandomLevel()
+# HiveVisit()
+# ReplenishEnergy()
+# PassOneCycle()
+# MoveOneIntelligent()
+# MoveOneTowards( x : int, y : int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>330</x>
+      <y>790</y>
+      <w>80</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>670</x>
+      <y>240</y>
+      <w>60</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>40.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>660</x>
+      <y>700</y>
+      <w>230</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>WorkerAnt
+--
+# carryStrength : int
+# carryCount : int
+-.
+# MoveOneIntelligent()
+# MoveOneTowardsFood()
+# HiveVisit()
+# UnloadFood()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>660</x>
+      <y>930</y>
+      <w>230</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>DebugAnt
+--
+_- id : int_
+- idCount : int
+-.
++ MoveOneIntelligent()
++ MoveOneToScreen(direction : int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>660</x>
+      <y>850</y>
+      <w>230</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>QueenAnt
+--
+
+-.
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>410</x>
+      <y>0</y>
+      <w>230</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>Program
+--
+
+-.
+- Main()
+- ShowMainGreeting()
+- SelectFromMainMenu()
+- DevelopmentAutorun()
+- RunGame()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>210</y>
+      <w>300</w>
+      <h>480</h>
+    </coordinates>
+    <panel_attributes>Game
+--
+- cyclesRemaining : int
+- antsAlive : int
+- world : World
+- displayContents : List&lt;DisplayContents&gt;
+- oldDisplayContents : List&lt;DisplayContents&gt;
+- settings : Settings
+- log : Log
+{innerclass
+Settings : struct
+--
++ worldWidth : int
++ worldHeight : int
++ cyclesTotal: int
++ antCount : int
+innerclass}
+{innerclass
+DisplayPoint : class
+--
++ x : int
++ y : int
++ symbol : string
++ awaitsDrawing : boolean
++ symbolColor : ConsoleColor
+innerclass}
+-.
+- GameMenu()
+- RunGame()
++ ChangeSettings()
++ SetDefaultSettings()
+- UpdateDisplayContent()
+- DrawGame()
+- WriteSymbol()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>710</x>
+      <y>0</y>
+      <w>230</w>
+      <h>550</h>
+    </coordinates>
+    <panel_attributes>Configuration
+--
+- devSettingsActive : boolean
+- debugActive : boolean
+- devAutorun : boolean
+- stdWorldHeight : int
+- stdWorldWidth : int
+- stdCycles : int
+- stdAntCount : int
+- stdAutorun : boolean
+{innerclass
+GameSettings : struct
+--
++ worldWidth : int
++ worldHeight : int
++ cyclesTotal: int
++ antCount : int
+{innerclass
+Mode : enum
+innerclass}
++ type : Mode
++ description : string
++ title : string
+--
++ MakeDescription()
+innerclass}
+- standard : GameSettings
+- doubleLength : GameSettings
+- demo : GameSettings
+- stress : GameSettings
+- bigWorld : GameSettings
+-.
+- SetSettings()
++ GetAutorun()
++ GetDebugActive()
++ GetSdtWorldHeight()
++ GetStdWorldWidth()
++ GetStdCycles()
++ GetSdtAntCount()
++ GetGameSettings(mode Mode) : GameSettings</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>110</x>
+      <y>560</y>
+      <w>230</w>
+      <h>460</h>
+    </coordinates>
+    <panel_attributes>Entity
+--
+# x : int
+# y : int
+# age : int
+# isDestroyable: boolean
+# entitySymbol : String
+# entityColor : Color
+# rand : Random {unique}
+# speed : int
+# speedStartDistance : int
+# speedDistanceRemaining : int
+{innerclass
+Color : enum
+innerclass}
+-.
+# PassOneCycle()
+# IncreaseAge()
++ MoveOneLeft()
++ MoveOneRight()
++ MoveOneUp()
++ MoveOneDown()
++ GetEntitySymbol()
+# SetEntitySymbol()
++ GetX()
++ GetY()
++ MoveOneRandom()
+# MoveOneIntelligent()
++ SetDestroyable()
++ GetDestroyable()
++ GetColor() : Color
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>110</x>
+      <y>300</y>
+      <w>230</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>World
+--
+# width : int
+# height : int
+- log : Log
+# rand : Random
+-.
++ GetWorldWidth()
++ GetWorldHeight()
++ AddEntity(entity : Entity)
++ GetContent() : List&lt;Entity&gt;
++ DestroyEntity(entity : Entity)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>110</x>
+      <y>0</y>
+      <w>230</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>Log
+--
+- logFileName : String
+- newLog : boolean
+- messages : List&lt;String&gt;
+{innerclass
+messageType : Enum
+innerclass}
+- sourceObjectDescription : String
+-.
++ AddError()
++ AddWarning()
++ Add()
+- AddHeader()
+- GetTime()
+- GetFile()
++ WriteArrayToFile()
+- WriteToLogFile(text : String)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>510</x>
+      <y>120</y>
+      <w>30</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>200</x>
+      <y>250</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>330</x>
+      <y>220</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>330</x>
+      <y>370</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>880</x>
+      <y>720</y>
+      <w>50</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;30.0;10.0;30.0;240.0;10.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>610</x>
+      <y>870</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>610</x>
+      <y>700</y>
+      <w>70</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;40.0;70.0;40.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>330</x>
+      <y>610</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>220</x>
+      <y>470</y>
+      <w>30</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

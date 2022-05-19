@@ -191,7 +191,7 @@ namespace Ameisenspiel {
                 }
 
                 //Simulationsgeschwindigkeit verlangsamen
-                System.Threading.Thread.Sleep(10);
+                System.Threading.Thread.Sleep(40);          //Empfehlung: 10
             }
 
             //Ende des Spiels

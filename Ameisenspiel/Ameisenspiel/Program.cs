@@ -85,8 +85,6 @@ namespace Ameisenspiel {
         }
 
         private static int SelectFromMainMenu() {
-            Configuration config = new Configuration();
-
             Console.WriteLine();
             Console.WriteLine("Bitte drücken Sie eine Zahl zur Auswahl:\n");
 

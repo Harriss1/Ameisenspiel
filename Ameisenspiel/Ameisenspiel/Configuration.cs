@@ -19,7 +19,7 @@ namespace Ameisenspiel {
             if (!devSettingsActive) {
                 devAutorun = stdAutorun;
             }
-            SetSettings();
+            Configuration.SetSettings();
         }
 
         //Standard Game Settings
@@ -68,7 +68,7 @@ namespace Ameisenspiel {
         private static GameSettings stress;
         private static GameSettings bigworld;
 
-        private void SetSettings() {
+        private static void SetSettings() {
             //Default Mode
             standard = new GameSettings(true);
 
@@ -137,6 +137,7 @@ namespace Ameisenspiel {
         }
 
         public static GameSettings GetGameSettings(GameSettings.Mode mode) {
+            Configuration.SetSettings();
             switch (mode) {
                 case Configuration.GameSettings.Mode.Standard:
                     return standard;

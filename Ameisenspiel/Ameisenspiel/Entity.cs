@@ -16,7 +16,7 @@ namespace Ameisenspiel {
         protected String entitySymbol;
         protected Color entityColor;
 
-        protected static Random rand;
+        protected static Random rand = new Random();
         
         //speed calculation:
         //example: start=100 -> start distance=100, speed=10, every cycle we remove 10 speed from distance,
@@ -51,7 +51,7 @@ namespace Ameisenspiel {
             this.speedStartDistance = 1000; 
             this.speedDistanceRemaining = 0;
             SetEntitySymbol(" ");
-            rand = new Random();
+            //rand = new Random(); GROSER FEHLER
         }
                 
         virtual public void PassOneCycle() {
@@ -101,6 +101,7 @@ namespace Ameisenspiel {
             return y;
         }
         public void MoveOneRandom() {
+            rand.Next();
             int selectRandom = rand.Next(1, 5);
             switch (selectRandom) {
                 case 1:

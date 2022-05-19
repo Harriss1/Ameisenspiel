@@ -31,10 +31,12 @@ namespace Ameisenspiel {
             this.canMoveOnItsOwn = true;
             this.energy = GetRandomLevel(500, 5000);
             this.maxAge = GetRandomLevel(4000, 6000);
+            log.Add("Ant Set with maxAge:" + maxAge);
             this.speed = 40;
         }
 
         protected int GetRandomLevel(int minLevel, int maxLevel) {
+            
             return rand.Next(minLevel, maxLevel);
         }
 
