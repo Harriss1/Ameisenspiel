@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 //Autor: Karl Klotz
 //Datum: 29. März 2022 bis 13. Mai 2022
+//Abgabeversion für SDM, bisher ist noch kein Futterspawning und Nahrungshaushalt (Hive besitzt Futter o.ä.) umgesetzt.
 //Inhalt: Implementierung eines 2D Ameisenspiels nach Unterrichtsaufgabe vom 28.03.2022
 //Ziele: Erlernen der Grundlagen der Objektorientierung (Vererbung, Abstraktion, Polymorphismus, Kapselung)
 //Vereinfachter Aufbau:
