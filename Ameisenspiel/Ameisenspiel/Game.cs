@@ -118,15 +118,22 @@ namespace Ameisenspiel {
             world = new World(settings.worldWidth, settings.worldHeight);
 
             //World mit Entitäten füllen
-            for (int antCount = 0; antCount < this.settings.antCount; antCount++) {
-                double percentage = ((double)antCount / (double)this.settings.antCount) * 100;
+            for (int antsAdded = 0; antsAdded < settings.antCount-1; antsAdded++) {
+                double percentage = ((double)antsAdded / (double)settings.antCount) * 100;
+                if(percentage <= 40) {
+
+                    Food food = new Food();
+                    world.AddEntity(food);
+
+                }
                 if (percentage <= 80) {
                     Ant ant = new Ant(40, 15);
                     world.AddEntity(ant);
 
                 } else {
-                    WorkerAnt ant = new WorkerAnt(40, 15);
+                    WorkerAnt ant = new WorkerAnt(40, 15, world);
                     world.AddEntity(ant);
+
                 }
                 antsAlive++;
             }
@@ -138,16 +145,17 @@ namespace Ameisenspiel {
             Hive hive = new Hive(40, 15);
             world.AddEntity(hive);
 
-            DebugAnt debugAnt1 = new DebugAnt(30, 10);
-            DebugAnt debugAnt2 = new DebugAnt(30, 10);
-            DebugAnt debugAnt3 = new DebugAnt(30, 10);
-            DebugAnt debugAnt4 = new DebugAnt(30, 10);
+            DebugAnt debugAnt1 = new DebugAnt(30, 10, world);
+            DebugAnt debugAnt2 = new DebugAnt(30, 10, world);
+            DebugAnt debugAnt3 = new DebugAnt(30, 10, world);
+            DebugAnt debugAnt4 = new DebugAnt(30, 10, world);
             if (Configuration.GetDebugActive()) {
                 world.AddEntity(debugAnt1);
                 world.AddEntity(debugAnt2);
                 world.AddEntity(debugAnt3);
                 world.AddEntity(debugAnt4);
             }
+
 
             //Main-Loop
             cyclesRemaining = settings.cyclesTotal;
@@ -165,6 +173,7 @@ namespace Ameisenspiel {
                         || entity.GetType().Name == typeof(WorkerAnt).Name
                         || entity.GetType().Name == typeof(QueenAnt).Name
                         || entity.GetType().Name == typeof(DebugAnt).Name
+                        || entity.GetType().Name == typeof(Food).Name
                         ) {
                         entity.MoveOneIntelligent();
                         entity.PassOneCycle();
@@ -191,7 +200,7 @@ namespace Ameisenspiel {
                 }
 
                 //Simulationsgeschwindigkeit verlangsamen
-                System.Threading.Thread.Sleep(40);          //Empfehlung: 10
+                System.Threading.Thread.Sleep(10);          //Empfehlung: 10, Lehrerforderung für 1 Sekunde: 40
             }
 
             //Ende des Spiels
@@ -291,7 +300,7 @@ namespace Ameisenspiel {
             displayContents.Add(new DisplayPoint(
                 40, 
                 settings.worldHeight + 2, 
-                "Alive: " + antsAlive + " (" + (settings.antCount+1) + " start)",
+                "Alive: " + antsAlive + " (" + (settings.antCount) + " start)",
                 Entity.Color.Blue));
         }
 

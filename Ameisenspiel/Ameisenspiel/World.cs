@@ -22,6 +22,8 @@ namespace Ameisenspiel {
         protected Random random;
 
         protected List<Entity> worldContent = new List<Entity>();
+        protected List<Entity> worldFood = new List<Entity>();
+        protected List<Entity> worldHives = new List<Entity>();
 
         //Standard World size declared here for reference
         public World() : this (85, 25) {
@@ -59,11 +61,26 @@ namespace Ameisenspiel {
                 return false;
             }
             this.worldContent.Add(entity);
+            if(entity.GetType().Name == typeof(Food).Name) {
+                worldFood.Add(entity);
+            }
+
+            if(entity.GetType().Name == typeof(Hive).Name) {
+                worldHives.Add(entity);
+            }
             return true; //@todo: hier ist es möglich Kollision zu implementieren
         }
 
         public List<Entity> GetContent() { 
             return this.worldContent;
+        }
+
+        public List<Entity> GetFood() {
+            return worldFood;
+        }
+
+        public List<Entity> GetWorldHives() {
+            return worldHives;
         }
 
         public void DestroyEntity(Entity entity) {

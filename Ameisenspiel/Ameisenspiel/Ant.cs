@@ -11,9 +11,11 @@ namespace Ameisenspiel {
         protected bool isAlive;
         protected AntType antType;
         protected int energy;
+        protected int maxEnergy;
         protected int hiveCoordinateX;
         protected int hiveCoordinateY;
         protected int maxAge;
+
         Log log = new Log("Ant.cs");
         public enum AntType {
             Standard = 0,
@@ -29,22 +31,21 @@ namespace Ameisenspiel {
             this.hiveCoordinateY = yPos;
             this.antType = AntType.Standard;
             this.canMoveOnItsOwn = true;
-            this.energy = GetRandomLevel(500, 5000);
-            this.maxAge = GetRandomLevel(4000, 6000);
-            log.Add("Ant Set with maxAge:" + maxAge);
+            this.maxEnergy = GetRandomInteger(3500, 6000);
+            //Energy Mittelwert war 5000
+            this.energy = GetRandomInteger(500, maxEnergy);
+            this.maxAge = GetRandomInteger(4000, 6000);
+            //log.Add("Ant Set with maxAge:" + maxAge);
             this.speed = 40;
-        }
-
-        protected int GetRandomLevel(int minLevel, int maxLevel) {
-            
-            return rand.Next(minLevel, maxLevel);
         }
 
         virtual protected void HiveVisit() {
             ReplenishEnergy();
         }
         protected void ReplenishEnergy() {
-            this.energy = GetRandomLevel(500, 5000);
+            if(energy <= maxEnergy-1000) {
+                energy = maxEnergy;
+            }
             entityColor = Color.Green;
         }
 

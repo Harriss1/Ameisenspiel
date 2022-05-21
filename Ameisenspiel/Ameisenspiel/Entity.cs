@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Ameisenspiel {
     internal class Entity {
+        protected Entity carryLink;
         protected int x;
         protected int y;
         protected int age; //this will make the game crash if it runs too long, but only if we run it for longer than 58 billion years
@@ -15,9 +16,13 @@ namespace Ameisenspiel {
         protected bool canMoveOnItsOwn;
         protected String entitySymbol;
         protected Color entityColor;
+        //The worker can target an Entity, for example Food, or enemy Ants
+        private Entity target;
 
         protected static Random rand = new Random();
-        
+        private static uint entityIdCounter = 0;
+        private uint entityId;
+
         //speed calculation:
         //example: start=100 -> start distance=100, speed=10, every cycle we remove 10 speed from distance,
         //at distance=zero we move one square and reset distance to 100
@@ -43,6 +48,8 @@ namespace Ameisenspiel {
         public Entity(int xPos, int yPos) { //we can only directly set x+y via constructor, not during game simulation
             this.x = xPos;
             this.y = yPos;
+            entityIdCounter++;
+            this.entityId = entityIdCounter;
             this.isDestroyable = false;
             this.canMoveOnItsOwn = false;
             this.age = 0;
@@ -125,6 +132,10 @@ namespace Ameisenspiel {
             }
         }
 
+        protected int GetRandomInteger(int min, int max) {
+
+            return rand.Next(min, max);
+        }
         virtual public void MoveOneIntelligent() {
             //static Entities dont move
         }
@@ -135,8 +146,44 @@ namespace Ameisenspiel {
             return this.isDestroyable;
         }
 
+        public void MakeChainBetweenCarrier(Entity carrierToChainTo, bool unsetOldCarrier=false) {
+            if (carryLink == null || unsetOldCarrier) {
+                this.carryLink = carrierToChainTo;
+                carrierToChainTo.MakeChainBetweenCarrier(this);
+            }
+        }
+
         public Color GetColor() {
             return this.entityColor;
+        }
+        public void SetRandomPosition(int distanceFromHive = 0) {
+            x = GetRandomInteger(0, World.GetWorldWidth());
+            y = GetRandomInteger(0, World.GetWorldHeight());
+        }
+
+        public Entity GetCarryLink() {
+            return carryLink;
+        }
+
+        protected void UnsetCarryLink() {
+            if (carryLink != null) {
+                carryLink.carryLink=null;
+                carryLink = null;
+            }
+        }
+
+        public void SetTargetOrOwner(Entity target) {
+            this.target = target;
+        }
+        public Entity GetTargetOrSeeker() {
+            return this.target;
+        }
+        public void UnsetTarget() {
+            this.target = null;
+        }
+
+        public uint GetEntityId() {
+            return entityId;
         }
     }
 }

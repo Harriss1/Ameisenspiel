@@ -16,8 +16,8 @@ namespace Ameisenspiel {
             this.hiveCoordinateY = yPos;
             this.antType = AntType.Queen;
             this.canMoveOnItsOwn = false;
-            this.energy = GetRandomLevel(500, 5000);
-            this.maxAge = GetRandomLevel(400000, 600000);
+            this.energy = GetRandomInteger(500, 5000);
+            this.maxAge = GetRandomInteger(400000, 600000);
             this.speed = 0;
         }
     }
