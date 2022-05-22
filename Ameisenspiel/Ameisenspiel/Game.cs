@@ -117,6 +117,13 @@ namespace Ameisenspiel {
             }
             world = new World(settings.worldWidth, settings.worldHeight);
 
+            Hive hive = new Hive(40, 15, settings.antCount);
+            world.AddEntity(hive);
+
+            QueenAnt queen = new QueenAnt(40, 15, hive, world);
+            world.AddEntity(queen);
+            antsAlive++;
+
             //World mit Entitäten füllen
             for (int antsAdded = 0; antsAdded < settings.antCount-1; antsAdded++) {
                 double percentage = ((double)antsAdded / (double)settings.antCount) * 100;
@@ -127,28 +134,21 @@ namespace Ameisenspiel {
 
                 }
                 if (percentage <= 80) {
-                    Ant ant = new Ant(40, 15);
+                    Ant ant = new Ant(40, 15, hive);
                     world.AddEntity(ant);
 
                 } else {
-                    WorkerAnt ant = new WorkerAnt(40, 15, world);
+                    WorkerAnt ant = new WorkerAnt(40, 15, hive, world);
                     world.AddEntity(ant);
 
                 }
                 antsAlive++;
             }
 
-            QueenAnt queen = new QueenAnt(40, 15);
-            world.AddEntity(queen);
-            antsAlive++;
-
-            Hive hive = new Hive(40, 15);
-            world.AddEntity(hive);
-
-            DebugAnt debugAnt1 = new DebugAnt(30, 10, world);
-            DebugAnt debugAnt2 = new DebugAnt(30, 10, world);
-            DebugAnt debugAnt3 = new DebugAnt(30, 10, world);
-            DebugAnt debugAnt4 = new DebugAnt(30, 10, world);
+            DebugAnt debugAnt1 = new DebugAnt(30, 10, hive, world);
+            DebugAnt debugAnt2 = new DebugAnt(30, 10, hive, world);
+            DebugAnt debugAnt3 = new DebugAnt(30, 10, hive, world);
+            DebugAnt debugAnt4 = new DebugAnt(30, 10, hive, world);
             if (Configuration.GetDebugActive()) {
                 world.AddEntity(debugAnt1);
                 world.AddEntity(debugAnt2);
@@ -160,34 +160,15 @@ namespace Ameisenspiel {
             //Main-Loop
             cyclesRemaining = settings.cyclesTotal;
             int loopDrawTimer = 5;                  //aller 5 Zyklen wird die Anzeige aktualisiert
-
-            for (int i = 0; i < settings.cyclesTotal; i++) {
-                
-                cyclesRemaining--;
-                
-                List<Entity> deletableEntities = new List<Entity>();
-                
-                //Ameisen simulieren
-                foreach(Entity entity in world.GetContent()) {
-                    if (entity.GetType().Name == typeof(Ant).Name
-                        || entity.GetType().Name == typeof(WorkerAnt).Name
-                        || entity.GetType().Name == typeof(QueenAnt).Name
-                        || entity.GetType().Name == typeof(DebugAnt).Name
-                        || entity.GetType().Name == typeof(Food).Name
-                        ) {
-                        entity.MoveOneIntelligent();
-                        entity.PassOneCycle();
-                    }
-                    if (entity.GetDestroyable()) {
-                        deletableEntities.Add(entity);
-                        antsAlive--;
-                    }
+            
+            while (cyclesRemaining != 0) {
+                //infinite game if cyclesRemaining = 0
+                if (settings.cyclesTotal >= 0) {
+                    cyclesRemaining--;
                 }
 
-                //Gestorbene Ameisen aus dem World-Objekt entfernen
-                foreach (Entity deleteEntity in deletableEntities) {
-                    world.DestroyEntity(deleteEntity);
-                }
+                //The actual game logic
+                SimulateOneCycle();
 
                 //Anzeige aktualisieren
                 if (loopDrawTimer <= 0) {
@@ -225,7 +206,7 @@ namespace Ameisenspiel {
             newSettings.cyclesTotal = Configuration.GetGameSettings(mode).cycles;
 
             //cycles
-            if (newSettings.cyclesTotal > 0 && newSettings.cyclesTotal <= 9999999) {
+            if (newSettings.cyclesTotal >= -1 && newSettings.cyclesTotal <= 9999999) {
                 this.settings.cyclesTotal = newSettings.cyclesTotal;
                 log.Add("ChangeSettings(): cycles changed to: " + this.settings.cyclesTotal);
             } else {
@@ -298,9 +279,14 @@ namespace Ameisenspiel {
                 "Remaining: " + (int)remainingPercent + "% (" +settings.cyclesTotal +" cycles)",
                 Entity.Color.Blue));
             displayContents.Add(new DisplayPoint(
-                40, 
+                33, 
                 settings.worldHeight + 2, 
-                "Alive: " + antsAlive + " (" + (settings.antCount) + " start)",
+                "Alive: " + world.GetAnts().Count() + " (" + (settings.antCount) + " start)",
+                Entity.Color.Blue));
+            displayContents.Add(new DisplayPoint(
+                57,
+                settings.worldHeight + 2,
+                "Food (Hive/World): " + ((Hive)world.GetWorldHives().First()).GetOwnedFoodCount() + " / " + world.GetFood().Count() + " ",
                 Entity.Color.Blue));
         }
 
@@ -333,6 +319,44 @@ namespace Ameisenspiel {
             Console.ForegroundColor = content.symbolColor;
             Console.Write(content.symbol);
             Console.ResetColor();
+        }
+
+        private void SimulateOneCycle() {
+            List<Entity> deletableEntities = new List<Entity>();
+
+            //Ameisen simulieren
+            foreach (Entity entity in world.GetContent()) {
+                if (entity.GetType().Name == typeof(Ant).Name
+                    || entity.GetType().Name == typeof(WorkerAnt).Name
+                    || entity.GetType().Name == typeof(QueenAnt).Name
+                    || entity.GetType().Name == typeof(DebugAnt).Name
+                    || entity.GetType().Name == typeof(Food).Name
+                    || entity.GetType().Name == typeof(AntEgg).Name
+                    ) {
+                    entity.MoveOneIntelligent();
+                    entity.PassOneCycle();
+                }
+                if (entity.GetDestroyable()) {
+                    deletableEntities.Add(entity);
+                    antsAlive--;
+                }
+
+            }
+
+            if (world.GetAnts().Count() < settings.antCount * 0.9) {
+                log.Add("new food!");
+                if ((double)world.GetFood().Count() < settings.antCount * 0.2) {
+                    Food food = new Food();
+                    world.AddEntity(food);
+                }
+            }
+
+            world.HandleQueue();
+
+            //Gestorbene Ameisen aus dem World-Objekt entfernen
+            foreach (Entity deleteEntity in deletableEntities) {
+                world.DestroyEntity(deleteEntity);
+            }
         }
     }
 }

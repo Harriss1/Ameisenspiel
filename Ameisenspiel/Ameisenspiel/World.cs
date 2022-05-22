@@ -24,6 +24,8 @@ namespace Ameisenspiel {
         protected List<Entity> worldContent = new List<Entity>();
         protected List<Entity> worldFood = new List<Entity>();
         protected List<Entity> worldHives = new List<Entity>();
+        protected List<Entity> worldAnts = new List<Entity>();
+        protected List<Entity> queueForAdditions = new List<Entity>();
 
         //Standard World size declared here for reference
         public World() : this (85, 25) {
@@ -68,6 +70,23 @@ namespace Ameisenspiel {
             if(entity.GetType().Name == typeof(Hive).Name) {
                 worldHives.Add(entity);
             }
+
+            //regular Ants only
+            if ( entity.GetType().Name == typeof(Ant).Name
+                || entity.GetType().IsSubclassOf(typeof(Ant))
+                && entity.GetType().Name != typeof(DebugAnt).Name
+                && entity.GetType().Name != typeof(QueenAnt).Name
+                && entity.GetType().Name != typeof(AntEgg).Name
+                ) {
+                if (entity.GetType().Name != typeof(AntEgg).Name) {
+                    worldAnts.Add(entity);
+                }
+                Hive hive = (Hive)worldHives.First();
+                Ant ant = (Ant)entity;
+                hive.AddOwnedAnt(ant);
+
+                log.Add("added Ant id(" + entity.GetEntityId() + ")");
+            }
             return true; //@todo: hier ist es möglich Kollision zu implementieren
         }
 
@@ -79,12 +98,41 @@ namespace Ameisenspiel {
             return worldFood;
         }
 
+        /// <summary>
+        /// Supposed to contain all Ants except Queen and Debug ones
+        /// Update AddEntity if additional Ant-Types get made!
+        /// </summary>
+        /// <returns></returns>
+        public List<Entity> GetAnts() {
+            return worldAnts;
+        }
+
         public List<Entity> GetWorldHives() {
             return worldHives;
         }
 
         public void DestroyEntity(Entity entity) {
+            entity.DestroyChainLinks();
             this.worldContent.Remove(entity);
+            if(entity.GetType().Name == typeof(Ant).Name
+                || entity.GetType().IsSubclassOf(typeof(Ant))) {
+                worldAnts.Remove(entity);
+            }
+            worldContent.TrimExcess();
+            worldAnts.TrimExcess();
+            worldFood.Remove(entity);
+            worldFood.TrimExcess();
+        }
+
+        public void AddEntityToQueue(Entity entity) {
+            queueForAdditions.Add(entity);
+        }
+
+        public void HandleQueue() {
+            foreach (Entity entity in queueForAdditions) {
+                AddEntity(entity);
+            }
+            queueForAdditions.Clear();
         }
     }
 }

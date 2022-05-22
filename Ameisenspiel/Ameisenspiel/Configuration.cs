@@ -63,7 +63,7 @@ namespace Ameisenspiel {
 
         //Modes
         private static GameSettings standard;
-        private static GameSettings doubleLength;
+        private static GameSettings infiniteStandard;
         private static GameSettings demo;
         private static GameSettings stress;
         private static GameSettings bigworld;
@@ -72,12 +72,12 @@ namespace Ameisenspiel {
             //Default Mode
             standard = new GameSettings(true);
 
-            //Double Time Length
-            doubleLength = new GameSettings(true);
-            doubleLength.cycles *= 2;
-            doubleLength.antCount = (int)((double)doubleLength.antCount * 1.5);
-            doubleLength.title = "Doppelt soviel";
-            doubleLength.description = doubleLength.MakeDescription();
+            //Infinite Duration
+            infiniteStandard = new GameSettings(true);
+            infiniteStandard.cycles = -1;
+            infiniteStandard.antCount = (int)((double)infiniteStandard.antCount * 1.0);
+            infiniteStandard.title = "Unendlich";
+            infiniteStandard.description = infiniteStandard.MakeDescription();
 
             //Demonstrate a few ants
             demo = new GameSettings(true);
@@ -142,7 +142,7 @@ namespace Ameisenspiel {
                 case Configuration.GameSettings.Mode.Standard:
                     return standard;
                 case Configuration.GameSettings.Mode.Double:
-                    return doubleLength;
+                    return infiniteStandard;
                 case Configuration.GameSettings.Mode.Demo:
                     return demo;
                 case Configuration.GameSettings.Mode.Stress:

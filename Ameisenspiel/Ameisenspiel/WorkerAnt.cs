@@ -12,7 +12,7 @@ namespace Ameisenspiel {
 
         //Workerant requires a reference to the simulated world to find Food.
         World world;
-        public WorkerAnt(int xPos, int yPos, World world) : base(xPos, yPos) {
+        public WorkerAnt(int xPos, int yPos, Hive hive, World world) : base(xPos, yPos, hive) {
             this.isAlive = true;
             this.world = world;
             //use another "a" symbol for carrying items, from this website:
@@ -56,8 +56,10 @@ namespace Ameisenspiel {
                     MoveOneTowards(this.hiveCoordinateX, this.hiveCoordinateY);
                 }
                 else {
-                    if (this.GetTargetOrSeeker() == null) {
-                        this.FindAndBindToClosestFood();
+                    if (this.GetTargetOrOwner() == null) {
+                        //Seiteneffekt beachten: WorkerAnt bekommt ein Ziel gesetzt!
+                        if (FindAndBindToClosestFood() == null)
+                            this.MoveOneRandom();
                     }
                     else {
                         MoveOneTowardsFood();
@@ -77,20 +79,20 @@ namespace Ameisenspiel {
         ///
         /// </summary>
         private void MoveOneTowardsFood() {
-            if(this.GetCarryLink() != null || this.GetTargetOrSeeker() != null) {
+            if(this.GetCarryLink() != null || this.GetTargetOrOwner() != null) {
                 
                 if (this.GetCarryLink() == null) {
                     
-                    if (GetTargetOrSeeker().GetX() == this.GetX()
-                        && GetTargetOrSeeker().GetY() == this.GetY()) {
+                    if (GetTargetOrOwner().GetX() == this.GetX()
+                        && GetTargetOrOwner().GetY() == this.GetY()) {
 
-                        MakeChainBetweenCarrier(GetTargetOrSeeker());
-                        GetTargetOrSeeker().MakeChainBetweenCarrier(this);
+                        MakeChainBetweenCarrier(GetTargetOrOwner());
+                        GetTargetOrOwner().MakeChainBetweenCarrier(this);
 
                     } else {
 
                         MoveOneTowards(
-                            GetTargetOrSeeker().GetX(), GetTargetOrSeeker().GetY()
+                            GetTargetOrOwner().GetX(), GetTargetOrOwner().GetY()
                             );
                     }
                 }
@@ -108,7 +110,7 @@ namespace Ameisenspiel {
             foreach (Entity foodItem in world.GetFood()) {
                 if (
                     foodItem.GetCarryLink() == null          //the food already is carried by someone
-                    && foodItem.GetTargetOrSeeker() == null  //the food is already targetet by someone
+                    && foodItem.GetTargetOrOwner() == null  //the food is already targetet by someone
                     ) {
                     int xDiff = foodItem.GetX() - this.GetX();
                     int yDiff = foodItem.GetY() - this.GetY();
@@ -145,7 +147,7 @@ namespace Ameisenspiel {
                 Hive hive = (Hive)world.GetWorldHives().First();
                 if (hive != null) {
                     //Make the food belong to the hive now
-                    hive.AddFood((Food)GetTargetOrSeeker());
+                    hive.AddFood((Food)GetTargetOrOwner());
                 }
                 this.UnsetTarget();
             }

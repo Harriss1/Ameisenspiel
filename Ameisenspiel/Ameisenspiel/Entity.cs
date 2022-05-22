@@ -139,8 +139,12 @@ namespace Ameisenspiel {
         virtual public void MoveOneIntelligent() {
             //static Entities dont move
         }
-        public void SetDestroyable() {
+        public virtual void SetDestroyable() {
             this.isDestroyable = true;
+        }
+        public virtual void DestroyChainLinks() {
+            UnsetTarget();
+            UnsetCarryLink();
         }
         public bool GetDestroyable() {
             return this.isDestroyable;
@@ -157,8 +161,8 @@ namespace Ameisenspiel {
             return this.entityColor;
         }
         public void SetRandomPosition(int distanceFromHive = 0) {
-            x = GetRandomInteger(0, World.GetWorldWidth());
-            y = GetRandomInteger(0, World.GetWorldHeight());
+            x = GetRandomInteger(1, World.GetWorldWidth());
+            y = GetRandomInteger(1, World.GetWorldHeight());
         }
 
         public Entity GetCarryLink() {
@@ -175,7 +179,7 @@ namespace Ameisenspiel {
         public void SetTargetOrOwner(Entity target) {
             this.target = target;
         }
-        public Entity GetTargetOrSeeker() {
+        public Entity GetTargetOrOwner() {
             return this.target;
         }
         public void UnsetTarget() {
