@@ -288,6 +288,11 @@ namespace Ameisenspiel {
                 settings.worldHeight + 2,
                 "Food (Hive/World): " + ((Hive)world.GetWorldHives().First()).GetOwnedFoodCount() + " / " + world.GetFood().Count() + " ",
                 Entity.Color.Blue));
+            displayContents.Add(new DisplayPoint(
+                1,
+                settings.worldHeight + 3,
+                "Eggs (Hive/World/Hatched): " + ((Hive)world.GetWorldHives().First()).GetOwnedAntEggCount() + " / " + world.GetWorldEggs().Count() + " / " + world.GetHatchedAntsCounter() + " ",
+                Entity.Color.Blue));
         }
 
         private void DrawGame() {

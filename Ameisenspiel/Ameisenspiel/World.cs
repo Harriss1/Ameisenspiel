@@ -25,7 +25,10 @@ namespace Ameisenspiel {
         protected List<Entity> worldFood = new List<Entity>();
         protected List<Entity> worldHives = new List<Entity>();
         protected List<Entity> worldAnts = new List<Entity>();
+        protected List<Entity> worldEggs = new List<Entity>();
         protected List<Entity> queueForAdditions = new List<Entity>();
+
+        int hatchedAntsCounter = 0;
 
         //Standard World size declared here for reference
         public World() : this (85, 25) {
@@ -80,6 +83,8 @@ namespace Ameisenspiel {
                 ) {
                 if (entity.GetType().Name != typeof(AntEgg).Name) {
                     worldAnts.Add(entity);
+                } else {
+                    worldEggs.Add(entity);
                 }
                 Hive hive = (Hive)worldHives.First();
                 Ant ant = (Ant)entity;
@@ -111,12 +116,20 @@ namespace Ameisenspiel {
             return worldHives;
         }
 
+        public List<Entity> GetWorldEggs() {
+            return worldEggs;
+        }
+
         public void DestroyEntity(Entity entity) {
             entity.DestroyChainLinks();
             this.worldContent.Remove(entity);
             if(entity.GetType().Name == typeof(Ant).Name
                 || entity.GetType().IsSubclassOf(typeof(Ant))) {
                 worldAnts.Remove(entity);
+            }
+            if (entity.GetType().Name == typeof(AntEgg).Name) {
+                worldEggs.Remove(entity);
+                worldEggs.TrimExcess();
             }
             worldContent.TrimExcess();
             worldAnts.TrimExcess();
@@ -131,8 +144,17 @@ namespace Ameisenspiel {
         public void HandleQueue() {
             foreach (Entity entity in queueForAdditions) {
                 AddEntity(entity);
+                if(entity.GetType().Name == typeof(Ant).Name
+                || entity.GetType().IsSubclassOf(typeof(Ant))
+                && entity.GetType().Name != typeof(AntEgg).Name ) {
+                    hatchedAntsCounter++;
+                }
             }
             queueForAdditions.Clear();
+        }
+
+        public int GetHatchedAntsCounter() {
+            return hatchedAntsCounter;
         }
     }
 }

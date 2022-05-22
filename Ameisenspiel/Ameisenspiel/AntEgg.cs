@@ -8,7 +8,7 @@ namespace Ameisenspiel {
     internal class AntEgg : Ant {
         Log log = new Log("AntEgg.cs");
         World world;
-        int standardHatchTime = 800;
+        int standardHatchTime = 2000;
         int hatchDelay;
         int hatchTime;
         public AntEgg(int xPos, int yPos, Hive hive, World world) : base(xPos, yPos, hive) {
