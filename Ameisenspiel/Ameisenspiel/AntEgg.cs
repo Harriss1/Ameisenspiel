@@ -11,7 +11,7 @@ namespace Ameisenspiel {
         int standardHatchTime = 2000;
         int hatchDelay;
         int hatchTime;
-        public AntEgg(int xPos, int yPos, Hive hive, World world) : base(xPos, yPos, hive) {
+        public AntEgg(int xPos, int yPos, Nest nest, World world) : base(xPos, yPos, nest) {
             canMoveOnItsOwn = false;
             entitySymbol = ".";
             speed = 0;
@@ -33,16 +33,16 @@ namespace Ameisenspiel {
             //With an 20% chance we hatch a Worker Ant
             int probability = GetRandomInteger(1, 100);
             if (probability >= 80) {
-                WorkerAnt ant = new WorkerAnt(GetX(), GetY(), hive, world);
+                WorkerAnt ant = new WorkerAnt(GetX(), GetY(), antNest, world);
                 world.AddEntityToQueue(ant);
                 //log.Add("hatched a new Worker for the Ant God");
             }
             else {
-                Ant ant = new Ant(GetX(), GetY(), hive);
+                Ant ant = new Ant(GetX(), GetY(), antNest);
                 world.AddEntityToQueue(ant);
                 //log.Add("hatched a new citizen for the Ant God");
             }
-            hive.RemoveEgg(this);
+            antNest.RemoveEgg(this);
             this.SetDestroyable();
             
         }

@@ -4,28 +4,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ameisenspiel {
-    internal class Hive : Entity {
 
-        Log log = new Log("Hive.cs");
+/// <summary>
+/// A nest of ants or another insect.
+/// </summary>
+namespace Ameisenspiel {
+    internal class Nest : Entity {
+
+        Log log = new Log("Nest.cs");
         List<Food> foodList = new List<Food>();
         List<Ant> ants = new List<Ant>();
         List<AntEgg> eggs = new List<AntEgg>();
         protected int targetMaxAnts;
 
-        public Hive(int xPos, int yPos, int targetMaxAnts) : base(xPos, yPos) {
+        public Nest(int xPos, int yPos, int targetMaxAnts) : base(xPos, yPos) {
             this.entitySymbol = "H";
             this.x = xPos;
             this.y = yPos;
             this.targetMaxAnts = targetMaxAnts;
         }
 
-        //Add Food To Hive
+        //Add Food To Nest
         public void AddFood(Food food) {
-            //Added Food has as Owner the Hive so it does not get Searched anymore
-            food.SetTargetOrOwner(this);
+            //Added Food has as Owner the Nest so it does not get Searched anymore
+            food.AssoziatePathFindTowards(this);
             foodList.Add(food);
-            log.Add("Hive got Food id(" + food.GetEntityId() + ") - Food count =" + foodList.Count());
+            log.Add("Nest got Food id(" + food.GetEntityId() + ") - Food count =" + foodList.Count());
         }
 
         public Food EatFood() {
@@ -44,13 +48,13 @@ namespace Ameisenspiel {
 
         public void AddOwnedAnt(Ant ant) {
             //we only Ants that belong to this hive
-            if (ant.GetHive() == this) {
+            if (ant.GetNest() == this) {
                 ants.Add(ant);
             }
         }
 
         public void RemoveOwnedAnt(Ant ant) {
-            if (ant.GetHive() == this) {
+            if (ant.GetNest() == this) {
                 ants.Remove(ant);
                 ants.TrimExcess();
             }
@@ -65,7 +69,7 @@ namespace Ameisenspiel {
         }
 
         public void AddOwnedEgg(AntEgg egg) {
-            if (egg.GetHive() == this) {
+            if (egg.GetNest() == this) {
                 eggs.Add(egg);
             }
         }

@@ -16,7 +16,7 @@ namespace Ameisenspiel {
         protected int hiveCoordinateY;
         protected int maxAge;
 
-        protected Hive hive;
+        protected Nest antNest;
 
         Log log = new Log("Ant.cs");
         public enum AntType {
@@ -24,7 +24,7 @@ namespace Ameisenspiel {
             Queen = 1,
             Worker = 2,
         }
-        public Ant(int xPos, int yPos, Hive hive) : base(xPos, yPos){
+        public Ant(int xPos, int yPos, Nest antNest) : base(xPos, yPos){
             this.isAlive = true;
             this.entitySymbol = "@";
             this.x = xPos;
@@ -39,7 +39,7 @@ namespace Ameisenspiel {
             this.maxAge = GetRandomInteger(4000, 6000);  //4000, 6000
             //log.Add("Ant Set with maxAge:" + maxAge);
             this.speed = 40;
-            this.hive = hive;
+            this.antNest = antNest;
         }
 
         virtual protected void HiveVisit() {
@@ -109,13 +109,15 @@ namespace Ameisenspiel {
             }
         }
 
-        public Hive GetHive() {
-            return this.hive;
+        public Nest GetNest() {
+            return this.antNest;
         }
 
         public override void SetDestroyable() {
             base.SetDestroyable();
-            hive.RemoveOwnedAnt(this);
+            antNest.RemoveOwnedAnt(this);
         }
+
+
     }
 }

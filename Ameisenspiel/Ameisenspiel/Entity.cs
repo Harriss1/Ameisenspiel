@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Ameisenspiel {
     internal class Entity {
-        protected Entity carryLink;
         protected int x;
         protected int y;
         protected int age; //this will make the game crash if it runs too long, but only if we run it for longer than 58 billion years
@@ -16,8 +15,10 @@ namespace Ameisenspiel {
         protected bool canMoveOnItsOwn;
         protected String entitySymbol;
         protected Color entityColor;
-        //The worker can target an Entity, for example Food, or enemy Ants
-        private Entity target;
+        
+        private Entity pathFindTarget;
+        private Entity pathFindFollower;
+        protected Entity carryLink;
 
         protected static Random rand = new Random();
         private static uint entityIdCounter = 0;
@@ -142,12 +143,20 @@ namespace Ameisenspiel {
         public virtual void SetDestroyable() {
             this.isDestroyable = true;
         }
-        public virtual void DestroyChainLinks() {
-            UnsetTarget();
-            UnsetCarryLink();
-        }
         public bool GetDestroyable() {
             return this.isDestroyable;
+        }
+        public Color GetColor() {
+            return this.entityColor;
+        }
+        public void SetRandomPosition(int distanceFromHive = 0) {
+            x = GetRandomInteger(1, World.GetWorldWidth());
+            y = GetRandomInteger(1, World.GetWorldHeight());
+        }
+
+        public virtual void DestroyChainLinks() {
+            DisassoziatePathFindBindings();
+            UnsetCarryLink();
         }
 
         public void MakeChainBetweenCarrier(Entity carrierToChainTo, bool unsetOldCarrier=false) {
@@ -157,14 +166,7 @@ namespace Ameisenspiel {
             }
         }
 
-        public Color GetColor() {
-            return this.entityColor;
-        }
-        public void SetRandomPosition(int distanceFromHive = 0) {
-            x = GetRandomInteger(1, World.GetWorldWidth());
-            y = GetRandomInteger(1, World.GetWorldHeight());
-        }
-
+        
         public Entity GetCarryLink() {
             return carryLink;
         }
@@ -175,15 +177,42 @@ namespace Ameisenspiel {
                 carryLink = null;
             }
         }
+        /// <summary>
+        /// Binds together target and follower Entity for pathfinding
+        /// Example: WorkerAnt gets the target=Food, and the Food gets the follower=WorkerAnt
+        /// Defaults to setting target.target=null, and this.follower=null
+        /// </summary>
+        /// <param name="target">Target Entity</param>
+        /// <param name="targetEachOther">Use if booth shall walk at the same time towards each other.</param>
+        public void AssoziatePathFindTowards(Entity target, bool targetEachOther=false) {
 
-        public void SetTargetOrOwner(Entity target) {
-            this.target = target;
+            this.pathFindTarget = target;
+            target.pathFindFollower = this;
+
+
+            if (targetEachOther) {
+                target.pathFindTarget = this;
+
+                this.pathFindFollower = target;
+            }
+            else {
+                target.pathFindTarget = null;
+
+                this.pathFindFollower = null;
+            }
         }
-        public Entity GetTargetOrOwner() {
-            return this.target;
+        public Entity GetPathFindTarget() {
+            return pathFindTarget;
         }
-        public void UnsetTarget() {
-            this.target = null;
+
+        public Entity GetPathFindFollower() {
+            return pathFindFollower;
+        }
+        public void DisassoziatePathFindBindings() {
+            pathFindTarget.pathFindTarget=null;
+            pathFindTarget.pathFindFollower=null;
+            this.pathFindFollower = null;
+            this.pathFindTarget = null;
         }
 
         public uint GetEntityId() {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 //////////////////////////////////////////////////////////////////////////
 ///<summary>
 /// Die Spielsimmulation erfolgt durch diese Klasse. Verwantwortlich um das Objekt "World" zu instanziieren
-/// World wird mit Entity-Objekten verschiedener Typen (Ant, Queen, Hive) gefüllt.
+/// World wird mit Entity-Objekten verschiedener Typen (Ant, Queen, Nest) gefüllt.
 /// Jede Entität hat die Funktion "Bewegen" und "Zyklusfolgen berechnen (Alter und Energie verbrauchen)" welche im Main-Loop implementiert werden.
 /// Das Objekt "Game" ließt die Entity-Objekte in World aus, und übergibt diese an die Grafikausgabefunktionen:
 ///     - UpdateDisplayContent (zum speichern des Anzeigeinhalts und Abgleich von Änderungen zum vorherigen Grafikausgabezyklus)
@@ -117,38 +117,38 @@ namespace Ameisenspiel {
             }
             world = new World(settings.worldWidth, settings.worldHeight);
 
-            Hive hive = new Hive(40, 15, settings.antCount);
-            world.AddEntity(hive);
+            Nest nest = new Nest(40, 15, settings.antCount);
+            world.AddEntity(nest);
 
-            QueenAnt queen = new QueenAnt(40, 15, hive, world);
+            QueenAnt queen = new QueenAnt(40, 15, nest, world);
             world.AddEntity(queen);
             antsAlive++;
 
             //World mit Entitäten füllen
-            for (int antsAdded = 0; antsAdded < settings.antCount-1; antsAdded++) {
+            for (int antsAdded = 0; antsAdded < settings.antCount; antsAdded++) {
                 double percentage = ((double)antsAdded / (double)settings.antCount) * 100;
-                if(percentage <= 40) {
+                if(percentage < 40) {
 
                     Food food = new Food();
                     world.AddEntity(food);
 
                 }
-                if (percentage <= 80) {
-                    Ant ant = new Ant(40, 15, hive);
+                if (percentage < 80) {
+                    Ant ant = new Ant(40, 15, nest);
                     world.AddEntity(ant);
 
                 } else {
-                    WorkerAnt ant = new WorkerAnt(40, 15, hive, world);
+                    WorkerAnt ant = new WorkerAnt(40, 15, nest, world);
                     world.AddEntity(ant);
 
                 }
                 antsAlive++;
             }
 
-            DebugAnt debugAnt1 = new DebugAnt(30, 10, hive, world);
-            DebugAnt debugAnt2 = new DebugAnt(30, 10, hive, world);
-            DebugAnt debugAnt3 = new DebugAnt(30, 10, hive, world);
-            DebugAnt debugAnt4 = new DebugAnt(30, 10, hive, world);
+            DebugAnt debugAnt1 = new DebugAnt(30, 10, nest, world);
+            DebugAnt debugAnt2 = new DebugAnt(30, 10, nest, world);
+            DebugAnt debugAnt3 = new DebugAnt(30, 10, nest, world);
+            DebugAnt debugAnt4 = new DebugAnt(30, 10, nest, world);
             if (Configuration.GetDebugActive()) {
                 world.AddEntity(debugAnt1);
                 world.AddEntity(debugAnt2);
@@ -286,12 +286,12 @@ namespace Ameisenspiel {
             displayContents.Add(new DisplayPoint(
                 57,
                 settings.worldHeight + 2,
-                "Food (Hive/World): " + ((Hive)world.GetWorldHives().First()).GetOwnedFoodCount() + " / " + world.GetFood().Count() + " ",
+                "Food (Nest/World): " + ((Nest)world.GetWorldNests().First()).GetOwnedFoodCount() + " / " + world.GetFood().Count() + " ",
                 Entity.Color.Blue));
             displayContents.Add(new DisplayPoint(
                 1,
                 settings.worldHeight + 3,
-                "Eggs (Hive/World/Hatched): " + ((Hive)world.GetWorldHives().First()).GetOwnedAntEggCount() + " / " + world.GetWorldEggs().Count() + " / " + world.GetHatchedAntsCounter() + " ",
+                "Eggs (Nest/World/Hatched): " + ((Nest)world.GetWorldNests().First()).GetOwnedAntEggCount() + " / " + world.GetWorldEggs().Count() + " / " + world.GetHatchedAntsCounter() + " ",
                 Entity.Color.Blue));
         }
 

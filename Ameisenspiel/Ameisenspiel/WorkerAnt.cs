@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 namespace Ameisenspiel {
     internal class WorkerAnt : Ant {
         protected int carryStrength;
-        protected int carryCount;
         Log log = new Log("WorkerAnt.cs");
+
+        protected Food carriedFood;
 
         //Workerant requires a reference to the simulated world to find Food.
         World world;
-        public WorkerAnt(int xPos, int yPos, Hive hive, World world) : base(xPos, yPos, hive) {
+        public WorkerAnt(int xPos, int yPos, Nest nest, World world) : base(xPos, yPos, nest) {
             this.isAlive = true;
             this.world = world;
             //use another "a" symbol for carrying items, from this website:
@@ -25,17 +26,9 @@ namespace Ameisenspiel {
             /// æ = \u00E6
             /// ¤ = \u00A4
             this.entitySymbol = "a";
-            this.x = xPos;
-            this.y = yPos;
-            this.hiveCoordinateX = xPos;
-            this.hiveCoordinateY = yPos;
             this.antType = AntType.Worker;
-            this.canMoveOnItsOwn = true;
-            this.energy = GetRandomInteger(500, 5000);
-            this.maxAge = GetRandomInteger(4000, 6000);
             this.speed = 80;
             this.carryStrength = 2; //can carry 2 food
-            this.carryCount = 0;
         }
 
         public override void MoveOneIntelligent() {
@@ -49,17 +42,18 @@ namespace Ameisenspiel {
 
             if (energy < 500) {
                 MoveOneTowards(this.hiveCoordinateX, this.hiveCoordinateY);
-
+                return;
             }
             else {
-                if (carryCount >= carryStrength || carryLink != null) {
+                if (/*ownedFood.count() > carryStrength ||*/ carryLink != null) {
                     MoveOneTowards(this.hiveCoordinateX, this.hiveCoordinateY);
                 }
                 else {
-                    if (this.GetTargetOrOwner() == null) {
+                    if (this.GetPathFindTarget() == null) {
                         //Seiteneffekt beachten: WorkerAnt bekommt ein Ziel gesetzt!
-                        if (FindAndBindToClosestFood() == null)
+                        if (FindAndBindToClosestFood() == null) {
                             this.MoveOneRandom();
+                        }
                     }
                     else {
                         MoveOneTowardsFood();
@@ -79,27 +73,25 @@ namespace Ameisenspiel {
         ///
         /// </summary>
         private void MoveOneTowardsFood() {
-            if(this.GetCarryLink() != null || this.GetTargetOrOwner() != null) {
+            if(this.GetCarryLink() != null || this.GetPathFindTarget() != null) {
                 
                 if (this.GetCarryLink() == null) {
                     
-                    if (GetTargetOrOwner().GetX() == this.GetX()
-                        && GetTargetOrOwner().GetY() == this.GetY()) {
+                    if (GetPathFindTarget().GetX() == this.GetX()
+                        && GetPathFindTarget().GetY() == this.GetY()) {
 
-                        MakeChainBetweenCarrier(GetTargetOrOwner());
-                        GetTargetOrOwner().MakeChainBetweenCarrier(this);
+                        MakeChainBetweenCarrier(GetPathFindTarget());
+                        GetPathFindTarget().MakeChainBetweenCarrier(this);
 
                     } else {
 
                         MoveOneTowards(
-                            GetTargetOrOwner().GetX(), GetTargetOrOwner().GetY()
+                            GetPathFindTarget().GetX(), GetPathFindTarget().GetY()
                             );
                     }
                 }
                 return;
-            }
-
-            
+            } 
         }
 
         private Entity FindAndBindToClosestFood() {
@@ -110,7 +102,7 @@ namespace Ameisenspiel {
             foreach (Entity foodItem in world.GetFood()) {
                 if (
                     foodItem.GetCarryLink() == null          //the food already is carried by someone
-                    && foodItem.GetTargetOrOwner() == null  //the food is already targetet by someone
+                    && foodItem.GetPathFindTarget() == null  //the food is already targetet by someone
                     ) {
                     int xDiff = foodItem.GetX() - this.GetX();
                     int yDiff = foodItem.GetY() - this.GetY();
@@ -124,8 +116,8 @@ namespace Ameisenspiel {
             
             if (closestFood != null) {
                 //log.Add("WorkerAnt id(" + this.GetEntityId() + ") found a target id(" + closestFood.GetEntityId() + ") and should follow it now.");
-                this.SetTargetOrOwner(closestFood);
-                closestFood.SetTargetOrOwner(this);
+                this.AssoziatePathFindTowards(closestFood);
+                closestFood.AssoziatePathFindTowards(this);
             }
 
             return closestFood;
@@ -141,15 +133,14 @@ namespace Ameisenspiel {
         protected void UnloadFood() {
             //The food follows the Ant by one cycle difference
             if (carryLink.GetX() == hiveCoordinateX && carryLink.GetY() == hiveCoordinateY) {
-                this.carryCount = 0;
                 this.UnsetCarryLink();
                 //TODO refractor if we every make hives destroyable or have multiple
-                Hive hive = (Hive)world.GetWorldHives().First();
-                if (hive != null) {
+                Nest nest = (Nest)world.GetWorldNests().First();
+                if (nest != null) {
                     //Make the food belong to the hive now
-                    hive.AddFood((Food)GetTargetOrOwner());
+                    nest.AddFood( (Food)GetPathFindTarget() );
                 }
-                this.UnsetTarget();
+                this.DisassoziatePathFindBindings();
             }
         }
     }

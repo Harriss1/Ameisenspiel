@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 //Autor: Karl Klotz
 //Datum: 29. März 2022 bis 13. Mai 2022
-//Abgabeversion für SDM, bisher ist noch kein Futterspawning und Nahrungshaushalt (Hive besitzt Futter o.ä.) umgesetzt.
+//Abgabeversion für SDM, bisher ist noch kein Futterspawning und Nahrungshaushalt (Nest besitzt Futter o.ä.) umgesetzt.
 //Inhalt: Implementierung eines 2D Ameisenspiels nach Unterrichtsaufgabe vom 28.03.2022
 //Ziele: Erlernen der Grundlagen der Objektorientierung (Vererbung, Abstraktion, Polymorphismus, Kapselung)
 //Vereinfachter Aufbau:
@@ -42,18 +42,15 @@ namespace Ameisenspiel {
                     case 1:
                         RunGame();
                         break;
-
-                    //Lange Simulation, 20000 Zyklen (c.a. 2 Minuten)
+                    //Weitere Optionen
                     case 2:
                         RunGame(Configuration.GameSettings.Mode.Double);
                         break;
 
-                    //5 Ameisen
                     case 3:
                         RunGame(Configuration.GameSettings.Mode.Demo);
                         break;
 
-                    //200 Ameisen, 999998 Zyklen
                     case 4:
                         RunGame(Configuration.GameSettings.Mode.Stress);
                         break;
@@ -61,6 +58,9 @@ namespace Ameisenspiel {
                     case 5:
                         RunGame(Configuration.GameSettings.Mode.Bigworld);
                         break;
+
+                    //@to-do Individualparamter ermöglichen
+
                     //Programmende
                     case 0:
                         Console.WriteLine("Programmende.");

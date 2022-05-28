@@ -11,7 +11,7 @@ namespace Ameisenspiel {
         Log log = new Log("QueenAnt.cs");
         int eggAbility = 0;
 
-        public QueenAnt(int xPos, int yPos, Hive hive, World world) : base(xPos, yPos, hive) {
+        public QueenAnt(int xPos, int yPos, Nest nest, World world) : base(xPos, yPos, nest) {
             this.world = world;
             this.isAlive = true;
             this.entitySymbol = "Q";
@@ -37,20 +37,20 @@ namespace Ameisenspiel {
         protected void Reproduce() {
             //are there enough Ants in the colony?
             //We only lay a new Egg, if we dont already have enough Eggs+Ants
-            double maxAntQualifier = hive.GetTargetMaxAnts() * 1.5;
-            double minAntQualifier = (double)(hive.GetOwnedAntCount() + hive.GetOwnedAntEggCount());
-            int eggCount = hive.GetOwnedAntEggCount();
+            double maxAntQualifier = antNest.GetTargetMaxAnts() * 1.5;
+            double minAntQualifier = (double)(antNest.GetOwnedAntCount() + antNest.GetOwnedAntEggCount());
+            int eggCount = antNest.GetOwnedAntEggCount();
             if ( minAntQualifier < maxAntQualifier && eggAbility > 0) {
                 //log.Add("We start reproduction. MinQuali=" + minAntQualifier + " maxAntQuali=" + maxAntQualifier + " eggCount=" + eggCount);
-                AntEgg egg = new AntEgg(GetX(), GetY(), hive, world);
-                GetHive().AddOwnedEgg(egg);
+                AntEgg egg = new AntEgg(GetX(), GetY(), antNest, world);
+                GetNest().AddOwnedEgg(egg);
                 world.AddEntityToQueue(egg);
                 eggAbility--;
             }
         }
 
         protected void Eat() {
-            Food food = hive.EatFood();
+            Food food = antNest.EatFood();
             if(food != null) {
                 eggAbility += 3;
                 food.SetDestroyable();

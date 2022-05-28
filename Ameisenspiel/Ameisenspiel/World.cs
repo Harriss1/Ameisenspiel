@@ -23,7 +23,7 @@ namespace Ameisenspiel {
 
         protected List<Entity> worldContent = new List<Entity>();
         protected List<Entity> worldFood = new List<Entity>();
-        protected List<Entity> worldHives = new List<Entity>();
+        protected List<Entity> worldNests = new List<Entity>();
         protected List<Entity> worldAnts = new List<Entity>();
         protected List<Entity> worldEggs = new List<Entity>();
         protected List<Entity> queueForAdditions = new List<Entity>();
@@ -70,8 +70,8 @@ namespace Ameisenspiel {
                 worldFood.Add(entity);
             }
 
-            if(entity.GetType().Name == typeof(Hive).Name) {
-                worldHives.Add(entity);
+            if(entity.GetType().Name == typeof(Nest).Name) {
+                worldNests.Add(entity);
             }
 
             //regular Ants only
@@ -86,9 +86,9 @@ namespace Ameisenspiel {
                 } else {
                     worldEggs.Add(entity);
                 }
-                Hive hive = (Hive)worldHives.First();
+                Nest nest = (Nest)worldNests.First();
                 Ant ant = (Ant)entity;
-                hive.AddOwnedAnt(ant);
+                nest.AddOwnedAnt(ant);
 
                 log.Add("added Ant id(" + entity.GetEntityId() + ")");
             }
@@ -112,8 +112,8 @@ namespace Ameisenspiel {
             return worldAnts;
         }
 
-        public List<Entity> GetWorldHives() {
-            return worldHives;
+        public List<Entity> GetWorldNests() {
+            return worldNests;
         }
 
         public List<Entity> GetWorldEggs() {

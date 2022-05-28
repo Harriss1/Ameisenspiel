@@ -8,7 +8,7 @@ namespace Ameisenspiel {
     internal class DebugAnt : WorkerAnt {
         int id;
         static int idCount=0;
-        public DebugAnt(int xPos, int yPos, Hive hive, World world) : base(xPos, yPos, hive, world) {
+        public DebugAnt(int xPos, int yPos, Nest nest, World world) : base(xPos, yPos, nest, world) {
             this.isAlive = true;
             //use another "a" symbol for carrying items, from this website:
             //https://www.rapidtables.com/code/text/unicode-characters.html
