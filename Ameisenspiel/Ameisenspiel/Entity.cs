@@ -18,7 +18,7 @@ namespace Ameisenspiel {
         
         private Entity pathFindTarget;
         private Entity pathFindFollower;
-        protected Entity carryLink;
+        //protected Entity carryLink;
 
         protected static Random rand = new Random();
         private static uint entityIdCounter = 0;
@@ -153,7 +153,7 @@ namespace Ameisenspiel {
             x = GetRandomInteger(1, World.GetWorldWidth());
             y = GetRandomInteger(1, World.GetWorldHeight());
         }
-
+        /*
         public virtual void DestroyChainLinks() {
             DisassoziatePathFindBindings();
             UnsetCarryLink();
@@ -177,6 +177,7 @@ namespace Ameisenspiel {
                 carryLink = null;
             }
         }
+        */
         /// <summary>
         /// Binds together target and follower Entity for pathfinding
         /// Example: WorkerAnt gets the target=Food, and the Food gets the follower=WorkerAnt
@@ -209,14 +210,31 @@ namespace Ameisenspiel {
             return pathFindFollower;
         }
         public void DisassoziatePathFindBindings() {
-            pathFindTarget.pathFindTarget=null;
-            pathFindTarget.pathFindFollower=null;
+            if (pathFindTarget != null) {
+                pathFindTarget.pathFindTarget = null;
+                pathFindTarget.pathFindFollower = null;
+            }
             this.pathFindFollower = null;
             this.pathFindTarget = null;
         }
 
         public uint GetEntityId() {
             return entityId;
+        }
+
+        protected bool PathFindDestinationReached() {
+
+            if(this.GetX() == GetPathFindTarget().GetX()
+                && this.GetY() == GetPathFindTarget().GetY()) {
+
+                return true;
+            }
+
+            return false;
+        }
+
+        ~Entity() { 
+            DisassoziatePathFindBindings();
         }
     }
 }

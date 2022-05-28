@@ -291,7 +291,7 @@ namespace Ameisenspiel {
             displayContents.Add(new DisplayPoint(
                 1,
                 settings.worldHeight + 3,
-                "Eggs (Nest/World/Hatched): " + ((Nest)world.GetWorldNests().First()).GetOwnedAntEggCount() + " / " + world.GetWorldEggs().Count() + " / " + world.GetHatchedAntsCounter() + " ",
+                "Eggs (Nest/Hatched): " + ((Nest)world.GetWorldNests().First()).GetOwnedAntEggCount() + " / " + world.GetHatchedAntsCounter() + " ",
                 Entity.Color.Blue));
         }
 

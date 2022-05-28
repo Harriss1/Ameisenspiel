@@ -9,21 +9,17 @@ namespace Ameisenspiel {
 
         World world;
         Log log = new Log("QueenAnt.cs");
-        int eggAbility = 0;
+        int eggAbility;
 
         public QueenAnt(int xPos, int yPos, Nest nest, World world) : base(xPos, yPos, nest) {
             this.world = world;
-            this.isAlive = true;
             this.entitySymbol = "Q";
-            this.x = xPos;
-            this.y = yPos;
-            this.hiveCoordinateX = xPos;
-            this.hiveCoordinateY = yPos;
             this.antType = AntType.Queen;
             this.canMoveOnItsOwn = false;
             this.energy = GetRandomInteger(500, 5000);
             this.maxAge = GetRandomInteger(400000, 600000);
             this.speed = 0;
+            this.eggAbility = 0;
         }
 
         public override void PassOneCycle() {
@@ -40,6 +36,7 @@ namespace Ameisenspiel {
             double maxAntQualifier = antNest.GetTargetMaxAnts() * 1.5;
             double minAntQualifier = (double)(antNest.GetOwnedAntCount() + antNest.GetOwnedAntEggCount());
             int eggCount = antNest.GetOwnedAntEggCount();
+
             if ( minAntQualifier < maxAntQualifier && eggAbility > 0) {
                 //log.Add("We start reproduction. MinQuali=" + minAntQualifier + " maxAntQuali=" + maxAntQualifier + " eggCount=" + eggCount);
                 AntEgg egg = new AntEgg(GetX(), GetY(), antNest, world);
@@ -50,10 +47,12 @@ namespace Ameisenspiel {
         }
 
         protected void Eat() {
-            Food food = antNest.EatFood();
+            Food food = antNest.TakeOneFood();
             if(food != null) {
-                eggAbility += 3;
+
                 food.SetDestroyable();
+
+                eggAbility += 3;
             }
         }
     }

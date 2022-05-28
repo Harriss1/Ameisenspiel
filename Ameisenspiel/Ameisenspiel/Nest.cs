@@ -27,12 +27,13 @@ namespace Ameisenspiel {
         //Add Food To Nest
         public void AddFood(Food food) {
             //Added Food has as Owner the Nest so it does not get Searched anymore
-            food.AssoziatePathFindTowards(this);
+            food.SetStoredInNest(this);
+            food.DisassoziatePathFindBindings();
             foodList.Add(food);
             log.Add("Nest got Food id(" + food.GetEntityId() + ") - Food count =" + foodList.Count());
         }
 
-        public Food EatFood() {
+        public Food TakeOneFood() {
             if (foodList.Count() > 0) {
                 Food food = foodList.First();
                 foodList.Remove(food);

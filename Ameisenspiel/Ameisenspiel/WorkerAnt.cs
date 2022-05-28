@@ -25,6 +25,7 @@ namespace Ameisenspiel {
             /// å = \u00E5
             /// æ = \u00E6
             /// ¤ = \u00A4
+            carriedFood = null;
             this.entitySymbol = "a";
             this.antType = AntType.Worker;
             this.speed = 80;
@@ -45,18 +46,34 @@ namespace Ameisenspiel {
                 return;
             }
             else {
-                if (/*ownedFood.count() > carryStrength ||*/ carryLink != null) {
+                /* 1) Check if we already carry food
+                 *      -> go back to hive for unloading in this case
+                 * 2) Check if we find food on the map and bind to it
+                 * 3) If the Ant reached the food it has targetted it forget its pathing target and collects the food
+                 */
+                if (carriedFood != null ) {
                     MoveOneTowards(this.hiveCoordinateX, this.hiveCoordinateY);
+                    carriedFood.CarryByAnt(this);
                 }
                 else {
                     if (this.GetPathFindTarget() == null) {
                         //Seiteneffekt beachten: WorkerAnt bekommt ein Ziel gesetzt!
-                        if (FindAndBindToClosestFood() == null) {
+                        Food food = (Food)SearchClosestUnownedFood();
+                        if ( food == null) {
                             this.MoveOneRandom();
+                        } else {
+                            this.AssoziatePathFindTowards(food);
                         }
                     }
                     else {
-                        MoveOneTowardsFood();
+                        if (PathFindDestinationReached()) {
+
+                            carriedFood = (Food)GetPathFindTarget();
+
+                        }
+                        else {
+                            MoveOneTowardsFood();
+                        }
                     }
                 }
             }
@@ -73,36 +90,32 @@ namespace Ameisenspiel {
         ///
         /// </summary>
         private void MoveOneTowardsFood() {
-            if(this.GetCarryLink() != null || this.GetPathFindTarget() != null) {
-                
-                if (this.GetCarryLink() == null) {
-                    
-                    if (GetPathFindTarget().GetX() == this.GetX()
-                        && GetPathFindTarget().GetY() == this.GetY()) {
 
-                        MakeChainBetweenCarrier(GetPathFindTarget());
-                        GetPathFindTarget().MakeChainBetweenCarrier(this);
+            if(this.carriedFood != null) {
+                return;
+            }
 
-                    } else {
-
-                        MoveOneTowards(
+            if (this.GetPathFindTarget() == null) {
+                log.AddWarning("MoveOneTowardsFood(): Not possibe - no pathfind target.");
+                return;
+            }
+            
+            MoveOneTowards(
                             GetPathFindTarget().GetX(), GetPathFindTarget().GetY()
                             );
-                    }
-                }
-                return;
-            } 
+            return; 
         }
 
-        private Entity FindAndBindToClosestFood() {
+        private Entity SearchClosestUnownedFood() {
             //Find a suitable target
             Entity closestFood = null;
             double smallestDistance = 100000;
 
             foreach (Entity foodItem in world.GetFood()) {
+                Food food = foodItem as Food;
                 if (
-                    foodItem.GetCarryLink() == null          //the food already is carried by someone
-                    && foodItem.GetPathFindTarget() == null  //the food is already targetet by someone
+                    food.GetStoredInNest() == null            //the food must not already be stored inside a nest
+                    && food.GetPathFindFollower() == null     //the food must not be already targeted by another ant
                     ) {
                     int xDiff = foodItem.GetX() - this.GetX();
                     int yDiff = foodItem.GetY() - this.GetY();
@@ -113,34 +126,31 @@ namespace Ameisenspiel {
                     }
                 }
             }
-            
-            if (closestFood != null) {
-                //log.Add("WorkerAnt id(" + this.GetEntityId() + ") found a target id(" + closestFood.GetEntityId() + ") and should follow it now.");
-                this.AssoziatePathFindTowards(closestFood);
-                closestFood.AssoziatePathFindTowards(this);
-            }
 
             return closestFood;
         }
 
         override protected void HiveVisit() {
             base.HiveVisit();
-            if (this.carryLink != null) {
-                UnloadFood();
-            }
+            UnloadFood();
         }
 
         protected void UnloadFood() {
-            //The food follows the Ant by one cycle difference
-            if (carryLink.GetX() == hiveCoordinateX && carryLink.GetY() == hiveCoordinateY) {
-                this.UnsetCarryLink();
-                //TODO refractor if we every make hives destroyable or have multiple
-                Nest nest = (Nest)world.GetWorldNests().First();
-                if (nest != null) {
+            if (this.carriedFood != null) {
+
+                //The food follows the Ant by one cycle difference
+                if (carriedFood.GetX() == hiveCoordinateX && carriedFood.GetY() == hiveCoordinateY) {
+
+
+                    //TODO refractor if we every make hives destroyable or have multiple
+                    Nest nest = (Nest)world.GetWorldNests().First();
+                    
                     //Make the food belong to the hive now
-                    nest.AddFood( (Food)GetPathFindTarget() );
+                    nest.AddFood(carriedFood);
+
+                    this.carriedFood = null;
+                    this.DisassoziatePathFindBindings();
                 }
-                this.DisassoziatePathFindBindings();
             }
         }
     }

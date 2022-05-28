@@ -51,7 +51,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="GameSimulation.cs" />
-    <Compile Include="Hive.cs" />
+    <Compile Include="Nest.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

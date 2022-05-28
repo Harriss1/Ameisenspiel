@@ -39,7 +39,7 @@ namespace Ameisenspiel {
             World.height = height;
             this.random = new Random();
             log = new Log("World.cs");
-            log.Add("Konstructor(): width=" + World.width + " height=" + World.height);
+            log.Add("Constructor(): width=" + World.width + " height=" + World.height);
         }
         public static void SetWorldProperties(int width, int height) {
             World.width = width;
@@ -121,20 +121,27 @@ namespace Ameisenspiel {
         }
 
         public void DestroyEntity(Entity entity) {
-            entity.DestroyChainLinks();
-            this.worldContent.Remove(entity);
+            entity.DisassoziatePathFindBindings();
+
             if(entity.GetType().Name == typeof(Ant).Name
                 || entity.GetType().IsSubclassOf(typeof(Ant))) {
-                worldAnts.Remove(entity);
             }
-            if (entity.GetType().Name == typeof(AntEgg).Name) {
-                worldEggs.Remove(entity);
-                worldEggs.TrimExcess();
+            if (entity.GetType().Name == typeof(Food).Name) {
+                if (((Food)entity).GetStoredInNest() != null) {
+                    log.AddError("DestroyEntity(): Food is still stored in a nest!");
+                }
             }
+            worldContent.Remove(entity);
             worldContent.TrimExcess();
+
+            worldAnts.Remove(entity);
             worldAnts.TrimExcess();
+
             worldFood.Remove(entity);
             worldFood.TrimExcess();
+            
+            worldEggs.Remove(entity);
+            worldEggs.TrimExcess();
         }
 
         public void AddEntityToQueue(Entity entity) {
