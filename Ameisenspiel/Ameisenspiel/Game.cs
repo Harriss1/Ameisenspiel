@@ -23,6 +23,7 @@ namespace Ameisenspiel {
         private List<DisplayPoint> oldDisplayContents;
         private Settings settings;
         private int antsAlive;
+        ConsoleKey lastUserInputKey;
         public Game() {
             settings.cyclesTotal = 1;
             displayContents = new List<DisplayPoint>();
@@ -43,12 +44,28 @@ namespace Ameisenspiel {
             public string symbol;
             public ConsoleColor symbolColor;
             public bool awaitsDrawing;
-            public DisplayPoint(int x, int y, string symbol, Entity.Color symbolColor) {
+            public DrawPower drawPower = DrawPower.Default;
+            //Draw Power for object draw hierarchy within the 2D Grafic Engine
+            public enum DrawPower {
+                Default = 0,
+                Minus1 = -1,
+                Minus2 = -2,
+                Minus3 = -3,
+                Minus4 = -4,
+                Minus5 = -5,
+                Plus1 = 1,
+                Plus2 = 2,
+                Plus3 = 3,
+                Plus4 = 4,
+                Plus5 = 5,
+            }
+            public DisplayPoint(int x, int y, string symbol, Entity.Color symbolColor, DrawPower drawPower) {
                 this.x = x;
                 this.y = y;
                 this.symbol = symbol;
                 this.awaitsDrawing = true;
                 this.symbolColor = ConsoleColor.White;
+                this.drawPower = drawPower;
                 switch (symbolColor) {
                     case Entity.Color.DarkYellow:
                         this.symbolColor = ConsoleColor.DarkYellow;
@@ -162,7 +179,8 @@ namespace Ameisenspiel {
             int loopDrawTimer = 5;                  //aller 5 Zyklen wird die Anzeige aktualisiert
             
             while (cyclesRemaining != 0) {
-                //infinite game if cyclesRemaining = 0
+                
+                //infinite game if cyclesRemaining = -1
                 if (settings.cyclesTotal >= 0) {
                     cyclesRemaining--;
                 }
@@ -182,6 +200,18 @@ namespace Ameisenspiel {
 
                 //Simulationsgeschwindigkeit verlangsamen
                 System.Threading.Thread.Sleep(10);          //Empfehlung: 10, Lehrerforderung für 1 Sekunde: 40
+
+                ReadUserInput();
+
+                //Simulation beenden
+                if (lastUserInputKey == ConsoleKey.D0) {
+                    cyclesRemaining = 0;
+                }
+                //Simulation pausieren
+                if (lastUserInputKey == ConsoleKey.D9) {
+                    lastUserInputKey = ConsoleKey.NoName;
+                    Console.ReadKey(true);
+                }
             }
 
             //Ende des Spiels
@@ -264,11 +294,30 @@ namespace Ameisenspiel {
             displayContents.TrimExcess();
 
             foreach (Entity entity in world.GetContent()) {
+                
+                DisplayPoint.DrawPower drawPower = DisplayPoint.DrawPower.Default;
+
+                if (entity.GetType().Name == typeof(Ant).Name
+                || entity.GetType().IsSubclassOf(typeof(Ant))) {
+                    drawPower = DisplayPoint.DrawPower.Plus1;
+                }
+                if (entity.GetType().IsSubclassOf(typeof(Ant))) {
+                    drawPower = DisplayPoint.DrawPower.Plus2;
+                }
+                if (entity.GetType().Name == typeof(QueenAnt).Name) {
+                    drawPower = DisplayPoint.DrawPower.Plus3;
+                }
+                if (entity.GetType().Name == typeof(Nest).Name) {
+                    drawPower = DisplayPoint.DrawPower.Plus3;
+                }
+
                 displayContents.Add( new DisplayPoint(
                         entity.GetX()+1,
                         entity.GetY(),
                         entity.GetEntitySymbol(),
-                        entity.GetColor()));
+                        entity.GetColor(),
+                        drawPower
+                        ));
             }
 
             //Statistics below the game frame
@@ -277,25 +326,61 @@ namespace Ameisenspiel {
                 1,
                 settings.worldHeight+2,
                 "Remaining: " + (int)remainingPercent + "% (" +settings.cyclesTotal +" cycles)",
-                Entity.Color.Blue));
+                Entity.Color.Blue,
+                DisplayPoint.DrawPower.Default
+                ));
             displayContents.Add(new DisplayPoint(
                 33, 
                 settings.worldHeight + 2, 
                 "Alive: " + world.GetAnts().Count() + " (" + (settings.antCount) + " start)",
-                Entity.Color.Blue));
+                Entity.Color.Blue,
+                DisplayPoint.DrawPower.Default
+                ));
             displayContents.Add(new DisplayPoint(
                 57,
                 settings.worldHeight + 2,
                 "Food (Nest/World): " + ((Nest)world.GetWorldNests().First()).GetOwnedFoodCount() + " / " + world.GetFood().Count() + " ",
-                Entity.Color.Blue));
+                Entity.Color.Blue,
+                DisplayPoint.DrawPower.Default
+                ));
             displayContents.Add(new DisplayPoint(
                 1,
                 settings.worldHeight + 3,
                 "Eggs (Nest/Hatched): " + ((Nest)world.GetWorldNests().First()).GetOwnedAntEggCount() + " / " + world.GetHatchedAntsCounter() + " ",
-                Entity.Color.Blue));
+                Entity.Color.Blue,
+                DisplayPoint.DrawPower.Default
+                ));
+
+            displayContents.Add(new DisplayPoint(
+                            30,
+                            settings.worldHeight + 3,
+                            "Key: " + lastUserInputKey.ToString() + "                           "
+                            ,
+                            Entity.Color.Blue,
+                DisplayPoint.DrawPower.Default
+                ));
+
         }
 
         private void DrawGame() {
+            //Sort display points according to their draw power
+            //possible later addition: alternate drawing of objects with equal draw power (e.g. Queen and Nest)
+            displayContents.Sort(delegate (DisplayPoint x, DisplayPoint y)
+            {
+                if (x.drawPower == y.drawPower) return 0;
+                else if (x.drawPower < y.drawPower) return -1;
+                else if (y.drawPower < x.drawPower) return 1;
+                else return x.drawPower.CompareTo(y.drawPower);
+            });
+
+            oldDisplayContents.Sort(delegate (DisplayPoint x, DisplayPoint y) {
+                if (x.drawPower == y.drawPower) return 0;
+                else if (x.drawPower < y.drawPower) return -1;
+                else if (y.drawPower < x.drawPower) return 1;
+                else return x.drawPower.CompareTo(y.drawPower);
+            });
+
+            //this loop checks if an already drawn position shall be overdrawn, because it either is empty or has another symbol
             foreach (DisplayPoint oldContent in oldDisplayContents) {
                 bool foundNewContent = false;
                 foreach (DisplayPoint content in displayContents) {
@@ -312,6 +397,8 @@ namespace Ameisenspiel {
                     Console.Write(" ");
                 }
             }
+
+            //draw new content that was not part of the overdrawing of already used positions in the upper loop
             foreach (DisplayPoint content in displayContents) {
                 if (content.awaitsDrawing) {
                     WriteSymbol(content);
@@ -361,6 +448,12 @@ namespace Ameisenspiel {
             //Gestorbene Ameisen aus dem World-Objekt entfernen
             foreach (Entity deleteEntity in deletableEntities) {
                 world.DestroyEntity(deleteEntity);
+            }
+        }
+
+        private void ReadUserInput() {
+            if (Console.KeyAvailable) {
+                lastUserInputKey = Console.ReadKey(true).Key;
             }
         }
     }

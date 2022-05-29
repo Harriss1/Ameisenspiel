@@ -81,8 +81,11 @@ namespace Ameisenspiel {
             Console.WriteLine();
             Console.WriteLine("@ = normale Ameise; a = Arbeiterameise; H = Ameisen-Hügel; Q = Queen (fast nie sichtbar)");
             Console.WriteLine();
-            Console.WriteLine("weiß = Hügel noch nicht besucht; grün = Hügel mindestens einmal besucht und gegessen" +
+            Console.WriteLine("weiß = Hügel sofort nach Geburt verlassen; grün = Hügel mindestens einmal besucht und gegessen" +
                 "\n orange = bald hungrig; rot = läuft zum Hügel um zu Essen");
+            Console.WriteLine();
+            Console.WriteLine("Ingame Hotkeys: [9] = Pause [0] = Ende");
+
         }
 
         private static int SelectFromMainMenu() {
