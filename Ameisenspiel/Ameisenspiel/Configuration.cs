@@ -23,9 +23,9 @@ namespace Ameisenspiel {
         }
 
         //Standard Game Settings
-        private static int stdWorldWidth = 85;
-        private static int stdWorldHeight = 25;
-        private static int stdCycles = 5000; // = 1.05 Minuten > entspricht 50 Sekunden plus Rechenzeit 15 Sekunden (core i7)
+        private static int stdWorldWidth = 110;
+        private static int stdWorldHeight = 40;
+        private static int stdCycles = -1; // -1 = unendlich / 5000= 1.05 Minuten > entspricht 50 Sekunden plus Rechenzeit 15 Sekunden (core i7)
         private static int stdAntCount = 100;
 
         //Game Settings for each Mode
@@ -63,7 +63,7 @@ namespace Ameisenspiel {
 
         //Modes
         private static GameSettings standard;
-        private static GameSettings infiniteStandard;
+        private static GameSettings infiniteMaxAnts;
         private static GameSettings demo;
         private static GameSettings stress;
         private static GameSettings bigworld;
@@ -72,34 +72,37 @@ namespace Ameisenspiel {
             //Default Mode
             standard = new GameSettings(true);
 
-            //Infinite Duration
-            infiniteStandard = new GameSettings(true);
-            infiniteStandard.cycles = -1;
-            infiniteStandard.antCount = (int)((double)infiniteStandard.antCount * 1.0);
-            infiniteStandard.title = "Unendlich";
-            infiniteStandard.description = infiniteStandard.MakeDescription();
+            //Mehr Ameisen
+            infiniteMaxAnts = new GameSettings(true);
+            infiniteMaxAnts.antCount = (int)((double)infiniteMaxAnts.antCount * 3.0);
+            infiniteMaxAnts.title = "Doppelt so viele";
+            infiniteMaxAnts.description = infiniteMaxAnts.MakeDescription();
 
             //Demonstrate a few ants
             demo = new GameSettings(true);
-            demo.cycles = 2000;
-            demo.antCount = 10;
-            demo.title = "Kleine Demo";
+            demo.cycles = 10000;
+            demo.antCount = 20;
+            demo.worldWidth = 85;
+            demo.worldHeight = 25;
+            demo.title = "2 Minuten Demo in Miniwelt";
             demo.description = demo.MakeDescription();
 
             //Stresstest
             stress = new GameSettings(true);
-            stress.cycles = 9999999; //entspricht 10 Stunden
-            stress.antCount = 400;
+            stress.cycles = -1;
+            stress.antCount = 600; //Bei 600 Ameisen verlangsamt sich die Rechenzeit deutlich.
+            bigworld.worldWidth = 150;
+            bigworld.worldHeight = 43;
             stress.title = "Stresstest";
             stress.description = stress.MakeDescription();
 
             //Resize Screen
             bigworld = new GameSettings(true);
-            bigworld.worldWidth = 110;
-            bigworld.worldHeight = 40;
-            bigworld.cycles *= 2;
-            bigworld.antCount *= 2;
-            bigworld.title = "Größerer Bildschirm und verdoppelte Simulation";
+            bigworld.worldWidth = 150;
+            bigworld.worldHeight = 43;
+            bigworld.cycles = -1;
+            bigworld.antCount *= 3;
+            bigworld.title = "Größere Welt, Dreimal so viele";
             bigworld.description = bigworld.MakeDescription();
         }
 
@@ -142,7 +145,7 @@ namespace Ameisenspiel {
                 case Configuration.GameSettings.Mode.Standard:
                     return standard;
                 case Configuration.GameSettings.Mode.Double:
-                    return infiniteStandard;
+                    return infiniteMaxAnts;
                 case Configuration.GameSettings.Mode.Demo:
                     return demo;
                 case Configuration.GameSettings.Mode.Stress:

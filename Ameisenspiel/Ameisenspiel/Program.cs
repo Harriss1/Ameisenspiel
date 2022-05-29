@@ -79,7 +79,7 @@ namespace Ameisenspiel {
             Console.WriteLine("~~~            Das Spiel der Ameisen                ~~~");
             Console.WriteLine("~~~ ### ### ### ### ### ### ### ### ### ### ### ### ~~~");
             Console.WriteLine();
-            Console.WriteLine("@ = normale Ameise; a = Arbeiterameise; H = Ameisen-Hügel; Q = Queen (fast nie sichtbar)");
+            Console.WriteLine("@ = normale Ameise; a = Arbeiterameise; H = Ameisen-Hügel; Q = Queen (im Nest \'versteckt\')");
             Console.WriteLine();
             Console.WriteLine("weiß = Hügel sofort nach Geburt verlassen; grün = Hügel mindestens einmal besucht und gegessen" +
                 "\n orange = bald hungrig; rot = läuft zum Hügel um zu Essen");
@@ -94,7 +94,7 @@ namespace Ameisenspiel {
 
             Console.WriteLine("(1) " 
                 + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Standard).title 
-                + ": " + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Standard).description + " (5000 entsprechen ca. 1 Minute).");
+                + ": " + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Standard).description + " (-1 = unendlich)");
             
             Console.WriteLine("(2) " 
                 + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Double).title 
@@ -102,7 +102,7 @@ namespace Ameisenspiel {
             
             Console.WriteLine("(3) " 
                 + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Demo).title 
-                + ": " + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Demo).description);
+                + ": " + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Demo).description + " (5000 entsprechen ca. 1 Minute)");
 
             Console.WriteLine("(4) " 
                 + Configuration.GetGameSettings(Configuration.GameSettings.Mode.Stress).title 
