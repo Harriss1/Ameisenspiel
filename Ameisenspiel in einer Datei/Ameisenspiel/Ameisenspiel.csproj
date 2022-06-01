@@ -43,18 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ant.cs" />
-    <Compile Include="DebugAnt.cs" />
-    <Compile Include="Entity.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="Configuration.cs" />
-    <Compile Include="Hive.cs" />
-    <Compile Include="Log.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueenAnt.cs" />
-    <Compile Include="WorkerAnt.cs" />
-    <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

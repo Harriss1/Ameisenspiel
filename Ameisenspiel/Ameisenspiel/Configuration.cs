@@ -75,7 +75,7 @@ namespace Ameisenspiel {
             //Mehr Ameisen
             infiniteMaxAnts = new GameSettings(true);
             infiniteMaxAnts.antCount = (int)((double)infiniteMaxAnts.antCount * 3.0);
-            infiniteMaxAnts.title = "Doppelt so viele";
+            infiniteMaxAnts.title = "Dreimal so viele";
             infiniteMaxAnts.description = infiniteMaxAnts.MakeDescription();
 
             //Demonstrate a few ants

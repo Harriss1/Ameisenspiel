@@ -181,7 +181,6 @@ namespace Ameisenspiel {
     ///     - DrawDisplayContent (verantwortlich für die Grafikausgabe)
     /// </summary>
             internal class Game {
-            Log log = new Log("Game.cs");
             private int cyclesRemaining;
             private World world;
             private List<DisplayPoint> displayContents;
@@ -265,7 +264,6 @@ namespace Ameisenspiel {
             public void RunGame() {
 
                 //Bildschirm leeren und anpassen
-                log.Add("RunGame(): SetwindowSize with worldWidth=" + settings.worldWidth + "worldHeight=" + settings.worldHeight);
                 Console.SetWindowSize(settings.worldWidth + 5, settings.worldHeight + 5);
                 Console.Clear();
                 Console.CursorVisible = false;
@@ -385,19 +383,19 @@ namespace Ameisenspiel {
                 //cycles
                 if (newSettings.cyclesTotal > 0 && newSettings.cyclesTotal <= 9999999) {
                     this.settings.cyclesTotal = newSettings.cyclesTotal;
-                    log.Add("ChangeSettings(): cycles changed to: " + this.settings.cyclesTotal);
+                    
                 }
                 else {
-                    log.AddWarning("ChangeSettings(): cycles not changed, out of range: " + newSettings.cyclesTotal);
+                    //Fehlermedlung ausgeben
                 }
 
                 //antCount
                 if (newSettings.antCount > 0 && newSettings.antCount < 10000) {
                     this.settings.antCount = newSettings.antCount;
-                    log.Add("ChangeSettings(): antCount changed to: " + this.settings.antCount);
+                    
                 }
                 else {
-                    log.AddWarning("ChangeSettings(): antCount not changed, out of range: " + newSettings.antCount);
+                    //Fehlermedlung ausgeben
                 }
 
                 //WindowWidth
