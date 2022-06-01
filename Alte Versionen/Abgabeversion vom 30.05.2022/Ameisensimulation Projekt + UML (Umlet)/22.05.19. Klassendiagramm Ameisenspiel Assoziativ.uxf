@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>480</x>
+      <y>790</y>
+      <w>230</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>Ant
+--
+# isAlive : boolean
+# antType : AntType
+# energy : int
+# hiveCoordinateX : int
+# hiveCoordinateY : int
+# maxAge : int
+- log : Log
+-.
+# GetRandomLevel() : int
+# HiveVisit() : void
+# ReplenishEnergy()
+# PassOneCycle()
+# MoveOneIntelligent()
+# MoveOneTowards( x : int, y : int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>230</x>
+      <y>830</y>
+      <w>270</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;250.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>670</x>
+      <y>270</y>
+      <w>60</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>40.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>640</y>
+      <w>230</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>WorkerAnt
+--
+# carryStrength : int
+# carryCount : int
+-.
+# MoveOneIntelligent()
+# MoveOneTowardsFood()
+# HiveVisit()
+# UnloadFood()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>920</y>
+      <w>230</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>DebugAnt
+--
+- id : int
+_- idCount : int_
+-.
++ MoveOneIntelligent()
++ MoveOneToScreen(direction : int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>800</y>
+      <w>200</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>QueenAnt
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>0</y>
+      <w>230</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>Program
+--
+
+-.
+- Main()
+- ShowMainGreeting()
+- SelectFromMainMenu()
+- DevelopmentAutorun()
+- RunGame()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>240</y>
+      <w>300</w>
+      <h>480</h>
+    </coordinates>
+    <panel_attributes>Game
+--
+- cyclesRemaining : int
+- antsAlive : int
+- world : World
+- log : Log
+- settings : Settings
+{innerclass
+&lt;&lt;struct&gt;&gt;
++ Settings
+--
++ worldWidth : int
++ worldHeight : int
++ cyclesTotal: int
++ antCount : int
+innerclass}
+- displayContents : List&lt;DisplayContents&gt;
+- oldDisplayContents : List&lt;DisplayContents&gt;
+{innerclass
+- DisplayPoint
+--
++ x : int
++ y : int
++ symbol : string
++ awaitsDrawing : boolean
++ symbolColor : ConsoleColor
+innerclass}
+-.
+- GameMenu()
+- RunGame()
++ ChangeSettings()
++ SetDefaultSettings()
+- UpdateDisplayContent()
+- DrawGame()
+- WriteSymbol()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>710</x>
+      <y>20</y>
+      <w>320</w>
+      <h>610</h>
+    </coordinates>
+    <panel_attributes>Configuration
+&lt;&lt;utility&gt;&gt;
+--
+_- devSettingsActive : boolean_
+_- debugActive : boolean_
+_- devAutorun : boolean_
+_- stdWorldHeight : int_
+_- stdWorldWidth : int_
+_- stdCycles : int_
+_- stdAntCount : int_
+_- stdAutorun : boolean_
+{innerclass
+&lt;&lt;struct&gt;&gt;
++ GameSettings
+--
++ worldWidth : int
++ worldHeight : int
++ cyclesTotal: int
++ antCount : int
++ description : string
++ title : string
++ type : Mode
+{innerclass
+&lt;&lt;Enumeration&gt;&gt;
++ Mode
+innerclass}
+-.
++ MakeDescription()
+innerclass}
+_- standard : GameSettings_
+_- doubleLength : GameSettings_
+_- demo : GameSettings_
+_- stress : GameSettings_
+_- bigWorld : GameSettings_
+-.
+_- SetSettings()_
+_+ GetAutorun()_
+_+ GetDebugActive()_
+_+ GetSdtWorldHeight()_
+_+ GetStdWorldWidth()_
+_+ GetStdCycles()_
+_+ GetSdtAntCount()_
+_+ GetGameSettings(mode Mode) : GameSettings_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>600</y>
+      <w>230</w>
+      <h>490</h>
+    </coordinates>
+    <panel_attributes>Entity
+--
+# x : int
+# y : int
+# age : int
+# isDestroyable: boolean
+# entitySymbol : String
+# entityColor : Color
+_# rand : Random {unique}_
+# speed : int
+# speedStartDistance : int
+# speedDistanceRemaining : int
+# canMoveOnItsOwn : boolean
+{innerclass
+&lt;&lt;Enumeration&gt;&gt;
++ Color
+innerclass}
+-.
+# PassOneCycle()
+# IncreaseAge()
++ MoveOneLeft()
++ MoveOneRight()
++ MoveOneUp()
++ MoveOneDown()
++ GetEntitySymbol()
+# SetEntitySymbol()
++ GetX()
++ GetY()
++ MoveOneRandom()
+# MoveOneIntelligent()
++ SetDestroyable()
++ GetDestroyable()
++ GetColor() : Color
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>110</x>
+      <y>310</y>
+      <w>230</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>World
+--
+# width : int
+# height : int
+- log : Log
+# rand : Random
+-.
++ GetWorldWidth()
++ GetWorldHeight()
++ AddEntity(entity : Entity)
++ GetContent() : List&lt;Entity&gt;
++ DestroyEntity(entity : Entity)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>110</x>
+      <y>20</y>
+      <w>230</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>Log
+--
+_- logFileName : String_
+_- newLog : boolean_
+_- messages : List&lt;String&gt;_
+- sourceObjectDescription : String
+{innerclass
+&lt;&lt;Enumeration&gt;&gt;
+- MessageType
+innerclass}
+-.
++ AddError()
++ AddWarning()
++ Add()
+- AddHeader()
+- GetTime()
+_- GetFile()_
+_+ WriteArrayToFile()_
+_- WriteToLogFile(text : String)_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>120</y>
+      <w>30</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>200</x>
+      <y>280</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>330</x>
+      <y>250</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>330</x>
+      <y>390</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1010</x>
+      <y>760</y>
+      <w>30</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>700</x>
+      <y>810</y>
+      <w>120</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>680</x>
+      <y>740</y>
+      <w>140</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>570</x>
+      <y>710</y>
+      <w>30</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>800</x>
+      <y>840</y>
+      <w>200</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>CanMoveOnItsOwn = false</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>990</x>
+      <y>810</y>
+      <w>40</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;60.0;20.0;60.0;20.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>670</x>
+      <y>700</y>
+      <w>150</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0;60.0;250.0;130.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>670</x>
+      <y>690</y>
+      <w>150</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0;90.0;110.0;130.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>670</x>
+      <y>660</y>
+      <w>150</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>240</x>
+      <y>480</y>
+      <w>260</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;320.0;240.0;320.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>260</x>
+      <y>480</y>
+      <w>560</w>
+      <h>470</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;290.0;480.0;290.0;480.0;450.0;540.0;450.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>280</x>
+      <y>480</y>
+      <w>540</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;280.0;470.0;280.0;470.0;330.0;520.0;330.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>480</y>
+      <w>520</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;260.0;500.0;260.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>10</x>
+      <y>500</y>
+      <w>160</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Sollten alle Ameisen-
+arten zu Game und
+World hinführend eine
+Aggregation sein?
+(World HAS Ant)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>160</x>
+      <y>530</y>
+      <w>110</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>430</x>
+      <y>140</y>
+      <w>270</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Innere Klassen werden eigentlich als
+Rechteck außerhalb des äußeren
+Klasse-Rechtecks dargestellt. Ich will
+private/public angeben. Ist die 
+einfache Darstellung noch UML-konform?</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>570</x>
+      <y>220</y>
+      <w>140</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;280.0;120.0;280.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>280</x>
+      <y>880</y>
+      <w>180</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Nest
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>280</x>
+      <y>940</y>
+      <w>190</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>entitySymbol = "H"</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>230</x>
+      <y>880</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>900</y>
+      <w>30</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
