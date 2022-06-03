@@ -8,6 +8,16 @@ namespace Ameisenspiel {
     internal class DebugAnt : WorkerAnt {
         int id;
         static int idCount=0;
+
+        private int _integer1;
+        public int Integer1 { get;}
+        
+        public int integer2 { get;}
+
+        public int integer3 { get; set; }
+        private int integer4 { get; set; }
+
+
         public DebugAnt(int xPos, int yPos, Nest nest, World world) : base(xPos, yPos, nest, world) {
             this.isAlive = true;
             //use another "a" symbol for carrying items, from this website:

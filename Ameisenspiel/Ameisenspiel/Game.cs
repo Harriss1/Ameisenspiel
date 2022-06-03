@@ -166,6 +166,7 @@ namespace Ameisenspiel {
             DebugAnt debugAnt2 = new DebugAnt(30, 10, nest, world);
             DebugAnt debugAnt3 = new DebugAnt(30, 10, nest, world);
             DebugAnt debugAnt4 = new DebugAnt(30, 10, nest, world);
+            
             if (Configuration.GetDebugActive()) {
                 world.AddEntity(debugAnt1);
                 world.AddEntity(debugAnt2);

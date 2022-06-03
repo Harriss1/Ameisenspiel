@@ -1,8 +1,0 @@
-C:\DateinKarlKlotz\Schule\SDM\22.05.30. Ameisenspiel Abgabeanforderungen\Abgabe Ameisensimulation\Abgabe Ameisensimulation\bin\Debug\Abgabe Ameisensimulation.exe.config
-C:\DateinKarlKlotz\Schule\SDM\22.05.30. Ameisenspiel Abgabeanforderungen\Abgabe Ameisensimulation\Abgabe Ameisensimulation\bin\Debug\Abgabe Ameisensimulation.exe
-C:\DateinKarlKlotz\Schule\SDM\22.05.30. Ameisenspiel Abgabeanforderungen\Abgabe Ameisensimulation\Abgabe Ameisensimulation\bin\Debug\Abgabe Ameisensimulation.pdb
-C:\DateinKarlKlotz\Schule\SDM\22.05.30. Ameisenspiel Abgabeanforderungen\Abgabe Ameisensimulation\Abgabe Ameisensimulation\obj\Debug\Abgabe Ameisensimulation.csproj.AssemblyReference.cache
-C:\DateinKarlKlotz\Schule\SDM\22.05.30. Ameisenspiel Abgabeanforderungen\Abgabe Ameisensimulation\Abgabe Ameisensimulation\obj\Debug\Abgabe Ameisensimulation.csproj.SuggestedBindingRedirects.cache
-C:\DateinKarlKlotz\Schule\SDM\22.05.30. Ameisenspiel Abgabeanforderungen\Abgabe Ameisensimulation\Abgabe Ameisensimulation\obj\Debug\Abgabe Ameisensimulation.csproj.CoreCompileInputs.cache
-C:\DateinKarlKlotz\Schule\SDM\22.05.30. Ameisenspiel Abgabeanforderungen\Abgabe Ameisensimulation\Abgabe Ameisensimulation\obj\Debug\Abgabe Ameisensimulation.exe
-C:\DateinKarlKlotz\Schule\SDM\22.05.30. Ameisenspiel Abgabeanforderungen\Abgabe Ameisensimulation\Abgabe Ameisensimulation\obj\Debug\Abgabe Ameisensimulation.pdb
