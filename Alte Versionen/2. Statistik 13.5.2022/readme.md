@@ -1,0 +1,1 @@
+2. Version nur Bilder mit Statistik aber noch ohne Futter ab 13.5.2022
