@@ -7,8 +7,18 @@ using System.Threading.Tasks;
 
 
 namespace Ameisenspiel {
+ /**
+ * Klasse für alle Spielobjekte auf der Karte
+ */
     internal class Entity {
         protected int x;
+        public int PosX                 { get; private set; }
+        public int PosY                 { get; private set; }
+        protected int TestVar1          { private get; set; }
+        public int TestVar2             { get; protected set; }
+        public int TestVar3             { get; protected set; }
+        public int TestVar4             { private get; set; }
+
         protected int y;
         protected int age; //this will make the game crash if it runs too long, but only if we run it for longer than 58 billion years
         protected bool isDestroyable;
@@ -58,6 +68,7 @@ namespace Ameisenspiel {
             this.speed = 0;
             this.speedStartDistance = 1000; 
             this.speedDistanceRemaining = 0;
+            this.PosX = 10;
             SetEntitySymbol(" ");
             //rand = new Random(); GROSER FEHLER
         }
@@ -66,6 +77,8 @@ namespace Ameisenspiel {
             //override this class inside inherited classes to make energy depleting happen or anything.
             //implement possible Entity relevant methods here
             IncreaseAge();
+            this.PosX = 4;
+            x = 4;
         }
         protected void IncreaseAge() {
             age++;

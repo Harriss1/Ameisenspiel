@@ -30,3 +30,11 @@ C:\DateinKarlKlotz\Schule\SDM\22.05.03. ### Ameisen GitHub ###\Ameisenspiel\Amei
 C:\DateinKarlKlotz\Schule\SDM\22.05.03. ### Ameisen GitHub ###\Ameisenspiel\Ameisenspiel\obj\Debug\Ameisenspiel.csproj.CoreCompileInputs.cache
 C:\DateinKarlKlotz\Schule\SDM\22.05.03. ### Ameisen GitHub ###\Ameisenspiel\Ameisenspiel\obj\Debug\Ameisenspiel.exe
 C:\DateinKarlKlotz\Schule\SDM\22.05.03. ### Ameisen GitHub ###\Ameisenspiel\Ameisenspiel\obj\Debug\Ameisenspiel.pdb
+C:\DateinKarlKlotz\Schule\SDM 1. SJ\22.05.03. ### Ameisen GitHub ###\Ameisenspiel\Ameisenspiel\bin\Debug\Ameisenspiel.exe.config
+C:\DateinKarlKlotz\Schule\SDM 1. SJ\22.05.03. ### Ameisen GitHub ###\Ameisenspiel\Ameisenspiel\bin\Debug\Ameisenspiel.exe
+C:\DateinKarlKlotz\Schule\SDM 1. SJ\22.05.03. ### Ameisen GitHub ###\Ameisenspiel\Ameisenspiel\bin\Debug\Ameisenspiel.pdb
+C:\DateinKarlKlotz\Schule\SDM 1. SJ\22.05.03. ### Ameisen GitHub ###\Ameisenspiel\Ameisenspiel\obj\Debug\Ameisenspiel.csproj.AssemblyReference.cache
+C:\DateinKarlKlotz\Schule\SDM 1. SJ\22.05.03. ### Ameisen GitHub ###\Ameisenspiel\Ameisenspiel\obj\Debug\Ameisenspiel.csproj.SuggestedBindingRedirects.cache
+C:\DateinKarlKlotz\Schule\SDM 1. SJ\22.05.03. ### Ameisen GitHub ###\Ameisenspiel\Ameisenspiel\obj\Debug\Ameisenspiel.csproj.CoreCompileInputs.cache
+C:\DateinKarlKlotz\Schule\SDM 1. SJ\22.05.03. ### Ameisen GitHub ###\Ameisenspiel\Ameisenspiel\obj\Debug\Ameisenspiel.exe
+C:\DateinKarlKlotz\Schule\SDM 1. SJ\22.05.03. ### Ameisen GitHub ###\Ameisenspiel\Ameisenspiel\obj\Debug\Ameisenspiel.pdb

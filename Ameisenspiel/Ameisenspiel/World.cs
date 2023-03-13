@@ -28,6 +28,8 @@ namespace Ameisenspiel {
         protected List<Entity> worldEggs = new List<Entity>();
         protected List<Entity> queueForAdditions = new List<Entity>();
 
+        public List<Entity> PropList { get; set; } = new List<Entity>();
+
         int hatchedAntsCounter = 0;
 
         //Standard World size declared here for reference
